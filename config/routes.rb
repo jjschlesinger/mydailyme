@@ -40,6 +40,8 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'sessions', :action => 'new'
 
   # See how all your routes lay out with "rake routes"
+  
+  map.connect 'mes/:id/subscribe/:auth', :controller => 'subscriptions', :action => 'new'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

@@ -22,15 +22,12 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  # GET /subscriptions/new
-  # GET /subscriptions/new.xml
+ # GET /mes/1/activate/dcf45783hdg3234jd
   def new
+    @me = Me.find(params[:id])
+    @is_valid = @me.validate_auth(session['user_id'], params[:auth])
+    
     @subscription = Subscription.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @subscription }
-    end
   end
 
   # GET /subscriptions/1/edit
@@ -41,16 +38,26 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   # POST /subscriptions.xml
   def create
-    @subscription = Subscription.new(params[:subscription])
-
-    respond_to do |format|
-      if @subscription.save
-        flash[:notice] = 'Subscription was successfully created.'
-        format.html { redirect_to(@subscription) }
-        format.xml  { render :xml => @subscription, :status => :created, :location => @subscription }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @subscription.errors, :status => :unprocessable_entity }
+    @me = Me.find_by_subscribe_token(params[:subscription][:subscription_token])
+    if @me.validate_auth(session['user_id'], params[:auth])
+      @subscription = Subscription.new(params[:subscription])
+      @subscription.collapsed = false
+  
+      respond_to do |format|
+        if @subscription.save
+          flash[:notice] = 'Subscription was successfully created.'
+          format.html { redirect_to(@subscription) }
+          format.xml  { render :xml => @subscription, :status => :created, :location => @subscription }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @subscription.errors, :status => :unprocessable_entity }
+        end
+      end
+    else
+      flash[:notice] = 'You are not authorized to subscribe to this Me'
+      respond_to do |format|
+        format.html { redirect_to(subscriptions_path) }
+        format.xml  { render :xml => "invalid auth", :status => :unprocessable_entity }
       end
     end
   end

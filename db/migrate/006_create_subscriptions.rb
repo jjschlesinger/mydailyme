@@ -5,7 +5,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.string :subscription_token
       t.integer :pos_x
       t.integer :pos_y
-      t.boolean :collapsed
+      t.boolean :collapsed, :default => false
 
       t.timestamps
     end

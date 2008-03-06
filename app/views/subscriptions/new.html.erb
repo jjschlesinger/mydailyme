@@ -3,34 +3,15 @@
 <%= error_messages_for :subscription %>
 
 <% form_for(@subscription) do |f| %>
-  <p>
-    <b>User</b><br />
-    <%= f.text_field :user_id %>
-  </p>
-
-  <p>
-    <b>Subscription token</b><br />
-    <%= f.text_field :subscription_token %>
-  </p>
-
-  <p>
-    <b>Pos x</b><br />
-    <%= f.text_field :pos_x %>
-  </p>
-
-  <p>
-    <b>Pos y</b><br />
-    <%= f.text_field :pos_y %>
-  </p>
-
-  <p>
-    <b>Collapsed</b><br />
-    <%= f.check_box :collapsed %>
-  </p>
-
-  <p>
+  <div>
+    Is Auth Valid? <%= @is_valid %>
+  </div>
+  <div>
+    <%= hidden_field_tag 'subscription[user_id]', session['user_id'] %>
+    <%= hidden_field_tag 'subscription[subscription_token]', @me.subscribe_token %>
+    <%= hidden_field_tag 'auth', params[:auth] %>
     <%= f.submit "Create" %>
-  </p>
+  </div>
 <% end %>
 
 <%= link_to 'Back', subscriptions_path %>
