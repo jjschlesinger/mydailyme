@@ -4,23 +4,13 @@
 
 <% form_for(@me) do |f| %>
   <p>
-    <b>User</b><br />
-    <%= f.text_field :user_id %>
-  </p>
-
-  <p>
-    <b>Subscribe token</b><br />
-    <%= f.text_field :subscribe_token %>
-  </p>
-
-  <p>
     <b>Title</b><br />
     <%= f.text_field :title %>
   </p>
 
   <p>
     <b>Image url</b><br />
-    <%= f.text_area :image_url %>
+    <%= f.text_field :image_url %>
   </p>
 
   <p>

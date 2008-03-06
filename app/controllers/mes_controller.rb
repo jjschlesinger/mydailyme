@@ -1,4 +1,5 @@
 class MesController < ApplicationController
+  layout 'mes'
   # GET /mes
   # GET /mes.xml
   def index

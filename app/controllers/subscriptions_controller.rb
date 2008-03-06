@@ -1,4 +1,5 @@
 class SubscriptionsController < ApplicationController
+  layout 'mes'
   # GET /subscriptions
   # GET /subscriptions.xml
   def index

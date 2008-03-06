@@ -5,13 +5,17 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Mes: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'stylesheet' %>
 </head>
 <body>
-
-<p style="color: green"><%= flash[:notice] %></p>
-
+<div id="blogtitle">
+		<div id="small"><%= link_to 'Project Me', subscriptions_path %> you suck at this game ::</div>
+		<div id="small2">  <%= link_to 'View', subscriptions_path %>  |  <%= link_to 'New Me', new_me_path %>  |  <%= link_to 'Edit', mes_path %>  |  <a href="#">Login</a></div>
+</div>
+			
+<div>
+<p style="color:green"><%= flash[:notice] %></p>
 <%= yield  %>
-
+</div>
 </body>
 </html>
