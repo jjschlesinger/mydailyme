@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  subscription_token: MyString
+  pos_x: 1
+  pos_y: 1
+  collapsed: false
+
+two:
+  user_id: 1
+  subscription_token: MyString
+  pos_x: 1
+  pos_y: 1
+  collapsed: false

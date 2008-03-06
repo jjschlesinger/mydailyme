@@ -1,0 +1,26 @@
+<h1>Listing me_sections</h1>
+
+<table>
+  <tr>
+    <th>Section</th>
+    <th>Value</th>
+    <th>Other name</th>
+    <th>Me</th>
+  </tr>
+
+<% for me_section in @me_sections %>
+  <tr>
+    <td><%=h me_section.section_id %></td>
+    <td><%=h me_section.value %></td>
+    <td><%=h me_section.other_name %></td>
+    <td><%=h me_section.me_id %></td>
+    <td><%= link_to 'Show', me_section %></td>
+    <td><%= link_to 'Edit', edit_me_section_path(me_section) %></td>
+    <td><%= link_to 'Destroy', me_section, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New me_section', new_me_section_path %>

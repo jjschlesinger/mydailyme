@@ -1,0 +1,28 @@
+<h1>Listing subscriptions</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Subscription token</th>
+    <th>Pos x</th>
+    <th>Pos y</th>
+    <th>Collapsed</th>
+  </tr>
+
+<% for subscription in @subscriptions %>
+  <tr>
+    <td><%=h subscription.user_id %></td>
+    <td><%=h subscription.subscription_token %></td>
+    <td><%=h subscription.pos_x %></td>
+    <td><%=h subscription.pos_y %></td>
+    <td><%=h subscription.collapsed %></td>
+    <td><%= link_to 'Show', subscription %></td>
+    <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
+    <td><%= link_to 'Destroy', subscription, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New subscription', new_subscription_path %>

@@ -1,0 +1,28 @@
+<p>
+  <b>User:</b>
+  <%=h @subscription.user_id %>
+</p>
+
+<p>
+  <b>Subscription token:</b>
+  <%=h @subscription.subscription_token %>
+</p>
+
+<p>
+  <b>Pos x:</b>
+  <%=h @subscription.pos_x %>
+</p>
+
+<p>
+  <b>Pos y:</b>
+  <%=h @subscription.pos_y %>
+</p>
+
+<p>
+  <b>Collapsed:</b>
+  <%=h @subscription.collapsed %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
+<%= link_to 'Back', subscriptions_path %>

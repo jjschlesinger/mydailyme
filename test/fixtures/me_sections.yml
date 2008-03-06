@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  section_id: 1
+  value: MyString
+  other_name: MyString
+  me_id: 1
+
+two:
+  section_id: 1
+  value: MyString
+  other_name: MyString
+  me_id: 1

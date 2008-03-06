@@ -1,0 +1,12 @@
+<h1>Editing session</h1>
+
+<%= error_messages_for :session %>
+
+<% form_for(@session) do |f| %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @session %> |
+<%= link_to 'Back', sessions_path %>

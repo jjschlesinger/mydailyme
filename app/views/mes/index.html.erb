@@ -1,0 +1,26 @@
+<h1>Listing mes</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Subscribe token</th>
+    <th>Title</th>
+    <th>Image url</th>
+  </tr>
+
+<% for me in @mes %>
+  <tr>
+    <td><%=h me.user_id %></td>
+    <td><%=h me.subscribe_token %></td>
+    <td><%=h me.title %></td>
+    <td><%=h me.image_url %></td>
+    <td><%= link_to 'Show', me %></td>
+    <td><%= link_to 'Edit', edit_me_path(me) %></td>
+    <td><%= link_to 'Destroy', me, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New me', new_me_path %>

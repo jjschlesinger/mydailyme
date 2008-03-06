@@ -1,0 +1,23 @@
+<p>
+  <b>Section:</b>
+  <%=h @me_section.section_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%=h @me_section.value %>
+</p>
+
+<p>
+  <b>Other name:</b>
+  <%=h @me_section.other_name %>
+</p>
+
+<p>
+  <b>Me:</b>
+  <%=h @me_section.me_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_me_section_path(@me_section) %> |
+<%= link_to 'Back', me_sections_path %>
