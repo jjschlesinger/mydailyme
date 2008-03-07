@@ -18,7 +18,12 @@ class SessionsController < ApplicationController
     else
       session['user_id'] = @user.id
       flash[:notice] = 'Login successful.'
-      redirect_to(request.request_uri)
+      if session['return_url'].nil?
+        redirect_to(subscriptions_path)
+      else
+        redirect_to(session['return_url'])  
+      end
+      
     end
   end
 
@@ -26,6 +31,7 @@ class SessionsController < ApplicationController
   # DELETE /sessions/1.xml
   def destroy
     session['user_id'] = nil
-    redirect_to('/')
+    session['return_url'] = nil
+    redirect_to(new_session_path)
   end
 end

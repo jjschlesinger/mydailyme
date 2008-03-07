@@ -1,5 +1,6 @@
 class MesController < ApplicationController
   layout 'mes'
+  rescue_from ActiveRecord::RecordNotFound, :with => :redirect_if_not_found
   
   # GET /mes
   # GET /mes.xml
@@ -91,5 +92,12 @@ class MesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+protected
+ 
+    def redirect_if_not_found
+      flash[:notice] = 'Me not found.'
+      redirect_to(mes_path)
+    end
 
 end
