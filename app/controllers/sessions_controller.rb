@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-
+  skip_before_filter :is_authed
+  layout 'mes'
   # GET /sessions/new
   def new
     @user = User.new
