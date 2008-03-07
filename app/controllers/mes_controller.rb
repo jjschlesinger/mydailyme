@@ -46,6 +46,13 @@ class MesController < ApplicationController
 
     respond_to do |format|
       if @me.save
+        @subscription = Subscription.new()
+        @subscription.me_id = @me.id
+        @subscription.user_id = session['user_id']
+        @subscription.pos_x = 1
+        @subscription.pos_y = 1
+        @subscription.subscription_token = @me.subscribe_token
+        @subscription.save()
         flash[:notice] = 'Me was successfully created.'
         format.html { redirect_to(@me) }
         format.xml  { render :xml => @me, :status => :created, :location => @me }

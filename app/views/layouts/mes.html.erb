@@ -10,11 +10,11 @@
 <body>
 <div id="blogtitle">
 		<div id="small"><%= link_to 'Project Me', subscriptions_path %> you suck at this game ::</div>
-		<div id="small2">  <%= link_to 'View', subscriptions_path %>  |  <%= link_to 'New Me', new_me_path %>  |  <%= link_to 'Edit', mes_path %>  |  <a href="#">Login</a></div>
+		<div id="small2">  <%= link_to 'View', subscriptions_path %>  |  <%= link_to 'New Me', new_me_path %>  |  <%= link_to 'Edit', mes_path %>  |  <% if session['user_id'].nil? %><%= link_to 'Login', new_session_path %><% else %><%= link_to 'Logout', {:controller=>"sessions", :action=>"destroy"}, :method => :delete %><% end %></div>
 </div>
 			
-<div>
-<p style="color:green"><%= flash[:notice] %></p>
+<div id="main"> 
+<div id="notice"><%= flash[:notice] %></div>
 <%= yield  %>
 </div>
 </body>
