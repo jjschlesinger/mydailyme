@@ -208,7 +208,27 @@ position:static;
 
 }
 
+#formElements div label
+{
+   float:left;
+   width:100px;
+   text-align:right;
+   margin-right:5px;
+   
+}
+#formElements div
+{
 
+   margin-bottom:5px;
+   
+}
+
+#formElements input[type="submit"]{
+
+   margin-bottom:5px;
+   margin-left:120px;
+   
+}
 
 
 /* ~~~~~~~~~ BEGIN FOOTER ~~~~~~~~~ */

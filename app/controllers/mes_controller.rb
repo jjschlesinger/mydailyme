@@ -16,7 +16,7 @@ class MesController < ApplicationController
   # GET /mes/1.xml
   def show
     @me = Me.find(params[:id])
-
+    @me.me_sections = MeSection.find(:all)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @me }

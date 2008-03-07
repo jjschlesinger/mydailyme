@@ -3,7 +3,8 @@
 <%= error_messages_for :user %>
 
 <% form_for(:user, @user, :url => {:controller=>'sessions', :action=>'create'}) do |f| %>
-    <div>
+<div id="formElements">    
+      <div>
       <label for="user_login">Login:</label>
       <%= f.text_field :login %>
     </div>
@@ -11,7 +12,9 @@
       <label for="user_password">Password:</label>
       <%= f.password_field :password %>
     </div>
-    <%= f.submit "Create" %>
+    
+    <%= f.submit "Go" %>
+  </div>  
 <% end %>
 
-<%= link_to 'Back', :controller => 'mes' %>
+<%= link_to 'Create an Account', new_user_path %><br />
