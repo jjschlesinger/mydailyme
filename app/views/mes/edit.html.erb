@@ -15,15 +15,14 @@
 
   <p>
     <b>Image url</b><br />
-    <%= f.text_area :image_url %>
+    <%= f.text_field :image_url %>
   </p>
   <p>
-    f.
-  </p>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
+    <%= collection_select(:id, :name, @sections, :id, :name) %><br />
+    <%= f.me_section.value :title %>
+ </p>
 <% end %>
-
+<p>
 <%= link_to 'Show', @me %> |
 <%= link_to 'Back', mes_path %>
+</p>

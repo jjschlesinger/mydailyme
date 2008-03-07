@@ -38,6 +38,7 @@ class MesController < ApplicationController
   # GET /mes/1/edit
   def edit
     @me = Me.find(params[:id])
+    @sections = Section.find(:all)
   end
 
   # POST /mes

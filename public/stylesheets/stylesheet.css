@@ -16,6 +16,13 @@ min-width:800px;
 }
 #notice
 {
+   color:blue;
+   text-align:center;
+   width:100%;
+   margin-bottom:5px;
+}
+#error
+{
    color:red;
    text-align:center;
    width:100%;
@@ -76,7 +83,15 @@ div .me h1
     color:black;
 }
 
-
+div .me h2
+{
+    margin:0;
+    padding:0 0 0 10px;
+    font-weight:400;
+    font-size:1.4em;
+    color:gray;
+    display:inline;
+}
 
 
 UL.BLUE {
