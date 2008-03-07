@@ -27,6 +27,12 @@ class MesController < ApplicationController
   # GET /mes/new.xml
   def new
     @me = Me.new
+    @sections = Section.find(:all)
+    @section1 = MeSection.new(:section_type=>1)
+    @section2 = MeSection.new(:section_type=>2)
+    @section3 = MeSection.new(:section_type=>3)
+    @section4 = MeSection.new(:section_type=>4)
+    @section5 = MeSection.new(:section_type=>5)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,6 +50,13 @@ class MesController < ApplicationController
   # POST /mes.xml
   def create
     @me = Me.new(params[:me])
+    @me.user_id = session['user_id']
+    @me.subscribe_token = Me.generate_token
+    @me.section1 = MeSection.create(params[:section1])
+    @me.section2 = MeSection.create(params[:section2])
+    @me.section3 = MeSection.create(params[:section3])
+    @me.section4 = MeSection.create(params[:section4])
+    @me.section5 = MeSection.create(params[:section5])
 
     respond_to do |format|
       if @me.save

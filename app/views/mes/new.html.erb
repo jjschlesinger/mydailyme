@@ -12,10 +12,35 @@
     <b>Image url</b><br />
     <%= f.text_field :image_url %>
   </p>
-
   <p>
-    <%= f.submit "Create" %>
-  </p>
+    <%= select('section1', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+    <%= text_field 'section1', 'value' %>
+    <%= hidden_field 'section1', 'section_type' %>
+ </p>
+<p>
+    <%= select('section2', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+    <%= text_field 'section2', 'value' %>
+    <%= hidden_field 'section2', 'section_type' %>
+ </p>
+<p>
+    <%= select('section3', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+    <%= text_field 'section3', 'value' %>
+    <%= hidden_field 'section3', 'section_type' %>
+ </p>
+<p>
+    <%= select('section4', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+    <%= text_field 'section4', 'value' %>
+    <%= hidden_field 'section4', 'section_type' %>
+ </p>
+<p>
+    Soapbox:<br />
+    <%= text_area 'section5', 'value' %>
+    <%= hidden_field 'section5', 'section_type' %>
+ </p>
+<p><%= f.submit "Create" %></p>
 <% end %>
-
+<p>
+<%= link_to 'Show', @me %> |
 <%= link_to 'Back', mes_path %>
+</p>
+
