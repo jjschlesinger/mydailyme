@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
     
     @user = User.authenticate(params[:user][:login], params[:user][:password])
-breakpoint
+
     if @user.nil?
       render :action => "new"
     else

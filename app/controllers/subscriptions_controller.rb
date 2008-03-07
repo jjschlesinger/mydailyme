@@ -3,7 +3,9 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions
   # GET /subscriptions.xml
   def index
-    @subscriptions = Subscription.find(:all)
+    @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
+    @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']])
+    @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +27,7 @@ class SubscriptionsController < ApplicationController
  # GET /mes/1/activate/dcf45783hdg3234jd
   def new
     @me = Me.find(params[:id])
-    @is_valid = @me.validate_auth(session['user_id'], params[:auth])
+    @is_valid = @me.validate_auth(User.find(session['user_id']).login, params[:auth])
     
     @subscription = Subscription.new
   end
@@ -39,7 +41,7 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions.xml
   def create
     @me = Me.find_by_subscribe_token(params[:subscription][:subscription_token])
-    if @me.validate_auth(session['user_id'], params[:auth])
+    if @me.validate_auth(User.find(session['user_id']).login, params[:auth])
       @subscription = Subscription.new(params[:subscription])
       @subscription.collapsed = false
   

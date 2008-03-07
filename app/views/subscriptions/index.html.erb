@@ -1,16 +1,19 @@
 <!-- start left box-->
 
 <div id="leftcontent">
-    <div class="me">
-	<h1>Nautica 08 </h1>
-	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam nec purus. Suspendisse hendrerit pulvinar turpis. Cras non purus sed arcu consequat tristique. In hac habitasse platea dictumst. Quisque auctor urna eu felis. Etiam arcu mauris, fringilla sed, eleifend vel, tincidunt in, arcu. Maecenas cursus elit id eros eleifend rhoncus. Phasellus tincidunt ultricies nibh. Vestibulum eleifend erat at lacus. Vestibulum feugiat euismod orci. Vestibulum turpis risus, sodales a, fermentum faucibus, fringilla sit amet, neque. Aenean sollicitudin felis quis purus. Integer vel pede iaculis lacus vehicula hendrerit. Aenean fringilla scelerisque lectus. Cras dictum venenatis neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Integer dignissim nisi. Integer elementum. Nulla luctus iaculis dolor.</p>
-
-<p>Nam euismod augue eget nibh. Cras adipiscing, tortor ut elementum pellentesque, erat augue hendrerit tellus, ac condimentum augue ante et eros. Aenean pretium congue metus. Etiam eleifend. Nulla facilisi. Etiam interdum pulvinar leo. Maecenas non purus. Nullam sapien ipsum, hendrerit at, mattis vel, molestie vulputate, nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla rutrum arcu ut lectus. Aliquam et lorem et turpis cursus aliquet. Vivamus nec massa. Vivamus quis tellus. Aenean dictum dictum dolor. Aliquam auctor facilisis diam. Nam fringilla placerat arcu. Maecenas nulla tellus, eleifend quis, porttitor id, pellentesque nec, nulla. Aliquam vehicula nulla sit amet erat. Donec sed purus. Duis dictum enim sed justo. </p>
-    </div>
-    <div class="me">
-	<h1>Nautica 08 </h1>
-	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam nec purus. Suspendisse hendrerit pulvinar turpis. Cras non purus sed arcu consequat tristique. In hac habitasse platea dictumst. Quisque auctor urna eu felis. Etiam arcu mauris, fringilla sed, eleifend vel, tincidunt in, arcu. Maecenas cursus elit id eros eleifend rhoncus. Phasellus tincidunt ultricies nibh. Vestibulum eleifend erat at lacus. Vestibulum feugiat euismod orci. Vestibulum turpis risus, sodales a, fermentum faucibus, fringilla sit amet, neque. Aenean sollicitudin felis quis purus. Integer vel pede iaculis lacus vehicula hendrerit. Aenean fringilla scelerisque lectus. Cras dictum venenatis neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Integer dignissim nisi. Integer elementum. Nulla luctus iaculis dolor.</p>
-    </div>
+<% for subscription in @subscriptions_col1 %>
+    <% for i in 0..subscription.pos_y %>
+        <% if i == subscription.pos_y %>
+            <div class="me">
+                <h1><%= subscription.me.title %></h1>
+                <% for me_section in subscription.me.me_sections %>
+                <h2><%= me_section.section.name %></h2>
+                <p><%= me_section.value %></p>        
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
 </div>
 
 <!-- end left box-->
@@ -18,12 +21,19 @@
 <!-- start content -->
 
 <div id="centercontent">
-	<div class="me">
-	<h1>Nautica 08 </h1>
-	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam nec purus. Suspendisse hendrerit pulvinar turpis. Cras non purus sed arcu consequat tristique. In hac habitasse platea dictumst. Quisque auctor urna eu felis. Etiam arcu mauris, fringilla sed, eleifend vel, tincidunt in, arcu. Maecenas cursus elit id eros eleifend rhoncus. Phasellus tincidunt ultricies nibh. Vestibulum eleifend erat at lacus. Vestibulum feugiat euismod orci. Vestibulum turpis risus, sodales a, fermentum faucibus, fringilla sit amet, neque. Aenean sollicitudin felis quis purus. Integer vel pede iaculis lacus vehicula hendrerit. Aenean fringilla scelerisque lectus. Cras dictum venenatis neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Integer dignissim nisi. Integer elementum. Nulla luctus iaculis dolor.</p>
-
-<p>Nam euismod augue eget nibh. Cras adipiscing, tortor ut elementum pellentesque, erat augue hendrerit tellus, ac condimentum augue ante et eros. Aenean pretium congue metus. Etiam eleifend. Nulla facilisi. Etiam interdum pulvinar leo. Maecenas non purus. Nullam sapien ipsum, hendrerit at, mattis vel, molestie vulputate, nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla rutrum arcu ut lectus. Aliquam et lorem et turpis cursus aliquet. Vivamus nec massa. Vivamus quis tellus. Aenean dictum dictum dolor. Aliquam auctor facilisis diam. Nam fringilla placerat arcu. Maecenas nulla tellus, eleifend quis, porttitor id, pellentesque nec, nulla. Aliquam vehicula nulla sit amet erat. Donec sed purus. Duis dictum enim sed justo. </p>
-        </div>
+<% for subscription in @subscriptions_col2 %>
+    <% for i in 0..subscription.pos_y %>
+        <% if i == subscription.pos_y %>
+            <div class="me">
+                <h1><%= subscription.me.title %></h1>
+                <% for me_section in subscription.me.me_sections %>
+                <h2><%= me_section.section.name %></h2>
+                <p><%= me_section.value %></p>        
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
 </div>
 
 
@@ -32,40 +42,17 @@
 <!-- start right box -->
 
 <div id="rightcontent">
-    <div class="me">
-	<h1>Nautica 08 </h1>
-	<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam nec purus. Suspendisse hendrerit pulvinar turpis. Cras non purus sed arcu consequat tristique. In hac habitasse platea dictumst. Quisque auctor urna eu felis. Etiam arcu mauris, fringilla sed, eleifend vel, tincidunt in, arcu. Maecenas cursus elit id eros eleifend rhoncus. Phasellus tincidunt ultricies nibh. Vestibulum eleifend erat at lacus. Vestibulum feugiat euismod orci. Vestibulum turpis risus, sodales a, fermentum faucibus, fringilla sit amet, neque. Aenean sollicitudin felis quis purus. Integer vel pede iaculis lacus vehicula hendrerit. Aenean fringilla scelerisque lectus. Cras dictum venenatis neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Integer dignissim nisi. Integer elementum. Nulla luctus iaculis dolor.</p>
-
-<p>Nam euismod augue eget nibh. Cras adipiscing, tortor ut elementum pellentesque, erat augue hendrerit tellus, ac condimentum augue ante et eros. Aenean pretium congue metus. Etiam eleifend. Nulla facilisi. Etiam interdum pulvinar leo. Maecenas non purus. Nullam sapien ipsum, hendrerit at, mattis vel, molestie vulputate, nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla rutrum arcu ut lectus. Aliquam et lorem et turpis cursus aliquet. Vivamus nec massa. Vivamus quis tellus. Aenean dictum dictum dolor. Aliquam auctor facilisis diam. Nam fringilla placerat arcu. Maecenas nulla tellus, eleifend quis, porttitor id, pellentesque nec, nulla. Aliquam vehicula nulla sit amet erat. Donec sed purus. Duis dictum enim sed justo. </p>
-        </div>
-</div>
-<!--
-<h1>Listing subscriptions</h1>
-
-<table>
-  <tr>
-    <th>User</th>
-    <th>Subscription token</th>
-    <th>Pos x</th>
-    <th>Pos y</th>
-    <th>Collapsed</th>
-  </tr>
-
-<% for subscription in @subscriptions %>
-  <tr>
-    <td><%=h subscription.user_id %></td>
-    <td><%=h subscription.subscription_token %></td>
-    <td><%=h subscription.pos_x %></td>
-    <td><%=h subscription.pos_y %></td>
-    <td><%=h subscription.collapsed %></td>
-    <td><%= link_to 'Show', subscription %></td>
-    <td><%= link_to 'Edit', edit_subscription_path(subscription) %></td>
-    <td><%= link_to 'Destroy', subscription, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% for subscription in @subscriptions_col3 %>
+    <% for i in 0..subscription.pos_y %>
+        <% if i == subscription.pos_y %>
+            <div class="me">
+                <h1><%= subscription.me.title %></h1>
+                <% for me_section in subscription.me.me_sections %>
+                <h2><%= me_section.section.name %></h2>
+                <p><%= me_section.value %></p>        
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New subscription', new_subscription_path %>
--->
+</div>
