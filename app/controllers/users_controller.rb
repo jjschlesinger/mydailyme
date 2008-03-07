@@ -1,20 +1,8 @@
 class UsersController < ApplicationController
-  skip_before_filter :is_authed
-  # GET /users
-  # GET /users.xml
-  #def index
-  #  @users = User.find(:all)
-  #
-  #  respond_to do |format|
-  #    format.html # index.html.erb
-  #    format.xml  { render :xml => @users }
-  #  end
-  #end
+  skip_before_filter :is_authed, :only => ['new', 'create']
 
-  # GET /users/1
-  # GET /users/1.xml
   def show
-    @user = User.find(params[:id])
+    @user = User.find(session['user_id'])
 
     respond_to do |format|
       format.html # show.html.erb

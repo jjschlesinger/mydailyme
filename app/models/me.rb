@@ -18,4 +18,8 @@ class Me < ActiveRecord::Base
     def generate_auth(email)
         Digest::SHA1.hexdigest(email + subscribe_token)
     end
+    
+    def self.generate_token
+        Digest::SHA1.hexdigest(Time.now.to_f.to_s)
+    end
 end
