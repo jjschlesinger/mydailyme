@@ -91,6 +91,18 @@ div .me h2
     display:inline;
 }
 
+.dropAreaActive
+{
+   height:40px;
+   border: dashed 1px gray;
+   background-color:blue;
+}
+.dropArea
+{
+   height:40px;
+   border: dashed 1px gray;
+   display:none;
+}
 
 UL.BLUE {
 list-style: url(images/bullet.jpg) disc;

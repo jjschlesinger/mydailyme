@@ -4,13 +4,21 @@
 <% for subscription in @subscriptions_col1 %>
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
-            <div class="me">
+            <div class="dropArea" id="<%= "drop_0-#{subscription.pos_y}" %>"></div>
+            <div class="me" id="me_<%= subscription.me.id %>">
                 <h1><%= subscription.me.title %></h1>
                 <% if (false) %>
                 <h2><%= me_section.section.name %></h2>
                 <p><%= me_section.value %></p>        
                 <% end %>
             </div>
+            <%= draggable_element "me_#{subscription.me.id}", :revert => true %>
+            
+            <%= drop_receiving_element "drop_0-#{subscription.pos_y}", 
+                :update => "subscription", :url => { :action => "add" },
+                :accept => "subscriptions", :hoverclass => "dropAreaActive"
+                %>
+                
         <% end %>
     <% end %>
 <% end %>
@@ -23,13 +31,20 @@
 <% for subscription in @subscriptions_col2 %>
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
-            <div class="me">
+            <div class="dropArea" id="<%= "drop_1-#{subscription.pos_y}" %>"></div>
+            <div class="me" id="me_<%= subscription.me.id %>">
                 <h1><%= subscription.me.title %></h1>
                 <% if (false) %>
                 <h2><%= me_section.section.name %></h2>
                 <p><%= me_section.value %></p>        
                 <% end %>
             </div>
+            <%= draggable_element "me_#{subscription.me.id}", :revert => true %>
+            
+            <%= drop_receiving_element "drop_1-#{subscription.pos_y}", 
+                :update => "subscription", :url => { :action => "add" },
+                :accept => "subscriptions", :hoverclass => "dropAreaActive"
+                %>
         <% end %>
     <% end %>
 <% end %>
@@ -44,13 +59,20 @@
 <% for subscription in @subscriptions_col3 %>
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
-            <div class="me">
+            <div class="dropArea" id="<%= "drop_2-#{subscription.pos_y}" %>"></div>
+            <div class="me" id="me_<%= subscription.me.id %>">
                 <h1><%= subscription.me.title %></h1>
                 <% if (false) %>
                 <h2><%= me_section.section.name %></h2>
                 <p><%= me_section.value %></p>        
                 <% end %>
             </div>
+            <%= draggable_element "me_#{subscription.me.id}", :revert => true %>
+            
+            <%= drop_receiving_element "drop_2-#{subscription.pos_y}", 
+                :update => "subscription", :url => { :action => "add" },
+                :accept => "subscriptions", :hoverclass => "dropAreaActive"
+                %>
         <% end %>
     <% end %>
 <% end %>
