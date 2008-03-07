@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :is_authed
   # GET /users
   # GET /users.xml
   #def index
