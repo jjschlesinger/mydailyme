@@ -9,15 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "me_sections", :force => true do |t|
     t.integer  "section_id"
-    t.string   "value"
-    t.string   "other_name"
     t.integer  "me_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "section_type"
+    t.string   "value",        :limit => 4000
   end
 
   create_table "mes", :force => true do |t|

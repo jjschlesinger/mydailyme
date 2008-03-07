@@ -14,8 +14,8 @@
 development:
   adapter: mysql
   database: projectme_development
-  username: pt
-  password: ptdev
+  username: root
+  password: fg99GB47#
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as 'test' will be erased and
