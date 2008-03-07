@@ -6,6 +6,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.integer :pos_x
       t.integer :pos_y
       t.boolean :collapsed, :default => false
+      t.integer :me_id
 
       t.timestamps
     end
