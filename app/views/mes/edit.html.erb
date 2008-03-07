@@ -4,8 +4,7 @@
 
 <% form_for(@me) do |f| %>
   <p>
-    Subscription Token:
-    <a href="#">Reset</a>
+    <label for="reset_token">Reset Subscription Token:</label><%= check_box_tag('reset_token', 1, false) %>
   </p>
 
   <p>
@@ -17,10 +16,32 @@
     <b>Image url</b><br />
     <%= f.text_field :image_url %>
   </p>
-  <p>
-    <%= collection_select(:id, :name, @sections, :id, :name) %><br />
-    
+<p>
+    <%= select('section1', 'section_id', @sections.collect {|s| [s.name, s.id]}, :select => @section1) %><br />
+    <%= text_field 'section1', 'value' %>
+    <%= hidden_field 'section1', 'section_type' %>
  </p>
+<p>
+    <%= select('section2', 'section_id', @sections.collect {|s| [s.name, s.id]}, :select => @section2) %><br />
+    <%= text_field 'section2', 'value' %>
+    <%= hidden_field 'section2', 'section_type' %>
+ </p>
+<p>
+    <%= select('section3', 'section_id', @sections.collect {|s| [s.name, s.id]}, :select => @section3) %><br />
+    <%= text_field 'section3', 'value' %>
+    <%= hidden_field 'section3', 'section_type' %>
+ </p>
+<p>
+    <%= select('section4', 'section_id', @sections.collect {|s| [s.name, s.id]}, :select => @section4) %><br />
+    <%= text_field 'section4', 'value' %>
+    <%= hidden_field 'section4', 'section_type' %>
+ </p>
+<p>
+    Soapbox:<br />
+    <%= text_area 'section5', 'value' %>
+    <%= hidden_field 'section5', 'section_type' %>
+ </p>
+<p><%= f.submit "Update" %></p>
 <% end %>
 <p>
 <%= link_to 'Show', @me %> |
