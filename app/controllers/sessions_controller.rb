@@ -13,11 +13,12 @@ class SessionsController < ApplicationController
     @user = User.authenticate(params[:user][:login], params[:user][:password])
 
     if @user.nil?
+      flash[:notice] = 'Login failed.'
       render :action => "new"
     else
       session['user_id'] = @user.id
       flash[:notice] = 'Login successful.'
-      redirect_to(:controller=>'subscriptions')
+      redirect_to(request.request_uri)
     end
   end
 
