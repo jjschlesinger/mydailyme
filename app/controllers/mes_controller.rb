@@ -4,7 +4,7 @@ class MesController < ApplicationController
   # GET /mes
   # GET /mes.xml
   def index
-    @mes = Me.find(:all)
+    @mes = Me.find(:all, :conditions=>['user_id = ?',session['user_id']])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +16,6 @@ class MesController < ApplicationController
   # GET /mes/1.xml
   def show
     @me = Me.find(params[:id])
-    @me.me_sections = MeSection.find(:all)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @me }

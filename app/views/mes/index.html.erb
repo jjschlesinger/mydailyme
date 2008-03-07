@@ -1,13 +1,11 @@
 <% for me in @mes %>
-
-<%=h me.user_id %>
-<%=h me.subscribe_token %>
-<%=h me.title %>
-<%=h me.image_url %>
+<div class="editSelect">
+<b><%=h me.title %></b>
 <%= link_to 'Show', me %>
 <%= link_to 'Edit', edit_me_path(me) %>
-<%= link_to 'Destroy', me, :confirm => 'Are you sure?', :method => :delete %>
-<br />
+<%= link_to 'Destroy', me, :confirm => 'Are you sure?', :method => :delete %><br />
+<%=h me.subscribe_token %>
+</div>
 <% end %>
 
 
