@@ -1,8 +1,12 @@
 class SubscriptionsController < ApplicationController
   layout 'mes'
+  skip_before_filter :is_authed, :only => ['show','index']
+  before_filter :authenticate, :only => ['show', 'index']
+  
   # GET /subscriptions
   # GET /subscriptions.xml
   def index
+    @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
     @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
     @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']])
     @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']])
@@ -10,6 +14,7 @@ class SubscriptionsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @subscriptions }
+      format.rss  { render :layout => false } # uses index.rss.builder
     end
   end
 
@@ -21,6 +26,7 @@ class SubscriptionsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @subscription }
+      format.rss  { render :layout => false } # uses show.rss.builder
     end
   end
 
@@ -92,4 +98,20 @@ class SubscriptionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+protected
+  def authenticate
+    authenticate_or_request_with_http_basic('Project Me') do |username, password|
+      session['user_id'] = User.authenticate(username, password)
+      if session['user_id'].nil?
+        false
+      else
+        true
+      end
+    end    
+    
+  end
+  
+
+  
 end

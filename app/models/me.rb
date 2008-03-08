@@ -7,7 +7,7 @@ class Me < ActiveRecord::Base
     has_one :section3, :class_name => "MeSection", :conditions => "me_sections.section_type = 3"
     has_one :section4, :class_name => "MeSection", :conditions => "me_sections.section_type = 4"
     has_one :section5, :class_name => "MeSection", :conditions => "me_sections.section_type = 5"
-#    has_many :me_sections
+    has_many :me_sections
 #    has_many :sections, :through => :me_sections
     has_many :subscriptions
     
