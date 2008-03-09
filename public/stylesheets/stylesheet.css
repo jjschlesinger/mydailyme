@@ -69,6 +69,16 @@ div .me
    font-size:11px;
    color:gray;
    font-family:sans-serif;
+   clear:both;
+}
+div .me img
+{
+   display: inline;
+   float:left;
+   text-align: left;
+   margin: 0 2px 2px 0;
+   height:50%;
+   width:50%;
 }
 div .me h1
 {
