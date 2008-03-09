@@ -4,7 +4,7 @@ class MesController < ApplicationController
   # GET /mes
   # GET /mes.xml
   def index
-    @mes = Me.find(:all)
+    @mes = Me.find(:all, :conditions=>['user_id = ?',session['user_id']])
 
     respond_to do |format|
       format.html # index.html.erb

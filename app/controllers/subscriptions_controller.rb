@@ -99,6 +99,14 @@ class SubscriptionsController < ApplicationController
     end
   end
   
+  def sort_my_me
+  if request.xhr?
+    if @me = Me.find(param[:id].split("_")[0])
+       
+       end
+    end
+  end
+  
 protected
   def authenticate
     authenticate_or_request_with_http_basic('Project Me') do |username, password|
@@ -113,5 +121,5 @@ protected
   end
   
 
-  
+
 end
