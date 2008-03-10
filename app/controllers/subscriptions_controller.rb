@@ -6,15 +6,20 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions
   # GET /subscriptions.xml
   def index
-    @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
-    @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
-    @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']])
-    @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']])
-
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @subscriptions }
-      format.rss  { render :layout => false } # uses index.rss.builder
+      format.html do # index.html.erb
+         @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
+         @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']])
+         @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']])
+      end
+      format.xml  do
+        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
+        render :xml => @subscriptions
+      end
+      format.rss  do
+        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
+        render :layout => false # uses index.rss.builder
+      end
     end
   end
 
@@ -127,17 +132,29 @@ class SubscriptionsController < ApplicationController
   
 protected
   def authenticate
-    authenticate_or_request_with_http_basic('Project Me') do |username, password|
-      #session['user_id'] = User.authenticate(username, password).id
-      if session['user_id'].nil?
-        false
-      else
-        true
+    respond_to do |format|
+      format.xml do
+        authenticate_or_request_with_http_basic('Project Me') do |username, password|
+          session['user_id'] = User.authenticate(username, password).id
+          if session['user_id'].nil?
+            false
+          else
+            true
+          end
+        end
       end
-    end    
-    @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
+      format.rss do
+        authenticate_or_request_with_http_basic('Project Me') do |username, password|
+          session['user_id'] = User.authenticate(username, password).id
+          if session['user_id'].nil?
+            false
+          else
+            true
+          end
+        end
+      end      
+      format.html { is_authed }
+    end
   end
-  
-
 
 end
