@@ -101,11 +101,29 @@ class SubscriptionsController < ApplicationController
   
   def sort_my_me
   if request.xhr?
-    if @me = Me.find(param[:id].split("_")[0])
-       
-       end
-    end
+
+    @subscription = Subscription.find(params[:id])
+     
+      if !@subscription.nil?  
+        @subscription.pos_x = 1
+        @subscription.save()
+ 
+        @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
+        render :partial => 'col1'
+        #render :text => params[:id].to_s
+      else
+        render :text => 'fuck'
+      end
   end
+  end
+  
+  def sort 
+    @subscription = Subscription.find(params[:id]) 
+    @subscription.subscriptions.each do |subscription| 
+      subscription.pos_y = params['position_y'].index(subscription.id.to_s) 
+      subscription.save 
+    end 
+  end 
   
 protected
   def authenticate
@@ -117,7 +135,7 @@ protected
         true
       end
     end    
-    
+    @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
   end
   
 

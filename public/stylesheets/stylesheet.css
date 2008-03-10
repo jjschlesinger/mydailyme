@@ -70,6 +70,7 @@ div .me
    color:gray;
    font-family:sans-serif;
    clear:both;
+   background-color:white;
 }
 div .me img
 {
@@ -77,8 +78,9 @@ div .me img
    float:left;
    text-align: left;
    margin: 0 2px 2px 0;
-   height:50%;
-   width:50%;
+   padding:0;
+   height:35%;
+   width:35%;
 }
 div .me h1
 {
@@ -103,15 +105,15 @@ div .me h2
 
 .dropAreaActive
 {
-   height:40px;
+   height:50px;
    border: dashed 1px gray;
-   background-color:blue;
+   background-color:yellow;
 }
 .dropArea
 {
-   height:40px;
-   border: dashed 1px gray;
-   display:none;
+   height:10px;
+   border: 0;
+   
 }
 
 UL.BLUE {
