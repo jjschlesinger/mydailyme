@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
   def create
     
     @user = User.authenticate(params[:user][:login], params[:user][:password])
-
     if @user.nil?
       flash[:notice] = 'Login failed.'
       render :action => "new"

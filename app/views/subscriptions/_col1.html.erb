@@ -11,7 +11,7 @@
             <div class="me" id="<%= subscription.id %>" <% if subscription.me.image_url != "" %>style="min-height:200px;"<% end %>>
                 <h1><%= subscription.me.title %></h1>
                 <% if subscription.me.image_url != "" %>
-                    <img alt="me" src="<%= subscription.me.image_url %>" />
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="me" src="<%= subscription.me.image_url %>" /></a>
                 <% end %>
                 <% if subscription.me.section1.value != "" %>
                 <p><i><%= subscription.me.section1.section.name %>:</i>
@@ -55,7 +55,7 @@
             <div class="me" id="<%= subscription.id %>"  <% if subscription.me.image_url != "" %>style="min-height:200px;"<% end %>>
                 <h1><%= subscription.me.title %></h1>
                 <% if subscription.me.image_url != "" %>
-                    <img alt="me" src="<%= subscription.me.image_url %>" />
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="me" src="<%= subscription.me.image_url %>" /></a>
                 <% end %>
                 <% if subscription.me.section1.value != "" %>
                 <p><i><%= subscription.me.section1.section.name %>:</i>
@@ -144,3 +144,7 @@
     <% end %>
 <% end %>
 </div>
+
+<% if @subscriptions_col1[0].nil? and  @subscriptions_col2[0].nil? and  @subscriptions_col3[0].nil? %>
+<p>You got nothin.</p>
+<% end %>

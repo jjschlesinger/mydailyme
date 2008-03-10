@@ -11,7 +11,7 @@
 <body>
 <div id="blogtitle">
 		<div id="small"><%= link_to 'Project Me', subscriptions_path %> you suck at this game ::</div>
-		<div id="small2">  <% if !session['user_id'].nil? %><%= link_to 'View', subscriptions_path %>  |  <%= link_to 'New Me', new_me_path %>  |  <%= link_to 'Edit', mes_path %>  |  <%= link_to 'Logout', {:controller=>"sessions", :action=>"destroy"}, :method => :delete %><% else %><%= link_to 'Login', new_session_path %><% end %></div>
+		<div id="small2">  <% if !session['user_id'].nil? %><%= User.find(session['user_id']).login %> <%= link_to 'View', subscriptions_path %>  |  <%= link_to 'New Me', new_me_path %>  |  <%= link_to 'Edit', mes_path %>  |  <%= link_to 'Logout', {:controller=>"sessions", :action=>"destroy"}, :method => :delete %><% else %><%= link_to 'Login', new_session_path %><% end %></div>
 </div>
 			
 <div id="main"> 
