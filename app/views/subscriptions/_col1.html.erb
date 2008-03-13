@@ -8,10 +8,11 @@
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
             <div class="dropArea" id="<%= "drop_0-#{subscription.pos_y}" %>"></div>
-            <div class="me" id="<%= subscription.id %>" <% if subscription.me.image_url != "" %>style="min-height:200px;"<% end %>>
+            <div class="me" id="<%= subscription.id %>" >
                 <h1><%= subscription.me.title %></h1>
                 <% if subscription.me.image_url != "" %>
                     <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="me" src="<%= subscription.me.image_url %>" /></a>
+                
                 <% end %>
                 <% if subscription.me.section1.value != "" %>
                 <p><i><%= subscription.me.section1.section.name %>:</i>
@@ -37,6 +38,7 @@
                 <p><i>Soapbox:</i>
                 <%= subscription.me.section5.value %></p>        
                 <% end %>
+               <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
             </div>
             <%= draggable_element("#{subscription.id}", :revert => true) %>
             
@@ -52,7 +54,7 @@
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
             <div class="dropArea" id="<%= "drop_1-#{subscription.pos_y}" %>"></div>
-            <div class="me" id="<%= subscription.id %>"  <% if subscription.me.image_url != "" %>style="min-height:200px;"<% end %>>
+            <div class="me" id="<%= subscription.id %>" >
                 <h1><%= subscription.me.title %></h1>
                 <% if subscription.me.image_url != "" %>
                     <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="me" src="<%= subscription.me.image_url %>" /></a>
@@ -81,7 +83,7 @@
                 <p><i>Soapbox:</i>
                 <%= subscription.me.section5.value %></p>        
                 <% end %>
-                
+                <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
             </div>
             <%= draggable_element "#{subscription.id}", :revert => true %>
             
@@ -133,6 +135,7 @@
                 <p><i>Soapbox:</i>
                 <%= subscription.me.section5.value %></p>        
                 <% end %>
+                <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
             </div>
             <%= draggable_element "#{subscription.id}", :revert => true %>
             

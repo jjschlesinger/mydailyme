@@ -10,6 +10,9 @@ font-family:"Trebuchet MS",arial,sans-serif;
 font-size:70.5%;
 min-width:800px;
 }
+img{
+border:0;
+}
 #main
 {
    min-width:800px;
@@ -61,6 +64,11 @@ font-weight:600;
 #blogtitle a:hover, a:active{
 color:#fff;
 text-decoration:none;
+}
+.meSpacer
+{
+   height:2px;
+   clear:both;
 }
 div .me
 {
