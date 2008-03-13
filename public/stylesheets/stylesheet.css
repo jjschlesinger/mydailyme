@@ -90,15 +90,21 @@ div .me img
    height:35%;
    width:35%;
 }
-div .me h1
+div .meTitle
 {
-    margin:0;
-    padding:0 0 0 10px;
+   
     background-color:#b8ce83;
-    font-weight:500;
+    width:100%;
+    cursor:move;
+}
+
+.meTitle h1
+{
+   font-weight:500;
     font-size:14px;
     color:black;
-    cursor:move;
+    margin:0;
+    padding:0 0 0 10px;
 }
 
 div .me h2
@@ -115,11 +121,11 @@ div .me h2
 {
    height:50px;
    border: dashed 1px gray;
-   background-color:yellow;
+   background-color:blue;
 }
 .dropArea
 {
-   height:10px;
+   height:30px;
    border: 0;
    
 }

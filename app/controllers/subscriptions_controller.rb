@@ -8,9 +8,9 @@ class SubscriptionsController < ApplicationController
   def index
     respond_to do |format|
       format.html do # index.html.erb
-         @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
-         @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']])
-         @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']])
+         @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']], :order => "pos_x, pos_y")
+         @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']], :order => "pos_x, pos_y")
+         @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']], :order => "pos_x, pos_y")
       end
       format.xml  do
         @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
@@ -110,10 +110,22 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.find(params[:id])
      
       if !@subscription.nil?  
-        @subscription.pos_x = 1
+        
+        @all = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = ?',session['user_id'], params[:column]], :order => "pos_y")
+        y = 1
+        @all.each do |subscription|
+          subscription.pos_y = y
+          subscription.save()
+          y = y + 1
+        end 
+        
+        @subscription.pos_x = params[:column]
+        @subscription.pos_y = 0
         @subscription.save()
  
-        @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']])
+        @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']], :order => "pos_x, pos_y")
+        @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']], :order => "pos_x, pos_y")
+        @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']], :order => "pos_x, pos_y")
         render :partial => 'col1'
         #render :text => params[:id].to_s
       else

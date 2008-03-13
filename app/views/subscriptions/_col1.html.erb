@@ -1,18 +1,18 @@
-<!-- start left box--><%= drop_receiving_element "wholecontent", 
-                :update => "wholecontent", :url => { :action => "sort_my_me" },
-                :hoverclass => "dropAreaActive"
-                %>
+<!-- start left box-->
 <div id="leftcontent">
-    
+    <div class="dropArea" id="<%= "drop_0" %>"></div>
+    <%= drop_receiving_element "drop_0", 
+                :update => "wholecontent",
+                :url => {:action => "sort_my_me", :column => 0},
+                :accept => "me", :hoverclass => "dropAreaActive"
+                %>
 <% for subscription in @subscriptions_col1 %>
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
-            <div class="dropArea" id="<%= "drop_0-#{subscription.pos_y}" %>"></div>
             <div class="me" id="<%= subscription.id %>" >
-                <h1><%= subscription.me.title %></h1>
+                <div class="meTitle"><h1><%= subscription.me.title %></h1></div>
                 <% if subscription.me.image_url != "" %>
-                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="me" src="<%= subscription.me.image_url %>" /></a>
-                
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="Image" src="<%= subscription.me.image_url %>" /></a>
                 <% end %>
                 <% if subscription.me.section1.value != "" %>
                 <p><i><%= subscription.me.section1.section.name %>:</i>
@@ -40,8 +40,7 @@
                 <% end %>
                <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
             </div>
-            <%= draggable_element("#{subscription.id}", :revert => true) %>
-            
+            <%= draggable_element("#{subscription.id}", :revert => true, :handle => "'meTitle'", :ghosting=>true) %>
         <% end %>
     <% end %>
 <% end %>
@@ -50,14 +49,19 @@
 
 <!-- start content -->
 <div id="centercontent">
+    <div class="dropArea" id="<%= "drop_1" %>"></div>
+    <%= drop_receiving_element "drop_1", 
+                :update => "wholecontent",
+                :url => {:action => "sort_my_me", :column => 1},
+                :accept => "me", :hoverclass => "dropAreaActive"
+                %>
 <% for subscription in @subscriptions_col2 %>
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
-            <div class="dropArea" id="<%= "drop_1-#{subscription.pos_y}" %>"></div>
             <div class="me" id="<%= subscription.id %>" >
-                <h1><%= subscription.me.title %></h1>
+                <div class="meTitle"><h1><%= subscription.me.title %></h1></div>
                 <% if subscription.me.image_url != "" %>
-                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="me" src="<%= subscription.me.image_url %>" /></a>
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="Image" src="<%= subscription.me.image_url %>" /></a>
                 <% end %>
                 <% if subscription.me.section1.value != "" %>
                 <p><i><%= subscription.me.section1.section.name %>:</i>
@@ -85,12 +89,9 @@
                 <% end %>
                 <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
             </div>
-            <%= draggable_element "#{subscription.id}", :revert => true %>
+            <%= draggable_element "#{subscription.id}", :revert => true, :handle => "'meTitle'", :ghosting=>true %>
             
-            <%= drop_receiving_element "drop_1-#{subscription.pos_y}", 
-                :update => "subscription", :url => { :action => "add" },
-                :accept => "subscriptions", :hoverclass => "dropAreaActive"
-                %>
+            
         <% end %>
     <% end %>
 <% end %>
@@ -102,14 +103,19 @@
 <!-- start right box -->
 
 <div id="rightcontent">
+    <div class="dropArea" id="<%= "drop_2" %>"></div>
+    <%= drop_receiving_element "drop_2", 
+                :update => "wholecontent",
+                :url => {:action => "sort_my_me", :column => 2},
+                :accept => "me", :hoverclass => "dropAreaActive"
+                %>
 <% for subscription in @subscriptions_col3 %>
     <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
-            <div class="dropArea" id="<%= "drop_2-#{subscription.pos_y}" %>"></div>
             <div class="me" id="<%= subscription.id %>" <% if subscription.me.image_url != "" %>style="min-height:200px;"<% end %>>
-                <h1><%= subscription.me.title %></h1>
+                <div class="meTitle"><h1><%= subscription.me.title %></h1></div>
                 <% if subscription.me.image_url != "" %>
-                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="me" src="<%= subscription.me.image_url %>"/></a>
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="Image" src="<%= subscription.me.image_url %>"/></a>
                 <% end %>
                  <% if subscription.me.section1.value != "" %>
                 <p><i><%= subscription.me.section1.section.name %>:</i>
@@ -137,12 +143,7 @@
                 <% end %>
                 <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
             </div>
-            <%= draggable_element "#{subscription.id}", :revert => true %>
-            
-            <%= drop_receiving_element "drop_2-#{subscription.pos_y}", 
-                :update => "leftcontent", :url => { :action => "_col1", :id => "2_2_#{subscription.id}"},
-                :accept => "me", :hoverclass => "dropAreaActive"
-                %>
+            <%= draggable_element "#{subscription.id}", :revert => true, :handle => "'meTitle'", :ghosting=>true %>
         <% end %>
     <% end %>
 <% end %>
