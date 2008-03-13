@@ -144,28 +144,18 @@ class SubscriptionsController < ApplicationController
   
 protected
   def authenticate
-    respond_to do |format|
-      format.xml do
-        authenticate_or_request_with_http_basic('Project Me') do |username, password|
-          session['user_id'] = User.authenticate(username, password).id
-          if session['user_id'].nil?
-            false
-          else
-            true
-          end
+    case request.format
+    when Mime::XML, Mime::ATOM
+      authenticate_or_request_with_http_basic('Project Me') do |username, password|
+        session['user_id'] = User.authenticate(username, password).id
+        if session['user_id'].nil?
+          false
+        else
+          true
         end
       end
-      format.rss do
-        authenticate_or_request_with_http_basic('Project Me') do |username, password|
-          session['user_id'] = User.authenticate(username, password).id
-          if session['user_id'].nil?
-            false
-          else
-            true
-          end
-        end
-      end      
-      format.html { is_authed }
+    else
+      is_authed
     end
   end
 
