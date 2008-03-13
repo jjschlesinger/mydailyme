@@ -53,13 +53,17 @@ class SubscriptionsController < ApplicationController
   def create
     @me = Me.find_by_subscribe_token(params[:subscription][:subscription_token])
     if @me.validate_auth(User.find(session['user_id']).login, params[:auth])
+      breakpoint
       @subscription = Subscription.new(params[:subscription])
       @subscription.collapsed = false
-  
+      @subscription.me = @me
+      @subscription.pos_x = 0;
+      @subscription.pos_y =  Subscription.find_last_y_pos(session['user_id']) + 1;
+      
       respond_to do |format|
         if @subscription.save
           flash[:notice] = 'Subscription was successfully created.'
-          format.html { redirect_to(@subscription) }
+          format.html { redirect_to(subscriptions_path) }
           format.xml  { render :xml => @subscription, :status => :created, :location => @subscription }
         else
           format.html { render :action => "new" }
