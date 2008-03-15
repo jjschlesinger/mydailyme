@@ -17,6 +17,7 @@ class SubscriptionsController < ApplicationController
         render :xml => @subscriptions
       end
       format.rss  do
+        
         @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
         render :layout => false # uses index.rss.builder
       end
@@ -155,10 +156,12 @@ class SubscriptionsController < ApplicationController
   
 protected
   def authenticate
+    breakpoint
     case request.format
-    when Mime::XML, Mime::ATOM
+    when Mime::XML, Mime::ATOM, Mime::RSS
       authenticate_or_request_with_http_basic('Project Me') do |username, password|
         session['user_id'] = User.authenticate(username, password).id
+        breakpoint
         if session['user_id'].nil?
           false
         else
