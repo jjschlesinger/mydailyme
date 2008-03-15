@@ -3,7 +3,7 @@ class Notifier < ActionMailer::Base
     recipients to_email
     subject    "Project Me Invitation!"
     body       :me => me,
-               :subscribe_url => url_for(:host => "localhost:3000",
+               :subscribe_url => url_for(:host => "me.projecttruck.net",
                                          :controller => "subscriptions",
                                          :action => "new",
                                          :auth => me.generate_auth(to_email),
