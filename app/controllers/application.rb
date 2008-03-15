@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   
   def is_authed
     if session['user_id'].blank?
+      session['return_url'] = request.request_uri
       redirect_to new_session_path
     else
       true
