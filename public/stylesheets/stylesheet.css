@@ -96,15 +96,38 @@ div .meTitle
     background-color:#b8ce83;
     width:100%;
     cursor:move;
+    clear:both;
 }
 
-.meTitle h1
+div .meTitle .options a
+{
+   
+    color:white;
+    cursor:pointer;
+    font-size:14px;
+
+}
+
+div .meTitle h1
 {
    font-weight:500;
     font-size:14px;
     color:black;
     margin:0;
     padding:0 0 0 10px;
+    float:left;
+
+}
+.meTitle .options
+{
+    margin:0;
+    padding:0 10px 0 10px;
+    float:right;
+}
+
+div .mebody
+{
+   clear:both;
 }
 
 div .me h2
@@ -129,6 +152,8 @@ div .me h2
    border: 0;
    
 }
+
+.dragover {}
 
 UL.BLUE {
 list-style: url(images/bullet.jpg) disc;

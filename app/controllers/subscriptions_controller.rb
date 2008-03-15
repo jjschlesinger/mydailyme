@@ -108,42 +108,49 @@ class SubscriptionsController < ApplicationController
     end
   end
   
-  def sort_my_me
-  if request.xhr?
-
-    @subscription = Subscription.find(params[:id])
-     
-      if !@subscription.nil?  
-        
-        @all = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = ?',session['user_id'], params[:column]], :order => "pos_y")
-        y = 1
-        @all.each do |subscription|
-          subscription.pos_y = y
-          subscription.save()
-          y = y + 1
+  def update_position
+      params.each_key {|key|
+      if key.include?('leftcontent')
+        params[key].each_with_index do |id, position|
+          @subscription = Subscription.find(id)
+            if !@subscription.nil?
+            @subscription.pos_x = 0
+            @subscription.pos_y = position
+            @subscription.save()
+            
+            end
         end 
-        
-        @subscription.pos_x = params[:column]
-        @subscription.pos_y = 0
-        @subscription.save()
- 
-        @subscriptions_col1 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 0',session['user_id']], :order => "pos_x, pos_y")
-        @subscriptions_col2 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 1',session['user_id']], :order => "pos_x, pos_y")
-        @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']], :order => "pos_x, pos_y")
-        render :partial => 'col1'
-        #render :text => params[:id].to_s
-      else
-        render :text => 'fuck'
       end
-  end
+      if key.include?('centercontent')
+        params[key].each_with_index do |id, position|
+          @subscription = Subscription.find(id)
+            if !@subscription.nil?
+            @subscription.pos_x = 1
+            @subscription.pos_y = position
+            @subscription.save()
+            
+            end
+        end 
+      end
+      
+      if key.include?('rightcontent')
+        params[key].each_with_index do |id, position|
+          @subscription = Subscription.find(id)
+            if !@subscription.nil?
+            @subscription.pos_x = 2
+            @subscription.pos_y = position
+            @subscription.save()
+            
+            end
+        end 
+      end
+      }
   end
   
-  def sort 
-    @subscription = Subscription.find(params[:id]) 
-    @subscription.subscriptions.each do |subscription| 
-      subscription.pos_y = params['position_y'].index(subscription.id.to_s) 
-      subscription.save 
-    end 
+  def is_collapsed
+    @subscription = Subscription.find(params[:id])
+    @subscription.collapsed = !@subscription.collapsed
+    @subscription.save() 
   end 
   
 protected
