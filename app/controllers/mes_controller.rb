@@ -67,7 +67,7 @@ class MesController < ApplicationController
       if @me.save
         Subscription.create(:me_id=>@me.id,:user_id=>session['user_id'],:pos_x=>0,:pos_y=>0,:subscription_token=>@me.subscribe_token)
         flash[:notice] = 'Me was successfully created.'
-        format.html { redirect_to(@me) }
+        format.html { redirect_to(subscriptions_path) }
         format.xml  { render :xml => @me, :status => :created, :location => @me }
       else
         format.html { render :action => "new" }
@@ -93,7 +93,7 @@ class MesController < ApplicationController
         @me.section4.update_attributes!(params[:section4])
         @me.section5.update_attributes!(params[:section5])
         flash[:notice] = 'Me was successfully updated.'
-        format.html { redirect_to(@me) }
+        format.html { redirect_to(subscriptions_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
