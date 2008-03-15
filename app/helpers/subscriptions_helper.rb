@@ -7,9 +7,9 @@ module SubscriptionsHelper
     end
     
     for ms in format_me.me_sections
-      if ms.section.nil?
+      if ms.section.nil? && !ms.value.blank?
         desc_html = desc_html + "<p>Soapbox: #{ms.value}</p>"
-      else
+      elsif !ms.value.blank?
         desc_html = desc_html + "<p>#{ms.section.name}: #{ms.value}</p>"  
       end
     end
