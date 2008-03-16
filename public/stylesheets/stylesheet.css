@@ -62,8 +62,8 @@ font-weight:600;
 }
 
 #blogtitle .normal_text{
-   color:#999999;
-   font-weight: normal;
+   color:#999999 !important;
+   font-weight: normal !important;
 }
 
 #blogtitle a:hover, a:active{
