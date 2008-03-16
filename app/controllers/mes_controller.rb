@@ -83,6 +83,9 @@ class MesController < ApplicationController
     if params[:reset_token]
       @me.subscribe_token = Me.generate_token
       @me.save!
+      s = Subscription.find(:first, :conditions => "user_id = #{session['user_id']} and me_id = #{@me.id}")
+      s.subscription_token = @me.subscribe_token
+      s.save!
     end
 
     respond_to do |format|

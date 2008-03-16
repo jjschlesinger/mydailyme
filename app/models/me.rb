@@ -9,7 +9,7 @@ class Me < ActiveRecord::Base
     has_one :section5, :class_name => "MeSection", :conditions => "me_sections.section_type = 5"
     has_many :me_sections
 #    has_many :sections, :through => :me_sections
-    has_many :subscriptions
+    has_many :subscriptions, :include => 'me', :conditions => 'mes.subscribe_token = subscriptions.subscription_token'
     
     def validate_auth(email, auth)
         true_auth = Digest::SHA1.hexdigest(email + subscribe_token)

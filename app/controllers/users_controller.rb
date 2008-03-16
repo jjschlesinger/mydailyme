@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @user = User.find(session['user_id'])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to(subscriptions_path) }# show.html.erb
       format.xml  { render :xml => @user }
     end
   end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(session['user_id'])
   end
 
   # POST /users
@@ -48,12 +48,12 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    @user = User.find(params[:id])
+    @user = User.find(session['user_id'])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        flash[:notice] = 'User was successfully updated.'
-        format.html { redirect_to(@user) }
+        flash[:notice] = 'Password changed successfully.'
+        format.html { redirect_to(subscriptions_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -61,16 +61,5 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  # DELETE /users/1
-  # DELETE /users/1.xml
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
-    end
-  end
+  
 end

@@ -1,0 +1,63 @@
+  <% for i in 0..subscription.pos_y %>
+        <% if i == subscription.pos_y %>
+            <div class="me" id="<%= "#{prefix}_#{subscription.id}" %>" >
+              <% if !subscription.me.nil? %>
+                <div class="meTitle">
+                    <h1><%= subscription.me.title %></h1>
+                    <div class="options">
+                       <%= link_to_remote "-",
+                        :url=>{
+                            :action=>"is_collapsed", 
+                            :id=>subscription.id},
+                            :loading=>"show_hide('mebody_#{subscription.id}')" %>
+                        <%= link_to_function('X', '') %>
+                    </div>
+                <div class="meSpacer"></div>
+                </div>
+                <div class="mebody" id="<%= "mebody_#{subscription.id}" %>" <% if subscription.collapsed? %>style="display:none;"<% end %>>
+                <% if subscription.me.image_url != "" %>
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="Image" src="<%= subscription.me.image_url %>" /></a>
+                <% end %>
+                <% if subscription.me.section1.value != "" %>
+                <p><i><%= subscription.me.section1.section.name %>:</i>
+                <%= subscription.me.section1.value %></p>        
+                <% end %>
+                
+                <% if subscription.me.section2.value != "" %>
+                <p><i><%= subscription.me.section2.section.name %>:</i>
+                <%= subscription.me.section2.value %></p>        
+                <% end %>
+                
+                <% if subscription.me.section3.value != "" %>
+                <p><i><%= subscription.me.section3.section.name %>:</i>
+                <%= subscription.me.section3.value %></p>        
+                <% end %>
+                
+               <% if subscription.me.section4.value != "" %>
+                <p><i><%= subscription.me.section4.section.name %>:</i>
+                <%= subscription.me.section4.value %></p>        
+                <% end %>
+                
+                <% if subscription.me.section5.value != "" %>
+                <p><i>Soapbox:</i>
+                <%= subscription.me.section5.value %></p>        
+                <% end %>
+                <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
+                </div>
+              <% else %>
+              <div class="meBrokeTitle">
+                <h1>Me no longer available</h1>
+                <div class="broke_options">
+                        <%= link_to_function('X', '') %>
+                </div>
+                <div class="meSpacer"></div>
+              </div>
+              <div class="mebody" id="<%= "mebody_#{subscription.id}" %>">
+              </div>
+
+              <% end %>
+            </div>
+        <% end %>
+    <% end %>
+    
+    

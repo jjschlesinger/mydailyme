@@ -61,6 +61,11 @@ text-decoration:none;
 font-weight:600;
 }
 
+#blogtitle .normal_text{
+   color:#999999;
+   font-weight: normal;
+}
+
 #blogtitle a:hover, a:active{
 color:#fff;
 text-decoration:none;
@@ -123,6 +128,41 @@ div .meTitle h1
     margin:0;
     padding:0 10px 0 10px;
     float:right;
+}
+
+div .meBrokeTitle
+{
+    background-color: red;
+    width:100%;
+    cursor:move;
+    clear:both;
+}
+
+div .meBrokeTitle h1
+{
+   font-weight:500;
+    font-size:14px;
+    color:white;
+    margin:0;
+    padding:0 0 0 10px;
+    float:left;
+
+}
+
+.meBrokeTitle .broke_options
+{
+    margin:0;
+    padding:0 10px 0 10px;
+    float:right;
+}
+
+div .meBrokeTitle .broke_options a
+{
+   
+    color:white;
+    cursor:pointer;
+    font-size:14px;
+
 }
 
 div .mebody

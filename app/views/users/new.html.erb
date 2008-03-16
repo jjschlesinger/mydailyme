@@ -2,25 +2,14 @@
 <div class="indent">
 <%= error_messages_for :user %>
 
-<% form_for(@user) do |f| %>
-
+<% form_for(@user) do %>
   <div>
     <label for="user_login">Login (Valid email address)</label><br />
-    <%= f.text_field :login %>
+    <%= text_field :user, :login %>
   </div>
-
+  <%= render :partial => 'form' %>
   <div>
-    <label for="user_password">Password</label><br />
-    <%= f.password_field :password %>
-  </div>
-  
-  <div>
-    <label for="user_password_confirmation">Password Confirmation</label><br />
-    <%= f.password_field :password_confirmation %>
-  </div>
-  
-  <div>
-    <%= f.submit "Create" %>
+    <%= submit_tag "Create" %>
   </div>
 
 <% end %>
