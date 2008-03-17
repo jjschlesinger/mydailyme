@@ -4,14 +4,19 @@
 
 <% form_for(@subscription) do |f| %>
   <div>
-    Is Auth Valid? <%= @is_valid %>
+    <% if @is_valid %>
+    <div>Are you sure you want to subscribe to this Me?: <%= f.submit "Yes" %></div>
+    <div id="leftcontent">
+       <div class="me"><%= render :partial => 'mes/me', :locals => { :show_only => true } %> </div>
+    </div>
+    <% else %>
+    <div>You are not allowed to subscribe to this me</div>
+    <% end %>
   </div>
-  <div>
+
     <%= hidden_field_tag 'subscription[user_id]', session['user_id'] %>
     <%= hidden_field_tag 'subscription[subscription_token]', @me.subscribe_token %>
     <%= hidden_field_tag 'auth', params[:auth] %>
-    <%= f.submit "Create" %>
-  </div>
 <% end %>
 
-<%= link_to 'Back', subscriptions_path %>
+<div style="clear:both;"><%= link_to 'Back', subscriptions_path %></div>
