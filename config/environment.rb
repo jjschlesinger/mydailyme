@@ -57,7 +57,7 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
   
-  ActionMailer::Base.smtp_settings = {
+  config.action_mailer.smtp_settings = {
     :address  => "smtp.comcast.net",
     :port  => 25, 
     :domain  => "me.projecttruck.net"
