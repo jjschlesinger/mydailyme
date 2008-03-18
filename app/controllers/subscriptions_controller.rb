@@ -27,10 +27,10 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions/1
   # GET /subscriptions/1.xml
   def show
-    @subscription = Subscription.find(params[:id])
+    @subscription = Subscription.find(params[:id], :conditions => "user_id = #{session['user_id']}")
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to(subscriptions_path) }
       format.xml  { render :xml => @subscription }
       format.rss  { render :layout => false } # uses show.rss.builder
     end
