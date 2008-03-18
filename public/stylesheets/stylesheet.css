@@ -110,8 +110,6 @@ div .meTitle .options a
     color:white;
     cursor:pointer;
     font-size:14px;
-    color:#b8ce83;
-
 }
 
 div .meTitle h1
@@ -127,7 +125,7 @@ div .meTitle h1
 .meTitle .options
 {
     margin:0;
-    padding:0 10px 0 10px;
+    padding:0 0 0 10px;
     float:right;
 }
 
@@ -169,6 +167,14 @@ div .meBrokeTitle .broke_options a
 div .mebody
 {
    clear:both;
+}
+div .mebody p{
+   padding-top:3px;
+   padding-bottom:0;
+}
+div .mebody p .title{
+ font-weight:bold;
+ display:block;
 }
 
 div .me h2
@@ -262,7 +268,7 @@ border:dashed 2px #ccc; margin: 4px 10px 5px 10px; padding:6px; }
 
 
 p,h1,pre {
-margin:0px 10px 10px 10px;
+margin:0px 10px 3px 10px;
 font:Arial Helvetica sans-serif;
 text-align:justify;
 text-decoration:none;

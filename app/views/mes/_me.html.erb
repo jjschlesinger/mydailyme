@@ -2,12 +2,7 @@
     <h1><%= h me.title %></h1>
     <%if !show_only %>
     <div class="options">
-       <%= link_to_remote "-",
-        :url=>{
-            :action=>"is_collapsed", 
-            :id=>id},
-            :loading=>"show_hide('mebody_#{id}')" %>
-        <%= link_to_function('X', '') %>
+       
     </div>
     <% end %>
 <div class="meSpacer"></div>
@@ -17,27 +12,27 @@
     <a href="<%= me.image_url %>" target="_blank"><img alt="Image" src="<%= me.image_url %>" /></a>
 <% end %>
 <% if me.section1.value != "" %>
-<p><i><%= h me.section1.section.name %>:</i>
+<p><span class="title"><%= h me.section1.section.name %></span>
 <%= h me.section1.value %></p>        
 <% end %>
 
 <% if me.section2.value != "" %>
-<p><i><%= h me.section2.section.name %>:</i>
+<p><span class="title"><%= h me.section2.section.name %></span>
 <%= h me.section2.value %></p>        
 <% end %>
 
 <% if me.section3.value != "" %>
-<p><i><%= h me.section3.section.name %>:</i>
+<p><span class="title"><%= h me.section3.section.name %></span>
 <%= h me.section3.value %></p>        
 <% end %>
 
 <% if me.section4.value != "" %>
-<p><i><%= h me.section4.section.name %>:</i>
+<p><span class="title"><%= h me.section4.section.name %></span>
 <%= h me.section4.value %></p>        
 <% end %>
 
 <% if me.section5.value != "" %>
-<p><i>Soapbox:</i>
+<p><span class="title">Soapbox</span>
 <%= h me.section5.value %></p>        
 <% end %>
 <% if me.image_url != "" %><div class="meSpacer"></div><% end %>

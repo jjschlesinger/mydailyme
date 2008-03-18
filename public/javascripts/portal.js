@@ -50,9 +50,11 @@ function show_hide(id)
     if(tmp == 'none')
     {
         document.getElementById(id).style.display = 'block';
+        document.getElementById("img" + id).src = '/images/min.png';
     }
     else
     {
         document.getElementById(id).style.display = 'none';
+        document.getElementById("img" + id).src = '/images/max.png';
     }
 }
