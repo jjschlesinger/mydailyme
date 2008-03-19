@@ -5,17 +5,17 @@
                 <div class="meTitle">
                     <h1><%= h subscription.me.title %></h1>
                     <div class="options">
-			<% if subscription.collapsed 
+			<% if subscription.collapsed? 
 			      meImg = "/images/max.png"
 			else
 			      meImg = "/images/min.png"  
 			end %>
-                       <%= link_to_remote "<img src='#{meImg}' id='imgmebody_#{subscription.id}' alt='-' />",
+                       <%= link_to_remote "<img src='#{meImg}' id='imgmebody_#{subscription.id}' alt='-' class='optionImage' />",
                         :url=>{
                             :action=>"is_collapsed", 
                             :id=>subscription.id},
                             :loading=>"show_hide('mebody_#{subscription.id}')" %>
-                        <%= link_to "<img src='/images/destroy.png' alt='X' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
+                        <%= link_to "<img src='/images/destroy.png' alt='X' class='optionImage' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
                     </div>
                 <div class="meSpacer"></div>
                 </div>

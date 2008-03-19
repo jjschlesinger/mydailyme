@@ -129,6 +129,13 @@ div .meTitle h1
     float:right;
 }
 
+.optionImage
+{
+   height:20px !important;
+   width:20px !important;
+}
+
+
 div .meBrokeTitle
 {
     background-color: red;
