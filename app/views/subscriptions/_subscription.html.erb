@@ -20,8 +20,10 @@
                 <div class="meSpacer"></div>
                 </div>
                 <div class="mebody" id="<%= "mebody_#{subscription.id}" %>" <% if subscription.collapsed? %>style="display:none;"<% end %>>
-                <% if subscription.me.image_url != "" %>
-                    <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="Image" src="<%= subscription.me.image_url %>" /></a>
+                <% if subscription.me.image_url != ""
+		    img_id = "meImg_" + subscription.id.to_s
+		%>
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img id="<%=img_id%>" alt="<%=subscription.me.title%> Me Image" src="<%= subscription.me.image_url %>" onload="resize('<%=img_id%>',150);" /></a>
                 <% end %>
                 <% if subscription.me.section1.value != "" %>
                 <p><span class="title"><%= h subscription.me.section1.section.name %></span>
