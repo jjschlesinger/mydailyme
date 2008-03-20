@@ -9,10 +9,10 @@
 <div class="meSpacer"></div>
 </div>
 <div class="mebody" id="<%= "mebody_#{id}" %>">
-<% if subscription.me.image_url != ""
-    img_id = "meImg_" + subscription.id.to_s
+<% if me.image_url != ""
+    img_id = "meImg"
 %>
-    <a href="<%= subscription.me.image_url %>" target="_blank"><img id="<%=img_id%>" alt="<%=subscription.me.title%> Me Image" src="<%= subscription.me.image_url %>" onload="resize('<%=img_id%>',150);" style="display:none;" /></a>
+    <a href="<%= me.image_url %>" target="_blank"><img id="<%=img_id%>" alt="<%=me.title%> Me Image" src="<%= me.image_url %>" onload="resize('<%=img_id%>',150);" style="display:none;" /></a>
 <% end %>
 <% if me.section1.value != "" %>
 <p><span class="title"><%= h me.section1.section.name %></span>
