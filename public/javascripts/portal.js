@@ -68,4 +68,6 @@ function resize(which, max) {
   } else {
     if (elem.height > max) elem.height = max;
   }
+  
+  elem.style.display = 'block';
 }
