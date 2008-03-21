@@ -23,20 +23,25 @@
                 <% if subscription.me.image_url != ""
 		    img_id = "meImg_" + subscription.id.to_s
 		%>
-                    <a href="<%= subscription.me.image_url %>" target="_blank"><img id="<%=img_id%>" alt="<%=subscription.me.title%> Me Image" src="/images/1x1.gif" style="display:none;" /></a>
+                    <a href="<%= subscription.me.image_url %>" target="_blank"><img id="<%=img_id%>" alt="<%=subscription.me.title%> Me Image" src="/images/1x1.gif" /></a>
                 <script type="text/javascript">
                   
                   var <%=img_id%> = document.getElementById('<%=img_id%>');
+                  <%=img_id%>.src = "<%= subscription.me.image_url %>";
                   <%=img_id%>.onload = function() {
-                  <%=img_id%>.style.display = "none";
+                  <% if !request.user_agent.include? "MSIE" %>
+                        <%=img_id%>.style.display = "none";
+                  <% end %>
                   if (<%=img_id%>.width > <%=img_id%>.height) {
                     if (<%=img_id%>.width > max) <%=img_id%>.width = max;
                   } else {
                     if (<%=img_id%>.height > max) <%=img_id%>.height = max;
                   }
-                  <%=img_id%>.style.display = "block";
+                  <% if !request.user_agent.include? "MSIE" %>
+                        <%=img_id%>.style.display = "block";
+                  <% end %>
                   };
-                  <%=img_id%>.src = "<%= subscription.me.image_url %>";
+                  
                   
                 </script>
                 <% end %>
