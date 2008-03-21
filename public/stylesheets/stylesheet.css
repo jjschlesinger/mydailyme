@@ -172,6 +172,7 @@ div .meBrokeTitle .broke_options a
 div .mebody
 {
    clear:both;
+   text-align:left;
 }
 div .mebody p{
    padding-top:3px;

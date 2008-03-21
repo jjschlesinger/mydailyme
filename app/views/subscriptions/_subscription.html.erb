@@ -75,7 +75,7 @@
               <div class="meBrokeTitle">
                 <h1>Me no longer available</h1>
                 <div class="broke_options">
-                        <%= link_to_function('X', '') %>
+                        <%= link_to "<img src='/images/destroy.png' alt='X' class='optionImage' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
                 </div>
                 <div class="meSpacer"></div>
               </div>
