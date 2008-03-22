@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
     validates_length_of :password, :minimum=>5, :too_short=>"? More like ass word! Try atleast %d characters"
     validates_confirmation_of :password
     
-    attr_accessor :password, :password_confirmation
+    attr_accessor :password, :password_confirmation, :session
     
     def password=(pass)
         @password = pass
@@ -26,11 +26,16 @@ class User < ActiveRecord::Base
         return nil
       end
     end
+  
     
 protected
     
     def self.encrypt(pass)
       Digest::SHA1.hexdigest(pass)
+    end
+    
+    def self.hash_session(value)
+      Digest::SHA1.hexdigest(value + Time.now.to_f.to_s)
     end
     
 end

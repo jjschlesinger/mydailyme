@@ -16,6 +16,11 @@ class SessionsController < ApplicationController
       render :action => "new"
     else
       session['user_id'] = @user.id
+      breakpoint
+      if params[:stay_logged_in] == "1"
+        @user.update_attribute(:session_hash, User.hash_session(@user.login))
+        cookies[:token] = { :value => @user.session_hash, :expires => Time.now.next_year }
+      end
       flash[:notice] = 'Login successful.'
       if session['return_url'].nil?
         redirect_to(subscriptions_path)
@@ -31,6 +36,7 @@ class SessionsController < ApplicationController
   def destroy
     session['user_id'] = nil
     session['return_url'] = nil
+    cookies.delete(:token)
     redirect_to(new_session_path)
   end
 end

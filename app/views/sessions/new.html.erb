@@ -12,7 +12,10 @@
       <label for="user_password">Password:</label>
       <%= f.password_field :password %>
     </div>
-    
+    <div>
+      <label for="user_stay_logged_in">Stay Logged In:</label>
+      <%= check_box_tag :stay_logged_in, 1, false %>
+    </div>    
     <%= f.submit "Go" %>
   </div>  
 <% end %>

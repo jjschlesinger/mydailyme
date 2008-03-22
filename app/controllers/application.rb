@@ -11,10 +11,18 @@ class ApplicationController < ActionController::Base
   
   def is_authed
     if session['user_id'].blank?
+      #if user_id not set then check for token
+      if !cookies[:token].blank?
+        u = User.find_by_session_hash(cookies[:token])
+        if !u.nil?
+          session['user_id'] = u.id
+          return true
+        end        
+      end
       session['return_url'] = request.request_uri
       redirect_to new_session_path
     else
-      true
+      return true
     end
   end
   
