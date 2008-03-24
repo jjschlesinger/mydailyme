@@ -108,6 +108,7 @@ div .meTitle .options a
     color:white;
     cursor:pointer;
     font-size:14px;
+    text-align:right;
 }
 
 div .meTitle h1
@@ -118,13 +119,16 @@ div .meTitle h1
     margin:0;
     padding:0 0 0 10px;
     float:left;
+    width:70%;
 
 }
 .meTitle .options
 {
     margin:0;
-    padding:0 0 0 10px;
+    padding:0 0 0 5px;
     float:right;
+    text-align:right;
+    width:50px;
 }
 
 .optionImage
