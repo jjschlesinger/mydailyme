@@ -146,6 +146,7 @@ class SubscriptionsController < ApplicationController
         end 
       end
       }
+      render:nothing => true
   end
   
   def is_collapsed
