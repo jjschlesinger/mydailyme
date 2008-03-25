@@ -34,8 +34,8 @@ protected
       Digest::SHA1.hexdigest(pass)
     end
     
-    def self.hash_session(value)
-      Digest::SHA1.hexdigest(value + Time.now.to_f.to_s)
+    def self.hash_session(login, password_hash)
+      Digest::SHA1.hexdigest(login + password_hash)
     end
     
 end
