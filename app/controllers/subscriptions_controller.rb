@@ -17,8 +17,8 @@ class SubscriptionsController < ApplicationController
         render :xml => @subscriptions
       end
       format.rss  do
-        
-        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
+        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?', session['user_id']])
+        @lastUpdated =  Subscription.find(:first, :conditions=>['mes.user_id = ?', session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
         render :layout => false # uses index.rss.builder
       end
     end
