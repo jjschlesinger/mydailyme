@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
   layout 'mes'
   skip_before_filter :is_authed, :only => ['show','index']
-  before_filter :authenticate, :only => ['show', 'index']
+  before_filter :authenticate, :only => ['index']
   
   # GET /subscriptions
   # GET /subscriptions.xml
@@ -27,12 +27,28 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions/1
   # GET /subscriptions/1.xml
   def show
-    @subscription = Subscription.find(params[:id], :conditions => "user_id = #{session['user_id']}")
+    
 
     respond_to do |format|
       format.html { redirect_to(subscriptions_path) }
-      format.xml  { render :xml => @subscription }
-      format.rss  { render :layout => false } # uses show.rss.builder
+      format.xml  {
+        u = User.authenticate(params[:login], params[:password])
+        if u.nil?
+          render :nothing => true, :status => 403
+          return
+        end
+        @subscription = Subscription.find(params[:id], :conditions => "user_id = #{u.id}")
+        render :xml => @subscription
+        }
+      format.rss  {
+        u = User.authenticate(params[:login], params[:password])
+        if u.nil?
+          render :nothing => true, :status => 403
+          return
+        end
+        @subscription = Subscription.find(params[:id], :conditions => "user_id = #{u.id}")
+        render :layout => false
+        } # uses show.rss.builder
     end
   end
 
