@@ -27,11 +27,12 @@
                 <script type="text/javascript">
                   
                   var <%=img_id%> = document.getElementById('<%=img_id%>');
-                  <%=img_id%>.src = "<%= subscription.me.image_url %>";
-                  <%=img_id%>.onload = function() {
                   <% if !request.user_agent.include? "MSIE" %>
                         <%=img_id%>.style.display = "none";
-                  <% end %>
+                  <% end %>                  
+                  <%=img_id%>.src = "<%= subscription.me.image_url %>";
+                  <%=img_id%>.onload = function() {
+
                   if (<%=img_id%>.width > <%=img_id%>.height) {
                     if (<%=img_id%>.width > max) <%=img_id%>.width = max;
                   } else {
