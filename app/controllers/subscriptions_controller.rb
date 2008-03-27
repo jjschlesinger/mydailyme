@@ -13,11 +13,11 @@ class SubscriptionsController < ApplicationController
          @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']], :order => "pos_x, pos_y")
       end
       format.xml  do
-        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
+        @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
         render :xml => @subscriptions
       end
       format.rss  do
-        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?', session['user_id']])
+        @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
         @lastUpdated =  Subscription.find(:first, :conditions=>['subscriptions.user_id = ?', session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
         render :layout => false # uses index.rss.builder
       end
