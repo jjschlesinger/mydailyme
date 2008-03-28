@@ -48,27 +48,27 @@
                 <% end %>
                 <% if subscription.me.section1.value != "" %>
                 <p><span class="title"><%= h subscription.me.section1.section.name %></span>
-                <%= h subscription.me.section1.value %></p>        
+                <%= ae_some_html subscription.me.section1.value %></p>        
                 <% end %>
                 
                 <% if subscription.me.section2.value != "" %>
                 <p><span class="title"><%= h subscription.me.section2.section.name %></span>
-                <%= h subscription.me.section2.value %></p>        
+                <%= ae_some_html subscription.me.section2.value %></p>        
                 <% end %>
                 
                 <% if subscription.me.section3.value != "" %>
                 <p><span class="title"><%= h subscription.me.section3.section.name %></span>
-                <%= h subscription.me.section3.value %></p>        
+                <%= ae_some_html subscription.me.section3.value %></p>        
                 <% end %>
                 
                <% if subscription.me.section4.value != "" %>
                 <p><span class="title"><%= h subscription.me.section4.section.name %></span>
-                <%= h subscription.me.section4.value %></p>        
+                <%= ae_some_html subscription.me.section4.value %></p>        
                 <% end %>
                 
                 <% if subscription.me.section5.value != "" %>
                 <p><span class="title">Soapbox</span>
-                <%= h subscription.me.section5.value %></p>        
+                <%= ae_some_html subscription.me.section5.value %></p>        
                 <% end %>
                 <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
                 </div>

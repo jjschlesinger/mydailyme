@@ -7,7 +7,11 @@ class MesController < ApplicationController
     @mes = Me.find(:all, :conditions=>['user_id = ?',session['user_id']])
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html {
+        if @mes.length == 1
+          redirect_to(edit_me_path(@mes[0]))
+        end
+      }
       format.xml  { render :xml => @mes }
     end
   end

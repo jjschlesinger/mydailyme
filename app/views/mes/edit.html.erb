@@ -10,6 +10,6 @@
 <p><%= submit_tag "Update" %></p>
 <% end %>
 <p>
-<%= link_to 'Show', @me %> |
-<%= link_to 'Back', mes_path %>
+<%= link_to 'Invite', :controller => :invites, :action => :new, :id => @me %> |
+<%= link_to 'Delete', @me, :confirm => 'Are you sure?', :method => :delete %>
 </p>
