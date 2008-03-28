@@ -26,7 +26,7 @@ module ApplicationHelper
         # A tag support
         # href="" attribute auto-adds http://
         s = s.gsub(/&lt;a.+?href\s*=\s*['"](.+?)["'].*?&gt;(.+?)&lt;\/a&gt;/im) { |x|
-                '<a href="' + ($1.index('://') ? $1 : 'http://'+$1) + "\">" + $2 + "</a>"
+                '<a href="' + ($1.index('://') ? $1 : 'http://'+$1) + "\" target='_new'>" + $2 + "</a>"
               }
      
         # replacing newlines to <br> ans <p> tags
