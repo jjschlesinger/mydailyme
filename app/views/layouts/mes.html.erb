@@ -16,7 +16,7 @@ end %>
 </head>
 <body>
 <div id="blogtitle">
-		<div id="small"><%= link_to 'Project Me', subscriptions_path %> you suck at this game ::&nbsp;<%= link_to '<img src="images/rss.jpg" />', formatted_subscriptions_path (:format => 'rss') %></div>
+		<div id="small"><%= link_to 'Project Me', subscriptions_path %> you suck at this game ::&nbsp;<%= link_to '<img src="/images/rss.jpg" />', formatted_subscriptions_path (:format => 'rss') %></div>
 		<div id="small2">  <% if !u.nil?%><%= link_to u.login, edit_user_path(u), {:class=>'normal_text'} %> <%= link_to 'View', subscriptions_path %>  |  <%= link_to 'New Me', new_me_path %>  |  <%= link_to 'Edit', mes_path %>  |  <%= link_to 'Logout', {:controller=>"sessions", :action=>"destroy"}, :method => :delete %><% else %><%= link_to 'Login', new_session_path %><% end %></div>
 </div>
 			
