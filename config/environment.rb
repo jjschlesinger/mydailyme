@@ -63,4 +63,6 @@ Rails::Initializer.run do |config|
     :domain  => "me.projecttruck.net"
   }
 
+  config.log_level = :warn
+
 end
