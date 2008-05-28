@@ -21,9 +21,12 @@ class SubscriptionsController < ApplicationController
         @lastUpdated =  Subscription.find(:first, :conditions=>['subscriptions.user_id = ?', session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
         render :layout => false # uses index.rss.builder
       end
+      format.js do
+        @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
+        render :json => @subscriptions.to_json(:include => :me)
+      end
     end
   end
-
   # GET /subscriptions/1
   # GET /subscriptions/1.xml
   def show

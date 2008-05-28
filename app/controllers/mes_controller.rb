@@ -47,6 +47,9 @@ class MesController < ApplicationController
   # GET /mes/1/edit
   def edit
     @me = Me.find(params[:id])
+    if @me.user_id != session['user_id'].to_i
+       redirect_to(subscriptions_path)
+    end
     @sections = Section.find(:all)
     @section1 = @me.section1
     @section2 = @me.section2
@@ -112,8 +115,8 @@ class MesController < ApplicationController
   # DELETE /mes/1
   # DELETE /mes/1.xml
   def destroy
-    @me = Me.find(params[:id])
-    @me.destroy
+#    @me = Me.find(params[:id])
+#    @me.destroy
 
     respond_to do |format|
       format.html { redirect_to(mes_url) }
