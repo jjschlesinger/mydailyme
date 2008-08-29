@@ -10,5 +10,6 @@ class AddSections < ActiveRecord::Migration
   end
 
   def self.down
+    Section.delete_all
   end
 end

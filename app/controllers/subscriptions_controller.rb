@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
   layout 'mes'
   skip_before_filter :is_authed, :only => ['show','index']
-  before_filter :authenticate, :only => ['index']
+  before_filter :authenticate, :only => ['show', 'index']
   
   # GET /subscriptions
   # GET /subscriptions.xml
@@ -13,12 +13,12 @@ class SubscriptionsController < ApplicationController
          @subscriptions_col3 = Subscription.find(:all, :conditions=>['user_id = ? and pos_x = 2',session['user_id']], :order => "pos_x, pos_y")
       end
       format.xml  do
-        @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
+        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?',session['user_id']])
         render :xml => @subscriptions
       end
       format.rss  do
-        @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
-        @lastUpdated =  Subscription.find(:first, :conditions=>['subscriptions.user_id = ?', session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
+        @subscriptions = Subscription.find(:all, :conditions=>['user_id = ?', session['user_id']])
+        @lastUpdated =  Subscription.find(:first, :conditions=>['mes.user_id = ?', session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
         render :layout => false # uses index.rss.builder
       end
       format.js do
@@ -27,31 +27,16 @@ class SubscriptionsController < ApplicationController
       end
     end
   end
+
   # GET /subscriptions/1
   # GET /subscriptions/1.xml
   def show
-    
+    @subscription = Subscription.find(params[:id], :conditions => "user_id = #{session['user_id']}")
 
     respond_to do |format|
       format.html { redirect_to(subscriptions_path) }
-      format.xml  {
-        u = User.authenticate(params[:login], params[:password])
-        if u.nil?
-          render :nothing => true, :status => 403
-          return
-        end
-        @subscription = Subscription.find(params[:id], :conditions => "user_id = #{u.id}")
-        render :xml => @subscription
-        }
-      format.rss  {
-        u = User.authenticate(params[:login], params[:password])
-        if u.nil?
-          render :nothing => true, :status => 403
-          return
-        end
-        @subscription = Subscription.find(params[:id], :conditions => "user_id = #{u.id}")
-        render :layout => false
-        } # uses show.rss.builder
+      format.xml  { render :xml => @subscription }
+      format.rss  { render :layout => false } # uses show.rss.builder
     end
   end
 

@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 11) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "me_id"
+    t.string   "message",    :limit => 1000
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "me_sections", :force => true do |t|
     t.integer  "section_id"
@@ -18,6 +26,7 @@ ActiveRecord::Schema.define(:version => 9) do
     t.datetime "updated_at"
     t.integer  "section_type"
     t.string   "value",        :limit => 4000
+    t.string   "custom_name"
   end
 
   create_table "mes", :force => true do |t|

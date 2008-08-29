@@ -56,6 +56,7 @@ class MesController < ApplicationController
     @section3 = @me.section3
     @section4 = @me.section4
     @section5 = @me.section5
+    @section6 = @me.section6
   end
 
   # POST /mes

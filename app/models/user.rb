@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
         return nil
       end
     end
+    
+    def display_name
+      self.login[0, self.login.index('@')]
+    end
   
     
 protected

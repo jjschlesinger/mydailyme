@@ -1,0 +1,19 @@
+  <a href="#" onclick="$('comments_<%=subscription.id%>').toggle();">Comments</a>
+  <div id="comments_<%=subscription.id%>" style="display:none;">
+    <% if subscription.me.comments.length == 0 %>
+        <span>No comments</span>
+    <% else %>
+      <% subscription.me.comments.each do |c|  %>
+        <div>
+          <span><%= c.user.display_name %>:</span> <span><%= c.message %></span>
+        </div>
+      <% end %>
+    <% end %>
+    <div id="comment_add_<%=subscription.id%>">
+      <% form_remote_tag :url => "/comments/create/#{subscription.me.id}" do -%>
+        <div><%= text_field_tag :comment_text %></div>
+        <div><%= submit_tag 'Add Comment' %></div>
+      <% end -%>
+
+    </div>
+  </div>
