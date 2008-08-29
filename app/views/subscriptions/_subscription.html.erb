@@ -84,7 +84,10 @@
               </div>
 
               <% end %>
-              <%= render :partial => 'comments', :locals => { :subscription => subscription } %>
+              <a href="#" onclick="$('comments_<%=subscription.id%>').toggle();">Comments</a>
+              <div id="comments_<%=subscription.id%>" style="display:none;">
+              	<%= render :partial => 'comments', :locals => { :subscription => subscription } %>
+              </div>
             </div>
         <% end %>
     <% end %>
