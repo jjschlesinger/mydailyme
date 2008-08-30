@@ -557,7 +557,59 @@ if (typeof(as_rails_macros) == "undefined"
 }</macro>
 <folder id="9e607854-8140-4e29-a6e0-88b4ee6a8250" idref="6a759377-e475-408c-9450-2a0127ad0bbf" name="Views">
 </folder>
-<macro async="0" icon="chrome://famfamfamsilk/skin/icons/sport_tennis.png" id="87360d37-f4c2-46d9-8bbd-37273368ae04" idref="1f210b5c-3d3b-4a86-b1ab-a5b92bb7d3b9" keyboard_shortcut="" language="JavaScript" name="Unit Tests" rank="100" trigger="trigger_postopen" trigger_enabled="0">
+<macro async="0" icon="chrome://famfamfamsilk/skin/icons/database_delete.png" id="a8bb0ad9-3ccd-486b-b6ee-d801b0355c65" idref="b71679ae-a319-4e15-8608-681ff95326b4" keyboard_shortcut="" language="JavaScript" name="Delete Databases" rank="100" trigger="trigger_postopen" trigger_enabled="0">
+(function() {    
+    function deleteDatabases() {
+        var project = (Components.classes["@activestate.com/koPartService;1"].getService().
+                       runningMacro.project);
+        macro_executeMacro(project.getChildWithTypeAndStringAttribute('macro', 'name', 'rails_init', 1));
+	as_rails_macros.manageDatabases(this, 'delete', 'deletion');
+    };
+    try {
+        deleteDatabases();
+    } catch(ex) {
+	if (ex.message == "You cancelled.") {
+	    return;
+	}
+        var msg = ex + "\n";
+	if ('stack' in ex) msg += ex.stack + "\n";
+        alert(msg);
+    }
+})();</macro>
+<macro async="0" icon="chrome://famfamfamsilk/skin/icons/database_add.png" id="89d547a3-1740-4a0d-990e-d04b781919bd" idref="b71679ae-a319-4e15-8608-681ff95326b4" keyboard_shortcut="" language="JavaScript" name="Create Databases" rank="100" trigger="trigger_postopen" trigger_enabled="0">
+(function() {
+    function populateDatabases() {
+        var project = (Components.classes["@activestate.com/koPartService;1"].getService().
+                       runningMacro.project);
+        macro_executeMacro(project.getChildWithTypeAndStringAttribute('macro', 'name', 'rails_init', 1));
+	as_rails_macros.manageDatabases(this, 'create', 'creation');
+    };
+    try {
+        populateDatabases();
+    } catch(ex) {
+	if (ex.message == "You cancelled.") {
+	    return;
+	}
+        var msg = ex + "\n";
+	if ('stack' in ex) msg += ex.stack + "\n";
+        alert(msg);
+    }
+})();</macro>
+<folder id="1be8ac73-ee61-4047-8d80-56c229313abf" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Generators">
+</folder>
+<folder id="d37c0013-a428-4091-a4d8-490d8552ecd0" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="~Internal">
+</folder>
+<folder id="3347e224-b244-47c0-9fc8-545287dc9330" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Migrate">
+</folder>
+<folder id="f61eb32f-9c44-446d-9bc5-46153b23a082" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Run">
+</folder>
+<folder id="1f210b5c-3d3b-4a86-b1ab-a5b92bb7d3b9" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Test">
+</folder>
+<folder id="6a759377-e475-408c-9450-2a0127ad0bbf" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Snippets">
+</folder>
+<folder id="92446e4a-7bfd-4a37-a851-720398d54fe3" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="~ Misc">
+</folder>
+<macro async="0" icon="chrome://famfamfamsilk/skin/icons/sum.png" id="e2aed3e3-9443-4775-a51a-1ed733b6970d" idref="92446e4a-7bfd-4a37-a851-720398d54fe3" keyboard_shortcut="" language="JavaScript" name="Stats" rank="100" trigger="trigger_postopen" trigger_enabled="0">
 try {
     var project = (Components.classes["@activestate.com/koPartService;1"].getService().
                        runningMacro.project);
@@ -570,11 +622,13 @@ try {
         env: obj.env,
         __END__ : null
     };
-    as_rails_macros.runCommand(this, obj.rake + ' test:units', options);
+    as_rails_macros.runCommand(this, obj.rake + ' stats', options);
 } catch(ex) {
     alert(ex + "\n");
 }
 </macro>
+<folder id="b71679ae-a319-4e15-8608-681ff95326b4" idref="45167918-ab2b-4e5a-8842-3a839fa08cd0" name="Rails Tools">
+</folder>
 <macro async="0" icon="chrome://famfamfamsilk/skin/icons/bug_go.png" id="6b39edcf-bed6-4879-973c-c2d5301dd4b4" idref="f61eb32f-9c44-446d-9bc5-46153b23a082" keyboard_shortcut="" language="JavaScript" name="debug rails app" rank="100" trigger="trigger_postopen" trigger_enabled="0">
 (function() {
     function launchDebugger(editor, project, host, port, rbpath) {
@@ -686,6 +740,24 @@ try {
        alert(ex + "\n");
    }
 })();</macro>
+<macro async="0" icon="chrome://famfamfamsilk/skin/icons/sport_tennis.png" id="87360d37-f4c2-46d9-8bbd-37273368ae04" idref="1f210b5c-3d3b-4a86-b1ab-a5b92bb7d3b9" keyboard_shortcut="" language="JavaScript" name="Unit Tests" rank="100" trigger="trigger_postopen" trigger_enabled="0">
+try {
+    var project = (Components.classes["@activestate.com/koPartService;1"].getService().
+                       runningMacro.project);
+    macro_executeMacro(project.getChildWithTypeAndStringAttribute('macro', 'name', 'rails_init', 1));
+    var obj = {base: 'rake', ruby: null, rake:null, env:null};
+    as_rails_macros.setup_associated_paths_env(obj);
+    var options = {
+        dir: (Components.classes["@activestate.com/koPartService;1"].getService().
+              runningMacro.project.getFile().dirName),
+        env: obj.env,
+        __END__ : null
+    };
+    as_rails_macros.runCommand(this, obj.rake + ' test:units', options);
+} catch(ex) {
+    alert(ex + "\n");
+}
+</macro>
 <snippet id="43b7019f-e2e3-4bef-b3c8-ef9d236c97dd" idref="9e607854-8140-4e29-a6e0-88b4ee6a8250" indent_relative="true" keyboard_shortcut="" name="for x in names" set_selection="true">
 &lt;% for [[%tabstop:name]] in [[%tabstop:name]]s %&gt;
   &lt;%= !@#_currentPos!@#_anchor [[%tabstop:name]] %&gt;
@@ -699,78 +771,6 @@ try {
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 !@#_currentPos!@#_anchor</snippet>
-<macro async="0" icon="chrome://famfamfamsilk/skin/icons/database_delete.png" id="a8bb0ad9-3ccd-486b-b6ee-d801b0355c65" idref="b71679ae-a319-4e15-8608-681ff95326b4" keyboard_shortcut="" language="JavaScript" name="Delete Databases" rank="100" trigger="trigger_postopen" trigger_enabled="0">
-(function() {    
-    function deleteDatabases() {
-        var project = (Components.classes["@activestate.com/koPartService;1"].getService().
-                       runningMacro.project);
-        macro_executeMacro(project.getChildWithTypeAndStringAttribute('macro', 'name', 'rails_init', 1));
-	as_rails_macros.manageDatabases(this, 'delete', 'deletion');
-    };
-    try {
-        deleteDatabases();
-    } catch(ex) {
-	if (ex.message == "You cancelled.") {
-	    return;
-	}
-        var msg = ex + "\n";
-	if ('stack' in ex) msg += ex.stack + "\n";
-        alert(msg);
-    }
-})();</macro>
-<macro async="0" icon="chrome://famfamfamsilk/skin/icons/database_add.png" id="89d547a3-1740-4a0d-990e-d04b781919bd" idref="b71679ae-a319-4e15-8608-681ff95326b4" keyboard_shortcut="" language="JavaScript" name="Create Databases" rank="100" trigger="trigger_postopen" trigger_enabled="0">
-(function() {
-    function populateDatabases() {
-        var project = (Components.classes["@activestate.com/koPartService;1"].getService().
-                       runningMacro.project);
-        macro_executeMacro(project.getChildWithTypeAndStringAttribute('macro', 'name', 'rails_init', 1));
-	as_rails_macros.manageDatabases(this, 'create', 'creation');
-    };
-    try {
-        populateDatabases();
-    } catch(ex) {
-	if (ex.message == "You cancelled.") {
-	    return;
-	}
-        var msg = ex + "\n";
-	if ('stack' in ex) msg += ex.stack + "\n";
-        alert(msg);
-    }
-})();</macro>
-<folder id="1be8ac73-ee61-4047-8d80-56c229313abf" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Generators">
-</folder>
-<folder id="d37c0013-a428-4091-a4d8-490d8552ecd0" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="~Internal">
-</folder>
-<folder id="3347e224-b244-47c0-9fc8-545287dc9330" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Migrate">
-</folder>
-<folder id="f61eb32f-9c44-446d-9bc5-46153b23a082" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Run">
-</folder>
-<folder id="1f210b5c-3d3b-4a86-b1ab-a5b92bb7d3b9" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Test">
-</folder>
-<folder id="6a759377-e475-408c-9450-2a0127ad0bbf" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="Snippets">
-</folder>
-<folder id="92446e4a-7bfd-4a37-a851-720398d54fe3" idref="b71679ae-a319-4e15-8608-681ff95326b4" name="~ Misc">
-</folder>
-<macro async="0" icon="chrome://famfamfamsilk/skin/icons/sum.png" id="e2aed3e3-9443-4775-a51a-1ed733b6970d" idref="92446e4a-7bfd-4a37-a851-720398d54fe3" keyboard_shortcut="" language="JavaScript" name="Stats" rank="100" trigger="trigger_postopen" trigger_enabled="0">
-try {
-    var project = (Components.classes["@activestate.com/koPartService;1"].getService().
-                       runningMacro.project);
-    macro_executeMacro(project.getChildWithTypeAndStringAttribute('macro', 'name', 'rails_init', 1));
-    var obj = {base: 'rake', ruby: null, rake:null, env:null};
-    as_rails_macros.setup_associated_paths_env(obj);
-    var options = {
-        dir: (Components.classes["@activestate.com/koPartService;1"].getService().
-              runningMacro.project.getFile().dirName),
-        env: obj.env,
-        __END__ : null
-    };
-    as_rails_macros.runCommand(this, obj.rake + ' stats', options);
-} catch(ex) {
-    alert(ex + "\n");
-}
-</macro>
-<folder id="b71679ae-a319-4e15-8608-681ff95326b4" idref="45167918-ab2b-4e5a-8842-3a839fa08cd0" name="Rails Tools">
-</folder>
 <macro async="0" icon="chrome://famfamfamsilk/skin/icons/database_add.png" id="9df8363e-22dd-4ada-9485-56451d34e503" idref="1be8ac73-ee61-4047-8d80-56c229313abf" keyboard_shortcut="" language="JavaScript" name="model" rank="100" trigger="trigger_postopen" trigger_enabled="0">
 try {
     var project = (Components.classes["@activestate.com/koPartService;1"].getService().
