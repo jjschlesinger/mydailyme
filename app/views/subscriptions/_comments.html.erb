@@ -1,12 +1,11 @@
-  <a href="#" onclick="$('comments_<%=subscription.id%>').toggle();">Comments</a>
-  <div id="comments_<%=subscription.id%>" style="display:none;">
+  <a href="#" onclick="$('comments_<%=subscription.id%>').toggle();">Comments (<%= subscription.me.comments.count %>)</a>
+  <div id="comments_<%=subscription.id%>" style="<% if @collapse %>display:none;<% end %> margin-left:10px;">
     <div id="comments_list_<%=subscription.id%>">
         <%= render :partial => 'comments/comment_list', :locals => { :comments => subscription.me.comments } %>
     </div>
     <div id="comment_add_<%=subscription.id%>">
-    <% form_remote_tag :url => "/comments/create/#{subscription.me.id}", :update => "comments_list_#{subscription.id}" do -%>
-      <div><%= text_field_tag :comment_text %></div>
-      <div><%= submit_tag 'Add Comment' %></div>
+    <% form_remote_tag :url => "/comments/create/#{subscription.id}", :update => "com_#{subscription.id}" do -%>
+      <div><%= text_field_tag :comment_text %><%= image_submit_tag ("plus.png") %></div>
     <% end -%>
     
     </div>

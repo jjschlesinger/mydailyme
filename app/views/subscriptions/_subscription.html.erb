@@ -71,7 +71,11 @@
                 <%= ae_some_html subscription.me.section5.value %></p>        
                 <% end %>
                 <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
-                </div>
+                
+                <div id="com_<%=subscription.id%>" style="margin:10px;">
+				  <%= render :partial => 'comments', :locals => { :subscription => subscription } %>
+            	</div>
+              </div>
               <% else %>
               <div class="meBrokeTitle">
                 <h1>Me no longer available</h1>
@@ -84,7 +88,7 @@
               </div>
 
               <% end %>
-              <%= render :partial => 'comments', :locals => { :subscription => subscription } %>
+				 
             </div>
         <% end %>
     <% end %>

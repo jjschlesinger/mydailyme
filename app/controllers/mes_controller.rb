@@ -103,6 +103,7 @@ class MesController < ApplicationController
         @me.section3.update_attributes!(params[:section3])
         @me.section4.update_attributes!(params[:section4])
         @me.section5.update_attributes!(params[:section5])
+        @me.comments.each { |comment| comment.destroy }
         flash[:notice] = 'Me was successfully updated.'
         format.html { redirect_to(subscriptions_path) }
         format.xml  { head :ok }

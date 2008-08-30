@@ -58,7 +58,6 @@ class SubscriptionsController < ApplicationController
   def create
     @me = Me.find_by_subscribe_token(params[:subscription][:subscription_token])
     if @me.validate_auth(User.find(session['user_id']).login, params[:auth])
-      breakpoint
       @subscription = Subscription.new(params[:subscription])
       @subscription.collapsed = false
       @subscription.me = @me
