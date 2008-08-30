@@ -3,7 +3,7 @@
   <% else %>
     <% comments.each do |c|  %>
       <div>
-        <span style="color:#00487D;"><%= c.user.display_name %>:</span> <span><%= c.message %></span>
+        <span style="color:#00487D;"><%= h c.user.display_name %>:</span> <span><%= h c.message %></span>
       </div>
     <% end %>
   <% end %>
