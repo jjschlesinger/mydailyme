@@ -1,4 +1,6 @@
 class SubscriptionsController < ApplicationController
+  require 'cgi'
+  
   layout 'mes'
   skip_before_filter :is_authed, :only => ['show','index']
   before_filter :authenticate, :only => ['show', 'index']
@@ -22,8 +24,13 @@ class SubscriptionsController < ApplicationController
         render :layout => false # uses index.rss.builder
       end
       format.js do
-        @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
-        render :json => @subscriptions.to_json(:include => :me)
+        if session['user_id'].nil?
+          render :json => {:error => 'login failed'}, :status => 403
+        else
+          @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
+          render :json => @subscriptions.to_json(:include => { :me => { :include => { :me_sections => { :include => :section } } } })
+        end
+        #render :json => @subscriptions.to_json
       end
     end
   end
@@ -162,7 +169,7 @@ protected
   def authenticate
     breakpoint
     case request.format
-    when Mime::XML, Mime::ATOM, Mime::RSS
+    when Mime::ATOM, Mime::RSS
       authenticate_or_request_with_http_basic('Project Me') do |username, password|
         session['user_id'] = User.authenticate(username, password).id
         breakpoint
@@ -172,9 +179,19 @@ protected
           true
         end
       end
+    when Mime::XML, Mime::JS
+        user = CGI.unescape(params[:user])
+        pass = CGI.unescape(params[:pass])
+        u = User.authenticate_api(user, pass)
+        if u.nil?
+          session['user_id'] = nil
+          false
+        else
+          session['user_id'] = u.id
+          true
+        end      
     else
       is_authed
     end
   end
-
 end
