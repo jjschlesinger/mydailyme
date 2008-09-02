@@ -28,7 +28,7 @@ class SubscriptionsController < ApplicationController
           render :json => {:error => 'login failed'}, :status => 403
         else
           @subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
-          render :json => @subscriptions.to_json(:include => { :me => { :include => { :me_sections => { :include => :section } } } })
+          render :json => @subscriptions.to_json(:include => { :me => { :include => { :me_sections => { :include => :section }, :comments => { :include => :user } } } })
         end
         #render :json => @subscriptions.to_json
       end

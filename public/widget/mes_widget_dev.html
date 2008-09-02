@@ -178,6 +178,34 @@
                 }
               }
               
+              var c = widget.createElement('p');
+              var c_title = widget.createElement('p');
+              var c_title_span = widget.createElement('span');
+              c_title_span.className = 'me-section-title';
+              c_title_span.innerHTML = "<br/>Comments (" + meWidget.subscriptions[i].me.comments.length + ")";
+              c_title.appendChild(c_title_span);
+              c.appendChild(c_title);
+              
+              var com_div = widget.createElement('div');
+              com_div.style.display = 'none';
+              c.onclick = function() {
+                com_div.toggle();  
+              };
+              c.style.cursor = 'pointer';
+              for(var k = 0; k < meWidget.subscriptions[i].me.comments.length; k++ )
+              {
+                var c_content = widget.createElement('p');
+                var display_name = meWidget.subscriptions[i].me.comments[k].user.login
+                display_name = display_name.substring(0, display_name.indexOf('@'))
+                c_content.innerHTML = display_name + ": " + meWidget.subscriptions[i].me.comments[k].message;
+                
+                com_div.appendChild(c_content);
+                
+              }
+
+              meItem.appendChild(c);
+              meItem.appendChild(com_div);
+              
               meList.appendChild(meItem);
             }
             
