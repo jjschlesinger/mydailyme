@@ -197,7 +197,7 @@
                 var c_content = widget.createElement('p');
                 var display_name = meWidget.subscriptions[i].me.comments[k].user.login
                 display_name = display_name.substring(0, display_name.indexOf('@'))
-                c_content.innerHTML = display_name + ": " + meWidget.subscriptions[i].me.comments[k].message;
+                c_content.innerHTML = "<strong>" + display_name + ":</strong> " + meWidget.subscriptions[i].me.comments[k].message;
                 
                 com_div.appendChild(c_content);
                 
