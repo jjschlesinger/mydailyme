@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:widget="http://www.netvibes.com/ns/">
+  <head>
+ 
+    <meta name="author" content="Josh Schlesinger" />
+    <meta name="description" content="Project Truck Widget - My Trucks" />
+ 
+    <meta name="apiVersion" content="1.0" />
+    <meta name="autoRefresh" content="20" />
+    <meta name="debugMode" content="true" />
+ 
+    <link rel="stylesheet" type="text/css" 
+      href="http://www.netvibes.com/themes/uwa/style.css" />
+    <script type="text/javascript" 
+      src="http://www.netvibes.com/js/UWA/load.js.php?env=Standalone"></script>
+ 
+    <title>Project Truck Widget - My Trucks</title>
+    <link rel="icon" type="image/png" 
+      href="http://jschlesinger.net/favicon.ico" />
+ 
+<!-- Add your UWA preferences as needed -->
+    <widget:preferences>
+      <preference name="pt_user_id" type="text" label="Project Truck UserId" 
+        defaultValue="" />
+    </widget:preferences>
+ 
+    <style type="text/css">
+     /* Add your CSS rules */
+    </style>
+    
+    <script type="text/javascript">
+      var truckWidget = {
+        trucks: {},
+ 
+        parse: function(t) {
+          if (t) truckWidget.trucks = t;
+          
+          var truckList = widget.createElement('div');
+          truckList.className = 'nv-richList';
+          
+          for(var i = 0; i < truckWidget.trucks.length; i++)
+          {
+            var truckItem = widget.createElement('div')
+            truckItem.className = 'item';
+            var h3 = widget.createElement('h3');
+            var truckItemLink = widget.createElement('a');
+            truckItemLink.href = 'http://jschlesinger.net:3000/trucks/' + truckWidget.trucks[i].id;
+            truckItemLink.target = '_blank';
+            truckItemLink.innerHTML = truckWidget.trucks[i].title;
+            h3.appendChild(truckItemLink);
+            truckItem.appendChild(h3);
+            truckList.appendChild(truckItem);
+          }
+          
+          widget.setBody(truckList);
+        }
+      }
+ 
+      widget.onLoad = function() {
+        // the URL should return 'World' in plain text
+        UWA.Data.getJson('http://jschlesinger.net:3000/users/' + widget.getValue('pt_user_id') + '/trucks.js', truckWidget.parse);
+      }
+    </script>    
+  </head>
+  <body>
+    <p>Loading...</p>
+  </body>
+</html>

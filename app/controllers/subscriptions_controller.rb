@@ -167,12 +167,10 @@ class SubscriptionsController < ApplicationController
   
 protected
   def authenticate
-    breakpoint
     case request.format
     when Mime::ATOM, Mime::RSS
       authenticate_or_request_with_http_basic('Project Me') do |username, password|
         session['user_id'] = User.authenticate(username, password).id
-        breakpoint
         if session['user_id'].nil?
           false
         else

@@ -27,6 +27,17 @@ class User < ActiveRecord::Base
       end
     end
     
+    def self.authenticate_api(login, pass)
+      api_u = find(:first, :conditions=>["login = ?", login])
+      breakpoint
+      return nil if api_u.nil?
+      if pass == api_u.hashed_password
+        return api_u
+      else
+        return nil
+      end
+    end
+    
     def display_name
       self.login[0, self.login.index('@')]
     end

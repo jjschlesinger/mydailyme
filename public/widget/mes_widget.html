@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:widget="http://www.netvibes.com/ns/">
+  <head>
+ 
+    <meta name="author" content="Josh Schlesinger" />
+    <meta name="description" content="Project Me - Subscriptions" />
+    <meta name="website" content="http://me.projecttruck.net" />
+ 
+    <meta name="apiVersion" content="1.0" />
+    <meta name="autoRefresh" content="20" />
+    <meta name="debugMode" content="true" />
+ 
+    <link rel="stylesheet" type="text/css" 
+      href="http://www.netvibes.com/themes/uwa/style.css" />
+    <script type="text/javascript" 
+      src="http://www.netvibes.com/js/UWA/load.js.php?env=Standalone"></script>
+    <script type="text/javascript" src="http://www.jschlesinger.net/sha1.js"></script>
+ 
+    <title>Project Me Widget - Subscriptions</title>
+    <link rel="icon" type="image/png" 
+      href="http://jschlesinger.net/favicon.ico" />
+ 
+<!-- Add your UWA preferences as needed -->
+    <widget:preferences>
+      <preference name="username" type="text" label="Username" />
+      <preference name="pass" type="password" label="Password" />
+      <preference name="enable_paging" type="boolean" label="Enable Paging" />
+      <preference name="page_size" type="range" label="Number of items to display" defaultValue="1" step="1" min="1" max="5" />
+    </widget:preferences>
+ 
+    <style type="text/css">
+     /* Add your CSS rules */
+      .me-item
+      {
+        margin-bottom: 10px;;
+        clear: both;
+        overflow: hidden;
+        width: 100%;
+        color: gray;
+        font-family: sans-serif;
+        font-size: 11px;       
+      }
+      
+      .me-item h3
+      {
+        color: black;
+      }
+      
+      .me-item img
+      {
+       float: left;
+       max-width: 100px;
+       max-height: 150px;
+       margin-right: 3px;
+      }
+      
+
+       .me-item p
+      {
+         margin: 0 0 5px 0;
+         text-align: justify;
+         text-decoration: none;
+      }
+      
+      .me-item p .me-section-title
+      {
+        display:block;
+        font-weight:bold;
+      }
+      
+      .me-home-link
+      {
+        width: 100%;
+        text-align: right;
+      }       
+   
+    </style>
+    
+    <script type="text/javascript">
+      var page = 1;
+    
+      var meWidget = {
+        subscriptions: {},
+ 
+        parse: function(s) {
+          if (s) meWidget.subscriptions = s;
+          
+          var meList = widget.createElement('div');
+          
+          var divHome = widget.createElement('div');
+          divHome.className = 'me-home-link';
+          var homeLink = widget.createElement('a');
+          homeLink.href = 'http://me.projecttruck.net';
+          homeLink.target = '_blank';
+          homeLink.setText('me.projecttruck.net');
+          divHome.appendChild(homeLink);
+          meList.appendChild(divHome);
+          
+          
+          if(meWidget.subscriptions.length)
+          {
+            var maxItems = 0;
+            maxItems = meWidget.subscriptions.length;
+            widget.log(widget.getValue('enable_paging'));
+            if(widget.getValue('enable_paging') == 'true')
+            {
+              maxItems = parseInt(widget.getValue('page_size'));
+              maxItems = maxItems + (page - 1)
+              //page = widget.getValue('page');
+              widget.log('page: ' + page + ', maxItems: ' + maxItems);
+            }
+            else
+            {
+              page = 1;
+              widget.log('no paging, page: ' + page + ', maxItems: ' + maxItems);
+            }
+            
+            var startIndex = 0;
+            if(page > 1)
+              startIndex = page - 1;
+            
+            widget.log("startIndex = " + startIndex);
+            widget.log("1. maxItems = " + maxItems);
+            if(maxItems > meWidget.subscriptions.length)
+              maxItems = meWidget.subscriptions.length;
+              
+            widget.log("2. maxItems = " + maxItems);
+            
+            for(var i = startIndex; i < maxItems; i++)
+            {
+              widget.log("i = " + i);
+              page = i + 1;
+              var meItem = widget.createElement('div');
+              meItem.className = 'me-item';
+              
+              var h3 = widget.createElement('h3');
+              h3.innerHTML = meWidget.subscriptions[i].me.title;
+              meItem.appendChild(h3);
+              
+              if(meWidget.subscriptions[i].me.image_url.length > 0)
+              {
+                var img_a = widget.createElement('a');
+                img_a.href = meWidget.subscriptions[i].me.image_url;
+                img_a.target = '_blank';
+              
+                var img = widget.createElement('img');
+                img.src = meWidget.subscriptions[i].me.image_url;
+                
+                img_a.appendChild(img);
+                meItem.appendChild(img_a);
+              }
+              
+              for(var j = 0; j < meWidget.subscriptions[i].me.me_sections.length; j++ )
+              {
+                var section_value = meWidget.subscriptions[i].me.me_sections[j].value;
+                var section_title;
+                if(j != 4)
+                  section_title = meWidget.subscriptions[i].me.me_sections[j].section.name;
+                else
+                  section_title = 'Soapbox';
+                
+                if(section_value.length > 0)
+                {
+                  var s = widget.createElement('p');
+                  var s_title = widget.createElement('p');
+                  var s_title_span = widget.createElement('span');
+                  s_title_span.className = 'me-section-title';
+                  s_title_span.innerHTML = section_title;
+                  s_title.appendChild(s_title_span);
+                  s.appendChild(s_title);
+                  var s_content = widget.createElement('p');
+                  s_content.innerHTML = section_value;
+                  s.appendChild(s_content);
+                  meItem.appendChild(s);
+                }
+              }
+              
+              meList.appendChild(meItem);
+            }
+            
+            if(widget.getValue('enable_paging') == 'true')
+            {
+              var divPager = widget.createElement('div');
+              divPager.className = 'me-home-link';
+              var pagerLink = widget.createElement('a');
+              pagerLink.href = '#';
+              pagerLink.onclick = function()
+                {
+                  
+                  //widget.setValue('page', page++);
+                  //widget.log('page inc: ' + widget.getValue('page'));
+                  widget.log('pagerLink.onclick, page: ' + page + ', maxItems: ' + maxItems);
+                  if(page == meWidget.subscriptions.length)
+                    page = 1;
+                  else
+                    page++;// = page + maxItems;
+                  
+                  meWidget.parse(meWidget.subscriptions);
+                  return false;
+                };
+              pagerLink.setText('next ->');
+              
+              var pagerLink2 = widget.createElement('a');
+              pagerLink2.href = '#';
+              pagerLink2.onclick = function()
+                {
+                  
+                  //widget.setValue('page', page++);
+                  //widget.log('page inc: ' + widget.getValue('page'));
+                  widget.log('pagerLink2.onclick, page: ' + page + ', maxItems: ' + maxItems);
+                  if(page == 1)
+                    page = meWidget.subscriptions.length - 1;
+                  else
+                    page--;// = page + maxItems;
+                  
+                  meWidget.parse(meWidget.subscriptions);
+                  return false;
+                };
+              pagerLink2.setText('<- prev  ');
+              divPager.appendChild(pagerLink2);
+              divPager.appendChild(pagerLink);
+              meList.appendChild(divPager);
+            }
+          }
+          else
+          {
+            meList.setText("login failed");
+          }
+          
+          widget.setBody(meList);
+        }
+      }
+      
+      widget.onLoad = function() {
+        //UWA.Data.getJson('http://me.projecttruck.net/subscriptions.js', meWidget.parse);
+        widget.log('load called');
+        if ( widget.getValue('username') )
+        {
+          var user = encodeURIComponent(widget.getValue('username'));
+          var hashedPass;
+          
+          if(widget.getValue('pass'))
+          {
+            //alert(widget.getValue('pass'));
+            hashedPass = encodeURIComponent(sha1Hash(widget.getValue('pass')));
+            createCookie('me_hash', hashedPass, 365);
+          }
+          else
+          {
+            //alert(readCookie('me_hash'));
+            hashedPass = readCookie('me_hash');
+          }
+          UWA.Data.getJson('http://me.projecttruck.net/subscriptions.js?user=' + user + '&pass=' + hashedPass, meWidget.parse);
+        }
+        else
+        {
+          widget.body.getElementById('main_content').setHTML('Please authenticate.');
+        }
+      }
+      
+      widget.onRefresh = function() {
+        page = 1;
+        widget.onLoad();
+      }
+      
+      function readCookie(name) {
+          var nameEQ = name + "=";
+          var ca = document.cookie.split(';');
+          for(var i=0;i < ca.length;i++) {
+              var c = ca[i];
+              while (c.charAt(0)==' ') c = c.substring(1,c.length);
+              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+          }
+          return null;
+      }
+      
+      function createCookie(name,value,days) {
+          if (days) {
+              var date = new Date();
+              date.setTime(date.getTime()+(days*24*60*60*1000));
+              var expires = "; expires="+date.toGMTString();
+          }
+          else var expires = "";
+          document.cookie = name+"="+value+expires+"; path=/";
+      }      
+
+    </script>    
+  </head>
+  <body>
+    <div id="main_content">Loading...</div>
+  </body>
+</html>
