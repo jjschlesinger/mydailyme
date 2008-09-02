@@ -16,7 +16,7 @@ end %>
 </head>
 <body>
 <div id="blogtitle">
-		<div id="small"><%= link_to 'Project Me', subscriptions_path %> you suck at this game ::&nbsp;<%= link_to '<img src="/images/rss.jpg" />', formatted_subscriptions_path (:format => 'rss') %>&nbsp;<a href="http://www.netvibes.com/subscribe.php?uwa=http%3A//www.jschlesinger.net/mes.html" target="_blank"><img src="http://www.netvibes.com/img/add2netvibes.gif" border="none" width="91" height="17" alt="Add to Netvibes"  /></a></div>
+		<div id="small"><%= link_to 'Project Me', subscriptions_path %> you suck at this game ::&nbsp;<%= link_to '<img src="/images/rss.jpg" />', formatted_subscriptions_path (:format => 'rss') %>&nbsp;<a href="http://www.netvibes.com/subscribe.php?uwa=http%3A//me.projecttruck.net/widget/mes_widget.html" target="_blank"><img src="http://www.netvibes.com/img/add2netvibes.gif" border="none" width="91" height="17" alt="Add to Netvibes"  /></a></div>
 		<div id="small2">  <% if !u.nil?%><%= link_to u.login, edit_user_path(u), {:class=>'normal_text'} %> <%= link_to 'View', subscriptions_path %>  |  <%= link_to 'New Me', new_me_path %>  |  <%= link_to 'Edit', mes_path %>  |  <%= link_to 'Logout', {:controller=>"sessions", :action=>"destroy"}, :method => :delete %><% else %><%= link_to 'Login', new_session_path %><% end %></div>
 </div>
 			
