@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
       
     end
     
-    rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid => @error_msg
       	#render :partial => "subscriptions/comments", :locals => { :subscription => @subscription, :error_message => e.record.errors.full_messages.join(", ").sub("Message ", "") }, :layout => false, :status => 444
   end
   
