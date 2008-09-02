@@ -11,7 +11,7 @@ class Me < ActiveRecord::Base
     has_many :me_sections
 #    has_many :sections, :through => :me_sections
     has_many :subscriptions, :include => 'me', :conditions => 'mes.subscribe_token = subscriptions.subscription_token'
-    has_many :comments
+    has_many :comments, :order => "id"
     
     def validate_auth(email, auth)
         true_auth = Digest::SHA1.hexdigest(email + subscribe_token)
