@@ -8,19 +8,20 @@ class CommentsController < ApplicationController
       	collapse = true
       end 
       @subscription = Subscription.find params[:id]
-     @subscription.me.comments << Comment.create!(:user_id => session['user_id'], :message => params[:comment_text])
+     @subscription.me.comments << Comment.create!(:user_id => session['user_id'], :message => params["comment_text_#{@subscription.id}"])
+     
 
 	  dontCollapse = false
 
 	  #@result = @me.comments.to_json
 	  #render :layout => false
-	  render :partial => "subscriptions/comments", :locals => { :subscription => @subscription }, :layout => false
+	  #render :partial => "subscriptions/comments", :locals => { :subscription => @subscription }, :layout => false
 	  
       
     end
     
     rescue ActiveRecord::RecordInvalid => e
-      	render :partial => "subscriptions/comments", :locals => { :subscription => @subscription, :error_message => e.record.errors.full_messages.join(", ").sub("Message ", "") }, :layout => false, :status => 444
+      	#render :partial => "subscriptions/comments", :locals => { :subscription => @subscription, :error_message => e.record.errors.full_messages.join(", ").sub("Message ", "") }, :layout => false, :status => 444
   end
   
   def destroy
