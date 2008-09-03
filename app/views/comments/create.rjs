@@ -1,10 +1,10 @@
 page.replace_html 'comments_list_' + @subscription.id.to_s, :partial => 'comments/comment_list', :locals => { :comments => @subscription.me.comments }
 if @error_msg.nil?
   page.visual_effect :highlight, 'comments_list_' + @subscription.id.to_s, :duration => 1, :startcolor => "#b8ce83", :endcolor => "#ffffff"
+  page.replace_html 'comments_link_' + @subscription.id.to_s, "Comments (#{@subscription.me.comments.length})"
+  page["comment_text_#{@subscription.id}"].clear
 else
   page.replace_html 'comment_error_' + @subscription.id.to_s, @error_msg.record.errors.full_messages.join(", ").sub("Message ", "")
   page.visual_effect :highlight, 'comment_error_' + @subscription.id.to_s, :duration => 1, :startcolor => "#ff0000", :endcolor => "#ffffff"
 end
 
-page.replace_html 'comments_link_' + @subscription.id.to_s, "Comments (#{@subscription.me.comments.length})"
-page["comment_text_#{@subscription.id}"].clear

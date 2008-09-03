@@ -1,3 +1,14 @@
+<%= javascript_include_tag "tooltip" %>
+<div id='enable_comments_tt' style="display:none; padding: 15px; background-color: black; color: #b8ce83; font-weight: bold;" >
+  Uncheck this box to disable commenting on your me.<br />
+</div>
+<div id='keep_comments_tt' style="display:none; padding: 15px; background-color: black; color: #b8ce83; font-weight: bold;">
+  Check this box to keep all existing comments.<br/>
+  Normally, the comments will be cleared whenever your <br/>
+  me is updated. You should only check this box when <br/>
+  making minor tweaks to your me.<br />
+</div>
+
 <p>
   <b>Title</b><br />
   <%= text_field :me, :title %>
@@ -31,3 +42,13 @@
   <%= text_area 'section5', 'value' %>
   <%= hidden_field 'section5', 'section_type' %>
 </p>
+<p>
+  <label for="enable_comments">Enable Comments:</label><%= check_box :me, :enable_comments, {}, 1, 0 %>
+</p>
+<p>
+  <label for="keep_comments">Keep Previous Comments:</label><%= check_box_tag('keep_comments', 1, false) %>
+</p>
+<script type="text/javascript">
+  var tt1 = new Tooltip('me_enable_comments', 'enable_comments_tt')
+  var tt2 = new Tooltip('keep_comments', 'keep_comments_tt')
+</script>

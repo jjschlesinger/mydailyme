@@ -73,7 +73,9 @@
                 <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
                 
                 <div id="com_<%=subscription.id%>" style="margin:10px;">
-				  <%= render :partial => 'comments', :locals => { :subscription => subscription, :error_message => "" } %>
+                  <% if subscription.me.enable_comments? %>
+                        <%= render :partial => 'comments', :locals => { :subscription => subscription, :error_message => "" } %>
+                  <% end %>
             	</div>
               </div>
               <% else %>
