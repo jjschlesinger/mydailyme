@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
       end 
       @subscription = Subscription.find params[:id]
      @subscription.me.comments << Comment.create!(:user_id => session['user_id'], :message => params["comment_text_#{@subscription.id}"])
-     
+     @subscription.me.save
 
 	  dontCollapse = false
 
