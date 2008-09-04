@@ -71,7 +71,9 @@
                 <%= ae_some_html subscription.me.section5.value %></p>        
                 <% end %>
                 <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
-                
+
+                <div style="color:#a6a6a6;text-align:right;margin-right:5px;margin-top:15px;font-size:smaller;"><%= distance_of_time_in_words(Time.now, subscription.me.updated_at) %> ago</div>
+
                 <div id="com_<%=subscription.id%>" style="margin:10px;">
                   <% if subscription.me.enable_comments? %>
                         <%= render :partial => 'comments', :locals => { :subscription => subscription, :error_message => "" } %>
