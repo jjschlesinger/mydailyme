@@ -7,9 +7,23 @@
     <label for="reset_token">Reset Subscription Token:</label><%= check_box_tag('reset_token', 1, false) %>
   </p>
   <%= render :partial => 'form' %>
-<p><%= submit_tag "Update" %></p>
+<p><%= submit_tag "Update" %>
+<input type="button" name="clear_me" value="Clear" onclick="clearMe();" />
+</p>
 <% end %>
 <p>
 <%= link_to 'Invite', :controller => :invites, :action => :new, :id => @me %> |
 <%= link_to 'Delete', @me, :confirm => 'Are you sure?', :method => :delete %>
 </p>
+<script type="text/javascript">
+   function clearMe()
+   {
+      $('me_title').clear();
+      $('me_image_url').clear();
+      $('section1_value').clear();
+      $('section2_value').clear();
+      $('section3_value').clear();
+      $('section4_value').clear();
+      $('section5_value').clear();
+   }
+</script>
