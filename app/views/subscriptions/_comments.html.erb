@@ -5,7 +5,7 @@
     </div>
     <div id="comment_add_<%=subscription.id%>">
     <% form_remote_tag :url => "/comments/create/#{subscription.id}" do -%>
-      <div><%= text_area_tag "comment_text_#{subscription.id}", nil, :size => "20x3" %><%= image_submit_tag ("plus.png") %></div>
+      <div><%= text_area_tag "comment_text_#{subscription.id}", nil, :size => "30x3" %><%= image_submit_tag ("plus.png") %></div>
     <% end -%>
     
     </div>
