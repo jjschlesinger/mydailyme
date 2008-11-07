@@ -1,11 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">
  <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-    	<meta http-equiv="Content-Language" content="en-us" />
-        <title></title>
-        </head>
+	<head>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en-us" />
+		<title>Mes: <%= controller.action_name %></title>
+		<%= stylesheet_link_tag 'm' %>    	
+	</head>
   <body>
- 
+		<div id="main"> 
+			<div id="notice"><%= flash[:notice] %><div id="error"><%= flash[:error] %></div></div>
+			<%= yield  %>
+		</div>
   </body>
 </html>

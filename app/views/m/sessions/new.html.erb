@@ -1,9 +1,7 @@
-<h1>Hi.</h1>
-
 <%= error_messages_for :user %>
 
-<% form_for(:user, @user, :url => {:controller=>'sessions', :action=>'create'}) do |f| %>
-<div id="formElements">    
+<% form_for(:user, @user, :url => {:controller=>'m/sessions', :action=>'create'}) do |f| %>
+<div id="formElements">
       <div>
       <label for="user_login">Login:</label>
       <%= f.text_field :login %>
