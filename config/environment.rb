@@ -64,5 +64,6 @@ Rails::Initializer.run do |config|
 #  }
 
   config.log_level = :warn
+  config.load_paths << "#{RAILS_ROOT}/app/lib"
 
 end
