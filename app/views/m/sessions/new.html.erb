@@ -2,12 +2,12 @@
 
 <% form_for(:user, @user, :url => {:controller=>'m/sessions', :action=>'create'}) do |f| %>
 <div id="formElements">
-      <div>
-      <label for="user_login">Login:</label>
+    <div>
+      <label for="user_login">Login:</label><br/>
       <%= f.text_field :login %>
     </div>
     <div>
-      <label for="user_password">Password:</label>
+      <label for="user_password">Password:</label><br/>
       <%= f.password_field :password %>
     </div>
     <div>
@@ -17,5 +17,3 @@
     <%= f.submit "Go" %>
   </div>  
 <% end %>
-
-<%= link_to 'Create an Account', new_user_path %><br />
