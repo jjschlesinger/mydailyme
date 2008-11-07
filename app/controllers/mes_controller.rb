@@ -99,7 +99,9 @@ class MesController < ApplicationController
 
     respond_to do |format|
       if @me.update_attributes(params[:me])
-		unless @me.image_url.blank?
+		if @me.image_url.blank?
+			@me.update_attribute('image_thumbnail', '')
+		else
 			@me.update_attribute('image_thumbnail', MeImage.grab_image(@me.id, @me.image_url))
 		end
 
