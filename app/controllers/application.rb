@@ -26,4 +26,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def is_m
+  	if request.request_uri[0..2] == "/m/"
+  		true
+  	else
+  		false
+  	end
+  end
+  
 end

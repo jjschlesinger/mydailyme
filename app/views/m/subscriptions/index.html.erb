@@ -1,0 +1,45 @@
+<div class="me">
+<% if !@current_me.nil? %>
+	<div class="meTitle">
+		<h1><%= h @current_me.title %></h1>
+			<div class="meSpacer"></div>
+	</div>
+	<div class="mebody">
+		<a href="<%= @current_me.image_url %>" target="_blank"><img alt="<%=@current_me.title%> Me Image" src="<%= @current_me.image_thumbnail %>" /></a>
+		<% if @current_me.section1.value != "" %>
+		<p><span class="title"><%= h @current_me.section1.section.name %></span></p>
+		<%= ae_some_html @current_me.section1.value %>        
+		<% end %>
+		
+		<% if @current_me.section2.value != "" %>
+		<p><span class="title"><%= h @current_me.section2.section.name %></span></p> 
+		<%= ae_some_html @current_me.section2.value %>       
+		<% end %>
+		
+		<% if @current_me.section3.value != "" %>
+		<p><span class="title"><%= h @current_me.section3.section.name %></span></p>
+		<%= ae_some_html @current_me.section3.value %>        
+		<% end %>
+		
+	 <% if @current_me.section4.value != "" %>
+		<p><span class="title"><%= h @current_me.section4.section.name %></span></p>
+		<%= ae_some_html @current_me.section4.value %>        
+		<% end %>
+		
+		<% if @current_me.section5.value != "" %>
+		<p><span class="title">Soapbox</span></p>
+		<%= ae_some_html @current_me.section5.value %>        
+		<% end %>
+		<% if @current_me.image_url != "" %><div class="meSpacer"></div><% end %>
+
+		<div style="color:#a6a6a6;text-align:right;margin-right:5px;margin-top:15px;font-size:smaller;"><%= distance_of_time_in_words(Time.now, @current_me.updated_at) %> ago</div>
+	</div>
+<% else %>
+	<div class="meBrokeTitle">
+		<h1>Me no longer available</h1>
+		<div class="meSpacer"></div>
+	</div>
+	<div class="mebody">
+	</div>
+<% end %>
+</div>

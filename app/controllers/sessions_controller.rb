@@ -16,14 +16,18 @@ class SessionsController < ApplicationController
       render :action => "new"
     else
       session['user_id'] = @user.id
-      breakpoint
       if params[:stay_logged_in] == "1"
         @user.update_attribute(:session_hash, User.hash_session(@user.login, @user.hashed_password))
         cookies[:token] = { :value => @user.session_hash, :expires => Time.now.next_year }
       end
       flash[:notice] = 'Login successful.'
+      
       if session['return_url'].nil?
-        redirect_to(subscriptions_path)
+        if is_m
+        	redirect_to(m_subscriptions_path)
+        else
+        	redirect_to(subscriptions_path)
+        end
       else
         redirect_to(session['return_url'])  
       end

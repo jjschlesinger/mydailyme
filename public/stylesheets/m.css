@@ -1,0 +1,171 @@
+﻿body{
+background:#ffffff
+margin:10px 10px 0px 10px;
+padding:0px;
+color:#000000;
+font-family:"Trebuchet MS",arial,sans-serif;
+font-size:70.5%;
+}
+img{
+border:0;
+}
+
+.meSpacer
+{
+   height:2px;
+   clear:both;
+}
+div .me
+{
+   border: solid 1px gray;
+   margin-bottom:20px;
+   font-size:11px;
+   color:gray;
+   font-family:sans-serif;
+   clear:both;
+   background-color:white;
+}
+div .me img
+{
+   display: inline;
+   float:left;
+   text-align: left;
+   margin: 0 4px 2px 0;
+   padding:0;
+}
+div .meTitle
+{
+   
+    background-color:#bc7932;
+    width:100%;
+    cursor:move;
+    clear:both;
+}
+
+div .meTitle .options a
+{
+   
+    color:white;
+    cursor:pointer;
+    font-size:14px;
+    text-align:right;
+}
+
+div .meTitle h1
+{
+   font-weight:500;
+    font-size:14px;
+    color:black;
+    margin:0;
+    padding:0 0 0 10px;
+    float:left;
+    width:70%;
+
+}
+.meTitle .options
+{
+    margin:0;
+    padding:0 0 0 5px;
+    float:right;
+    text-align:right;
+    width:50px;
+}
+
+.optionImage
+{
+   height:20px !important;
+   width:20px !important;
+}
+
+
+div .meBrokeTitle
+{
+    background-color: red;
+    width:100%;
+    cursor:move;
+    clear:both;
+}
+
+div .meBrokeTitle h1
+{
+   font-weight:500;
+    font-size:14px;
+    color:white;
+    margin:0;
+    padding:0 0 0 10px;
+    float:left;
+
+}
+
+.meBrokeTitle .broke_options
+{
+    margin:0;
+    padding:0 10px 0 10px;
+    float:right;
+}
+
+div .meBrokeTitle .broke_options a
+{
+   
+    color:white;
+    cursor:pointer;
+    font-size:14px;
+
+}
+
+div .mebody
+{
+   clear:both;
+   text-align:left;
+}
+div .mebody p{
+   padding-top:3px;
+   padding-bottom:0;
+}
+div .mebody p .title{
+ font-weight:bold;
+ display:block;
+}
+
+div .me h2
+{
+    margin:0;
+    padding:0 0 0 10px;
+    font-weight:400;
+    font-size:1.4em;
+    color:gray;
+    display:inline;
+}
+
+UL.BLUE {
+list-style: url(images/bullet.jpg) disc;
+font-size: 1.1em;
+
+}
+
+a, a:link, a:visited {
+color:#d38d42;
+text-decoration:none;
+font-weight:600;
+}
+
+a:hover, a:active{ color:#FF6666;}
+
+p,h1,pre {
+margin:0px 10px 3px 10px;
+font:Arial Helvetica sans-serif;
+text-align:justify;
+text-decoration:none;
+}
+
+h1 {
+font-size:2.5em;
+color:#ccc;
+
+}
+
+h3 {
+font-size:14px;
+color:#999;
+
+}
