@@ -17,12 +17,12 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :m do |m|
     	m.resources :subscriptions
-    	map.resources :me_sections
-			map.resources :sections
-			map.resources :mes
-			map.resources :sessions
-			map.resources :users
-			map.resources :invites
+    	m.resources :me_sections
+			m.resources :sections
+			m.resources :mes
+			m.resources :sessions
+			m.resources :users
+			m.resources :invites
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

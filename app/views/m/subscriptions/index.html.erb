@@ -5,30 +5,32 @@
 			<div class="meSpacer"></div>
 	</div>
 	<div class="mebody">
-		<a href="<%= @current_me.image_url %>" target="_blank"><img alt="<%=@current_me.title%> Me Image" src="<%= @current_me.image_thumbnail %>" /></a>
+		<% if @current_me.image_url != "" %>
+			<a href="<%= @current_me.image_url %>" target="_blank"><img alt="<%=@current_me.title%> Me Image" src="<%= @current_me.image_thumbnail %>" /></a>
+		<% end %>
 		<% if @current_me.section1.value != "" %>
-		<p><span class="title"><%= h @current_me.section1.section.name %></span></p>
-		<%= ae_some_html @current_me.section1.value %>        
+			<p><span class="title"><%= h @current_me.section1.section.name %></span></p>
+			<%= ae_some_html @current_me.section1.value %>        
 		<% end %>
 		
 		<% if @current_me.section2.value != "" %>
-		<p><span class="title"><%= h @current_me.section2.section.name %></span></p> 
-		<%= ae_some_html @current_me.section2.value %>       
+			<p><span class="title"><%= h @current_me.section2.section.name %></span></p> 
+			<%= ae_some_html @current_me.section2.value %>       
 		<% end %>
 		
 		<% if @current_me.section3.value != "" %>
-		<p><span class="title"><%= h @current_me.section3.section.name %></span></p>
-		<%= ae_some_html @current_me.section3.value %>        
+			<p><span class="title"><%= h @current_me.section3.section.name %></span></p>
+			<%= ae_some_html @current_me.section3.value %>        
 		<% end %>
 		
-	 <% if @current_me.section4.value != "" %>
-		<p><span class="title"><%= h @current_me.section4.section.name %></span></p>
-		<%= ae_some_html @current_me.section4.value %>        
+	 	<% if @current_me.section4.value != "" %>
+			<p><span class="title"><%= h @current_me.section4.section.name %></span></p>
+			<%= ae_some_html @current_me.section4.value %>        
 		<% end %>
 		
 		<% if @current_me.section5.value != "" %>
-		<p><span class="title">Soapbox</span></p>
-		<%= ae_some_html @current_me.section5.value %>        
+			<p><span class="title">Soapbox</span></p>
+			<%= ae_some_html @current_me.section5.value %>        
 		<% end %>
 		<% if @current_me.image_url != "" %><div class="meSpacer"></div><% end %>
 
@@ -43,3 +45,10 @@
 	</div>
 <% end %>
 </div>
+<span><%= link_to "Prev", m_subscriptions_path(:page => @prev_page) %></span>
+<span>&nbsp;</span>
+<span><%= link_to "Next", m_subscriptions_path(:page => @next_page) %></span>
+<% if session['user_id'] == @current_me.user_id %>
+<span>&nbsp;</span>
+<span><%= link_to "Edit", edit_m_me_path(@current_me) %></span>
+<% end %>

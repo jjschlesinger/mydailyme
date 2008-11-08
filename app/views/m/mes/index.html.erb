@@ -1,0 +1,12 @@
+<% for me in @mes %>
+<div class="editSelect">
+<b><%=h me.title %></b>
+<%= link_to 'Show', me %>
+<%= link_to 'Edit', edit_me_path(me) %>
+</div>
+<% end %>
+
+
+<br />
+
+<%= link_to 'New me', new_me_path %>

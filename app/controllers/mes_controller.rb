@@ -112,7 +112,13 @@ class MesController < ApplicationController
         @me.section5.update_attributes!(params[:section5])
         Comment.delete_all("me_id = #{@me.id}") unless params[:keep_comments]
         flash[:notice] = 'Me was successfully updated.'
-        format.html { redirect_to(subscriptions_path) }
+        format.html { 
+        	if is_m
+        		redirect_to(m_subscriptions_path) 
+        	else
+        		redirect_to(subscriptions_path) 
+        	end
+        }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

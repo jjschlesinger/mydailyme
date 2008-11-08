@@ -20,14 +20,18 @@ class ApplicationController < ActionController::Base
         end        
       end
       session['return_url'] = request.request_uri
-      redirect_to new_session_path
+      if is_m
+      	redirect_to new_m_session_path
+      else
+      	redirect_to new_session_path
+      end
     else
       return true
     end
   end
   
   def is_m
-  	if request.request_uri[0..2] == "/m/"
+  	if request.request_uri == "/m" || request.request_uri[0..2] == "/m/"
   		true
   	else
   		false

@@ -1,0 +1,8 @@
+<h2>New me</h2>
+
+<%= error_messages_for :me %>
+
+<% form_for(@me) do %>
+<%= render :partial => 'form' %>
+<p><%= submit_tag "Create" %></p>
+<% end %>

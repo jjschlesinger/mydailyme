@@ -1,0 +1,56 @@
+<%= javascript_include_tag 'portal' %>
+<div class="meTitle">
+    <h1><%= h me.title %></h1>
+    <%if !show_only %>
+    <div class="options">
+       
+    </div>
+    <% end %>
+<div class="meSpacer"></div>
+</div>
+<div class="mebody" id="<%= "mebody_#{id}" %>">
+<% if me.image_url != ""
+    img_id = "meImg"
+%>
+<a href="<%= me.image_url %>" target="_blank"><img id="<%=img_id%>" altme.title%> Me Image" src="/images/1x1.gif" /></a>
+<script type="text/javascript">
+  var max = 150;
+  var <%=img_id%> = document.getElementById('<%=img_id%>');
+  //<%=img_id%>.onload= resize('<%=img_id%>',150);
+  <%=img_id%>.onload = function() {
+  
+  if (<%=img_id%>.width > <%=img_id%>.height) {
+    if (<%=img_id%>.width > max) <%=img_id%>.width = max;
+  } else {
+    if (<%=img_id%>.height > max) <%=img_id%>.height = max;
+  }};
+  <%=img_id%>.src = "<%= me.image_url %>";
+  
+</script>
+<% end %>
+<% if me.section1.value != "" %>
+<p><span class="title"><%= h me.section1.section.name %></span>
+<%= h me.section1.value %></p>        
+<% end %>
+
+<% if me.section2.value != "" %>
+<p><span class="title"><%= h me.section2.section.name %></span>
+<%= h me.section2.value %></p>        
+<% end %>
+
+<% if me.section3.value != "" %>
+<p><span class="title"><%= h me.section3.section.name %></span>
+<%= h me.section3.value %></p>        
+<% end %>
+
+<% if me.section4.value != "" %>
+<p><span class="title"><%= h me.section4.section.name %></span>
+<%= h me.section4.value %></p>        
+<% end %>
+
+<% if me.section5.value != "" %>
+<p><span class="title">Soapbox</span>
+<%= h me.section5.value %></p>        
+<% end %>
+<% if me.image_url != "" %><div class="meSpacer"></div><% end %>
+</div>

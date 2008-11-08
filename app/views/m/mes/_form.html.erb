@@ -1,0 +1,39 @@
+<p>
+  <b>Title</b><br />
+  <%= text_field :me, :title %>
+</p>
+<p>
+  <b>Image url</b><br />
+  <%= text_field :me, :image_url %>
+</p>
+<p>
+  <%= select('section1', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+  <%= text_field 'section1', 'value' %>
+  <%= hidden_field 'section1', 'section_type' %>
+</p>
+<p>
+  <%= select('section2', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+  <%= text_field 'section2', 'value' %>
+  <%= hidden_field 'section2', 'section_type' %>
+</p>
+<p>
+  <%= select('section3', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+  <%= text_field 'section3', 'value' %>
+  <%= hidden_field 'section3', 'section_type' %>
+</p>
+<p>
+  <%= select('section4', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
+  <%= text_field 'section4', 'value' %>
+  <%= hidden_field 'section4', 'section_type' %>
+</p>
+<p>
+  <b>Soapbox:</b><br />
+  <%= text_area 'section5', 'value' %>
+  <%= hidden_field 'section5', 'section_type' %>
+</p>
+<p>
+  <label for="enable_comments">Enable Comments:</label><%= check_box :me, :enable_comments, {}, 1, 0 %>
+</p>
+<p>
+  <label for="keep_comments">Keep Previous Comments:</label><%= check_box_tag('keep_comments', 1, false) %>
+</p>
