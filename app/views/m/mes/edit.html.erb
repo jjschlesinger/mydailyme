@@ -1,7 +1,7 @@
 <h2>Editing me</h2>
 
 <%= error_messages_for :me %>
-
+<p><%= link_to "Clear", edit_m_me_path(@me, :clear => "1") %></p>
 <% form_for :me, @me, :url => m_me_path(@me), :html => { :method => :put } do %>
 
   <%= render :partial => 'form' %>

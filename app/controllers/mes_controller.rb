@@ -50,6 +50,16 @@ class MesController < ApplicationController
     if @me.user_id != session['user_id'].to_i
        redirect_to(subscriptions_path)
     end
+    if params[:clear] == "1"
+    	@me.image_url = ""
+    	@me.image_thumbnail = ""
+    	@me.section1.value = "" unless @me.section1.nil? 
+    	@me.section2.value = "" unless @me.section2.nil?
+    	@me.section3.value = "" unless @me.section3.nil?
+    	@me.section4.value = "" unless @me.section4.nil?
+    	@me.section5.value = "" unless @me.section5.nil?
+    	@me.section6.value = "" unless @me.section6.nil?
+    end
     @sections = Section.find(:all)
     @section1 = @me.section1
     @section2 = @me.section2
