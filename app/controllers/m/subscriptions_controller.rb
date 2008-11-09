@@ -2,6 +2,7 @@ class M::SubscriptionsController < SubscriptionsController
 	layout 'm'
 	
 	def index
+		#breakpoint
 		subscriptions = Subscription.find(:all, :conditions=>['subscriptions.user_id = ? and subscriptions.me_id is not null',session['user_id']], :include => 'me', :order => 'mes.updated_at DESC')
 		params[:page] = "1" if params[:page].blank? or params[:page].to_i < 1
 		page_num = params[:page].to_i
