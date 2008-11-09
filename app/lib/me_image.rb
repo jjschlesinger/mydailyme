@@ -6,7 +6,9 @@ require 'RMagick'
 class MeImage
 
 	def self.grab_image(me_id, img_url)
-		thumb_geometry = "150x150"
+		width = 125
+		height = 125
+		thumb_geometry = "#{width}x#{height}"
 		me_images_dir = "me_images"
 		me_images_root = "#{RAILS_ROOT}/public/#{me_images_dir}"
 		Dir.mkdir(me_images_root) unless File.exist?(me_images_root)
@@ -17,12 +19,16 @@ class MeImage
 		new_img = "#{me_images_root}/me#{me_id}#{img_ext}"
 		new_img_relative = 	"/#{me_images_dir}/me#{me_id}#{img_ext}"	
 		open(new_img,"wb") {|f|
-			f.write open(img_url).read } 
+			f.write open(img_url).read 
+		}
+		
 		img = Magick::Image.read(new_img).first
-		img.change_geometry!(thumb_geometry) { |cols, rows, img2|
-		 img2.thumbnail!(cols, rows)
-		 img2.write(new_img)
-		 }		
+		if img.columns > width && img.rows > height
+			img.change_geometry!(thumb_geometry) { |cols, rows, img2|
+				img2.thumbnail!(cols, rows)
+				img2.write(new_img)
+			}
+		end
 		new_img_relative
 	end
 end

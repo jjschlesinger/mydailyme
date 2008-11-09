@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :sections
 
-  map.resources :mes
+  map.resources :mes, :has_many => :comments
 
   map.resources :sessions
 
@@ -19,7 +19,7 @@ ActionController::Routing::Routes.draw do |map|
     	m.resources :subscriptions
     	m.resources :me_sections
 			m.resources :sections
-			m.resources :mes
+			m.resources :mes, :has_many => :comments
 			m.resources :sessions
 			m.resources :users
 			m.resources :invites

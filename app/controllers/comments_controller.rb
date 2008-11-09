@@ -1,5 +1,10 @@
 class CommentsController < ApplicationController
 
+	def index
+		@me = Me.find(params[:me_id])
+			
+	end
+	
   def create
     if request.xhr? and request.post?
       #if params[:comment_text].length > 0
@@ -23,9 +28,5 @@ class CommentsController < ApplicationController
     rescue ActiveRecord::RecordInvalid => @error_msg
       	#render :partial => "subscriptions/comments", :locals => { :subscription => @subscription, :error_message => e.record.errors.full_messages.join(", ").sub("Message ", "") }, :layout => false, :status => 444
   end
-  
-  def destroy
-  	@comment = Comment.find params[:id]
-  	@comment.destroy 
-  end
+
 end
