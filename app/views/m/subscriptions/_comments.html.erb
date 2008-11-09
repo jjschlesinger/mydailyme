@@ -5,7 +5,8 @@
     </div>
     <div>
 		<% form_for :comment, @comment, :url => m_me_comments_path(me, :page => params[:page]) do %>
-			<div><%= text_area :comment, "message", :size => "30x3" %><%= image_submit_tag("plus.png") %></div>
+			<div><%= text_area :comment, "message", :size => "20x2" %></div>
+			<%= submit_tag("Add") %>
 		<% end %>    
     </div>
 	</div>
