@@ -1,0 +1,11 @@
+  <span id="comments_label">Comments (<%= me.comments.count %>)</span>
+  <div>
+    <div>
+        <%= render :partial => 'comments/comment_list', :locals => { :comments => me.comments } %>
+    </div>
+    <div><!--
+    <%# form_remote_tag :url => "/comments/create/#{subscription.id}" do -%>
+      <div><%#= text_area_tag "comment_text_#{subscription.id}", nil, :size => "30x3" %><%= image_submit_tag ("plus.png") %></div>
+    <%# end -%>-->
+    </div>
+	</div>
