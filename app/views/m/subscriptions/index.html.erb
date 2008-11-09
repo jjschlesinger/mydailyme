@@ -35,6 +35,11 @@
 		<% if @current_me.image_url != "" %><div class="meSpacer"></div><% end %>
 
 		<div style="color:#a6a6a6;text-align:right;margin-right:5px;margin-top:15px;font-size:smaller;"><%= distance_of_time_in_words(Time.now, @current_me.updated_at) %> ago</div>
+		<div style="margin:10px;">
+			<% if @current_me.enable_comments? %>
+						<%= render :partial => 'comments', :locals => { :me => @current_me } %>
+			<% end %>
+		</div>		
 	</div>
 <% else %>
 	<div class="meBrokeTitle">

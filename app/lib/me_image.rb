@@ -6,8 +6,8 @@ require 'RMagick'
 class MeImage
 
 	def self.grab_image(me_id, img_url)
-		width = 125
-		height = 125
+		width = 150
+		height = 150
 		thumb_geometry = "#{width}x#{height}"
 		me_images_dir = "me_images"
 		me_images_root = "#{RAILS_ROOT}/public/#{me_images_dir}"

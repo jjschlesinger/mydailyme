@@ -143,6 +143,12 @@ font-size: 1.1em;
 
 }
 
+#comments_label {
+color:#d38d42;
+text-decoration:none;
+font-weight:600;
+}
+
 a, a:link, a:visited {
 color:#d38d42;
 text-decoration:none;
