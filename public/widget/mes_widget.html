@@ -52,8 +52,8 @@
       .me-item img
       {
        float: left;
-       max-width: 100px;
-       max-height: 150px;
+       /*max-width: 100px;
+       max-height: 150px;*/
        margin-right: 3px;
       }
       
@@ -147,7 +147,7 @@
                 img_a.target = '_blank';
               
                 var img = widget.createElement('img');
-                img.src = meWidget.subscriptions[i].me.image_url;
+                img.src = meWidget.subscriptions[i].me.image_thumbnail;
                 
                 img_a.appendChild(img);
                 meItem.appendChild(img_a);
