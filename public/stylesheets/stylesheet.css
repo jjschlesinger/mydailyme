@@ -56,7 +56,7 @@ margin-top: -15px;
 }
 
 #blogtitle a, a:link, a:visited{
-color:#ff0000;
+color:#ffffff; /*change me*/
 text-decoration:none;
 font-weight:600;
 }
@@ -96,7 +96,7 @@ div .me img
 div .meTitle
 {
    
-    background-color:#2aa01d;
+    background-color:#7f9ab6; /*change me*/
     width:100%;
     cursor:move;
     clear:both;
@@ -219,7 +219,7 @@ font-size: 1.1em;
 }
 
 a, a:link, a:visited {
-color:#ff0000;
+color:#808080; /*change me*/
 text-decoration:none;
 font-weight:600;
 }
