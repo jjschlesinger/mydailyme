@@ -81,6 +81,7 @@
     
     <script type="text/javascript">
       var page = 1;
+      var root_url = 'http://0.0.0.0:3000';
     
       var meWidget = {
         subscriptions: {},
@@ -202,7 +203,20 @@
                 com_div.appendChild(c_content);
                 
               }
-
+              
+              var c_text = widget.createElement('textarea');
+              com_div.appendChild(c_text);
+                            
+              var c_submit = widget.createElement('input');
+              c_submit.name = 'submit_comment';
+              c_submit.type = 'image';
+              c_submit.src = root_url + '/images/plus.png';
+              c_submit.onclick = function() {
+              	widget.addComment(meWidget.subscriptions[i].id, c_text.value);
+              	c_text.value = '';
+              }
+              com_div.appendChild(c_submit);
+				
               meItem.appendChild(c);
               meItem.appendChild(com_div);
               
@@ -281,7 +295,7 @@
             //alert(readCookie('me_hash'));
             hashedPass = readCookie('me_hash');
           }
-          UWA.Data.getJson('http://0.0.0.0:3000/subscriptions.js?user=' + user + '&pass=' + hashedPass, meWidget.parse);
+          UWA.Data.getJson(root_url + '/subscriptions.js?user=' + user + '&pass=' + hashedPass, meWidget.parse);
         }
         else
         {
@@ -292,6 +306,20 @@
       widget.onRefresh = function() {
         page = 1;
         widget.onLoad();
+      }
+      
+      widget.addComment = function(subscription_id, comment_text) {
+      	widget.log(root_url + '/comments/create/' + subscription_id);
+				UWA.Data.request(
+					root_url + '/comments/create/' + subscription_id, 
+					 { 
+					 	method: 'post', 
+					 	proxy: 'ajax', 
+					 	type: 'json', 
+						onComplete: widget.onLoad,
+						parameters: "comment_text_" + subscription_id + "=" + comment_text
+
+					 });      	
       }
       
       function readCookie(name) {
