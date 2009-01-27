@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     
     def self.authenticate_api(login, pass)
       api_u = find(:first, :conditions=>["login = ?", login])
-      breakpoint
+      
       return nil if api_u.nil?
       if pass == api_u.hashed_password
         return api_u

@@ -80,7 +80,8 @@ class MesController < ApplicationController
     @me.section3 = MeSection.create(params[:section3])
     @me.section4 = MeSection.create(params[:section4])
     @me.section5 = MeSection.create(params[:section5])
-	@me.image_thumbnail = MeImage.grab_image(@me.id, @me.image_url) unless @me.image_url.blank?
+    
+		@me.image_thumbnail = MeImage.new(150, 150, @me.id, @me.image_url).grab_image unless @me.image_url.blank?
 
     respond_to do |format|
       if @me.save
@@ -112,7 +113,7 @@ class MesController < ApplicationController
 		if @me.image_url.blank?
 			@me.update_attribute('image_thumbnail', '')
 		else
-			@me.update_attribute('image_thumbnail', MeImage.grab_image(@me.id, @me.image_url))
+			@me.update_attribute 'image_thumbnail', MeImage.new(150, 150, @me.id, @me.image_url).grab_image
 		end
 
         @me.section1.update_attributes!(params[:section1])

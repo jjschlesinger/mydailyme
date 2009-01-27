@@ -29,6 +29,7 @@
       <preference name="pass" type="password" label="Password" />
       <preference name="enable_paging" type="boolean" label="Enable Paging" />
       <preference name="page_size" type="range" label="Number of items to display" defaultValue="1" step="1" min="1" max="5" />
+      <preference name="url" type="text" label="My Daily Me Url" defaultValue="http://me.projecttruck.net" />      
     </widget:preferences>
  
     <style type="text/css">
@@ -81,6 +82,10 @@
     
     <script type="text/javascript">
       var page = 1;
+      var root_url = widget.getValue('url');
+      var user;
+      var hashedPass;
+      
     
       var meWidget = {
         subscriptions: {},
@@ -93,9 +98,9 @@
           var divHome = widget.createElement('div');
           divHome.className = 'me-home-link';
           var homeLink = widget.createElement('a');
-          homeLink.href = 'http://me.projecttruck.net';
+          homeLink.href = root_url;
           homeLink.target = '_blank';
-          homeLink.setText('me.projecttruck.net');
+          homeLink.setText('My Daily Me');
           divHome.appendChild(homeLink);
           meList.appendChild(divHome);
           
@@ -147,7 +152,7 @@
                 img_a.target = '_blank';
               
                 var img = widget.createElement('img');
-                img.src = "http://me.projecttruck.net" + meWidget.subscriptions[i].me.image_thumbnail;
+                img.src = root_url + meWidget.subscriptions[i].me.image_thumbnail;
                 
                 img_a.appendChild(img);
                 meItem.appendChild(img_a);
@@ -203,6 +208,21 @@
                 
               }
 
+              
+              var subscription_id = meWidget.subscriptions[i].id;
+              var c_text = widget.createElement('textarea');
+              com_div.appendChild(c_text);
+                            
+              var c_submit = widget.createElement('input');
+              c_submit.name = 'submit_comment';
+              c_submit.type = 'image';
+              c_submit.src = root_url + '/images/plus.png';
+              c_submit.onclick = function() {
+              	widget.addComment(subscription_id, c_text.value);
+              	c_text.value = '';
+              }
+              com_div.appendChild(c_submit);
+				
               meItem.appendChild(c);
               meItem.appendChild(com_div);
               
@@ -263,12 +283,11 @@
       }
       
       widget.onLoad = function() {
-        //UWA.Data.getJson('http://me.projecttruck.net/subscriptions.js', meWidget.parse);
-        widget.log('load called');
+        widget.log('load called: ' + root_url);
         if ( widget.getValue('username') )
         {
-          var user = encodeURIComponent(widget.getValue('username'));
-          var hashedPass;
+          user = encodeURIComponent(widget.getValue('username'));
+          hashedPass;
           
           if(widget.getValue('pass'))
           {
@@ -281,7 +300,7 @@
             //alert(readCookie('me_hash'));
             hashedPass = readCookie('me_hash');
           }
-          UWA.Data.getJson('http://me.projecttruck.net/subscriptions.js?user=' + user + '&pass=' + hashedPass, meWidget.parse);
+          UWA.Data.getJson(root_url + '/subscriptions.js?user=' + user + '&pass=' + hashedPass, meWidget.parse);
         }
         else
         {
@@ -292,6 +311,20 @@
       widget.onRefresh = function() {
         page = 1;
         widget.onLoad();
+      }
+      
+      widget.addComment = function(subscription_id, comment_text) {
+      	widget.log(root_url + '/comments/create/' + subscription_id);
+				UWA.Data.request(
+					root_url + '/comments/create/' + subscription_id + '?user=' + user + '&pass=' + hashedPass,
+					 { 
+					 	method: 'post', 
+					 	proxy: 'ajax', 
+					 	type: 'text', 
+						onComplete: widget.onLoad,
+						parameters: "comment_text_" + subscription_id + "=" + comment_text
+
+					 });      	
       }
       
       function readCookie(name) {

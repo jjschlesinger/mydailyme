@@ -164,32 +164,5 @@ class SubscriptionsController < ApplicationController
     @subscription.collapsed = !@subscription.collapsed
     @subscription.save() 
   end 
-  
-protected
-  def authenticate
-    case request.format
-    when Mime::ATOM, Mime::RSS
-      authenticate_or_request_with_http_basic('Project Me') do |username, password|
-        session['user_id'] = User.authenticate(username, password).id
-        if session['user_id'].nil?
-          false
-        else
-          true
-        end
-      end
-    when Mime::XML, Mime::JS
-        user = CGI.unescape(params[:user])
-        pass = CGI.unescape(params[:pass])
-        u = User.authenticate_api(user, pass)
-        if u.nil?
-          session['user_id'] = nil
-          false
-        else
-          session['user_id'] = u.id
-          true
-        end      
-    else
-      is_authed
-    end
-  end
+
 end
