@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
   # POST /sessions
   # POST /sessions.xml
   def create
-    
     @user = User.authenticate(params[:user][:login], params[:user][:password])
     if @user.nil?
       flash[:notice] = 'Login failed.'
@@ -18,7 +17,13 @@ class SessionsController < ApplicationController
       session['user_id'] = @user.id
       if params[:stay_logged_in] == "1"
         @user.update_attribute(:session_hash, User.hash_session(@user.login, @user.hashed_password))
-        cookies[:token] = { :value => @user.session_hash, :expires => Time.now.next_year }
+				#this will not work for TLD's like co.uk or an ip or multiple sub domains'
+        parts = request.host.split "."
+        if parts.length == 3
+	        cookies[:token] = { :value => @user.session_hash, :domain => "#{parts[1]}.#{parts[2]}", :expires => Time.now.next_year }
+	      else
+	      	cookies[:token] = { :value => @user.session_hash, :domain => request.host, :expires => Time.now.next_year }
+	      end
       end
       flash[:notice] = 'Login successful.'
       
