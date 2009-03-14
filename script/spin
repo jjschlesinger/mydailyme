@@ -1,2 +1,2 @@
 #!/bin/sh
-touch tmp/restart.txt
+sudo touch tmp/restart.txt
