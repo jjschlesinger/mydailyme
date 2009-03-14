@@ -1,15 +1,17 @@
-<h1>Create your Account</h1>
+<h1>Request Invite</h1>
 <div class="indent">
 <%= error_messages_for :user %>
 
 <% form_for(@user) do %>
   <div>
-    <label for="user_login">Login (Valid email address)</label><br />
+    <label for="user_login">Email Address</label><br />
     <%= text_field :user, :login %>
   </div>
+  <!--
   <%= render :partial => 'form' %>
+  -->
   <div>
-    <%= submit_tag "Create" %>
+    <%= submit_tag "Send" %>
   </div>
 
 <% end %>

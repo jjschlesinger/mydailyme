@@ -33,20 +33,25 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     respond_to do |format|
-      if @user.save
-        flash[:notice] = 'User was successfully created.'
-        session['user_id'] = @user.id
+      #if @user.save
+        #flash[:notice] = 'User was successfully created.'
+        flash[:notice] = 'You will be notified at the email provided once accepted'
+        #session['user_id'] = @user.id
         format.html {
-          if session['return_url'].nil?
-            redirect_to(subscriptions_path)
-          else
-            redirect_to(session['return_url'])  
-          end }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
-      end
+          #if session['return_url'].nil?
+          #  redirect_to(subscriptions_path)
+          #else
+          #  redirect_to(session['return_url'])  
+          #end 
+          	BetaInvitation.create :email => @user.login
+          	@user.login = nil
+	         	 render :action => "new"
+          }
+        #format.xml  { render :xml => @user, :status => :created, :location => @user }
+      #else
+      #  format.html { render :action => "new" }
+      #  format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      #end
     end
   end
 
