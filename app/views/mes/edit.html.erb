@@ -4,8 +4,11 @@
 
 <% form_for(@me) do %>
   <p>
-    <label for="reset_token">Reset Subscription Token:</label><%= check_box_tag('reset_token', 1, false) %>
+    <label for="me_public">Make Public?</label><%= check_box @me, :public %>
   </p>
+  <p>
+    <%= link_to "#{pluralize(@me.subscriptions.length, 'person')} subscribes to this me", me_subscribers_url(@me) %>
+  </p>  
   <%= render :partial => 'form' %>
 <p><%= submit_tag "Update" %>
 <input type="button" name="clear_me" value="Clear" onclick="if(confirm('Are you sure?')){ clearMe(); }" />

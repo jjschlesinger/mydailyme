@@ -25,6 +25,8 @@ ActionController::Routing::Routes.draw do |map|
 			m.resources :invites
   end
 
+  map.resources :mes, :has_many => :subscribers
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
