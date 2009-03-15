@@ -271,13 +271,6 @@ border:dashed 2px #ccc; margin: 4px 10px 5px 10px; padding:6px; }
 }
 
 
-
-
-
-
-
-
-
 p,h1,pre {
 margin:0px 10px 3px 10px;
 font:Arial Helvetica sans-serif;
@@ -377,5 +370,11 @@ margin-bottom: -20px;
 
 
 /* ~~~~~~~~~ END FOOTER~~~~~~~~~ */
+
+.error
+{
+	color: red;
+	padding-right: 5px;
+}
 
 

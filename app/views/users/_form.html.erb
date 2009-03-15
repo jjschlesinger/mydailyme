@@ -1,9 +1,14 @@
   <div>
-    <label for="user_password">Password</label><br />
+    <span class="error">*</span><label for="user_display_name">Display Name</label><br />
+    <%= text_field :user, :display_name %>
+  </div>
+  
+  <div>
+    <span class="error">*</span><label for="user_password">Password</label><br />
     <%= password_field :user, :password %>
   </div>
   
   <div>
-    <label for="user_password_confirmation">Password Confirmation</label><br />
+    <span class="error">*</span><label for="user_password_confirmation">Password Confirmation</label><br />
     <%= password_field :user, :password_confirmation %>
   </div>

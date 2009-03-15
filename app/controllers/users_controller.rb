@@ -25,6 +25,8 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(session['user_id'])
+    @user.password = ""
+    @user.display_name = @user.current_display_name
   end
 
   # POST /users
@@ -62,7 +64,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        flash[:notice] = 'Password changed successfully.'
+        flash[:notice] = 'Profile updated successfully.'
         format.html { redirect_to(subscriptions_path) }
         format.xml  { head :ok }
       else

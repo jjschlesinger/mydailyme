@@ -1,6 +1,6 @@
-<h1>Change your password</h1>
+<h1>Update Profile</h1>
 <div class="indent">
-<%= error_messages_for :user %>
+<span class="error"><%= error_messages_for :user %></span>
 
 <% form_for(@user) do %>
 
@@ -11,5 +11,4 @@
   </div>
 
 <% end %>
-<%= link_to 'Back to Login', new_session_path %>
 </div>

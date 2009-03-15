@@ -6,9 +6,11 @@ class User < ActiveRecord::Base
     validates_presence_of :login, :message=>"Login is required"
     validates_format_of :login, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message=>"Login needs to be a valid email address"
     validates_uniqueness_of :login, :message=>"That login is already taken"
-    validates_presence_of :password, :message=>"Password is required"
-    validates_length_of :password, :minimum=>5, :too_short=>"? More like ass word! Try atleast %d characters"
+    validates_presence_of :password, :message=>" is required"
+    validates_length_of :password, :minimum=>5, :too_short=>" must be atleast %d characters"
     validates_confirmation_of :password
+    validates_presence_of :display_name, :message=>" is required"
+    validates_uniqueness_of :display_name, :message=>" is already in use"
     
     attr_accessor :password, :password_confirmation, :session
     
@@ -38,9 +40,17 @@ class User < ActiveRecord::Base
       end
     end
     
-    def display_name
+    def default_display_name
       self.login[0, self.login.index('@')]
     end
+    
+    def current_display_name
+      if self.display_name.blank?
+	      self.default_display_name
+	    else
+	    	self.display_name
+	    end
+    end    
   
     
 protected
