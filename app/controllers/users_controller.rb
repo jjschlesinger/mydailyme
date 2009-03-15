@@ -45,9 +45,11 @@ class UsersController < ApplicationController
           #else
           #  redirect_to(session['return_url'])  
           #end 
-          	BetaInvitation.create :email => @user.login
-          	@user.login = nil
-	         	 render :action => "new"
+        		BetaInvitation.create :email => @user.login
+        		Notifier.deliver_beta_request_notification "josh@jschlesinger.net", @user.login
+        		@user.login = nil
+         	 	render :action => "new"
+	         	 
           }
         #format.xml  { render :xml => @user, :status => :created, :location => @user }
       #else

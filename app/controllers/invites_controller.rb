@@ -18,7 +18,7 @@ class InvitesController < ApplicationController
     #@me = Me.find(params[:me_id])
     #@to_email = params[:invite_email]
     #@auth = @me.generate_auth(@to_email)
-    Notifier.deliver_invite_notification(params[:invite_email], Me.find(params[:me_id]))
+    Notifier.deliver_invite_notification params[:invite_email], Me.find(params[:me_id])
   end
   
 end

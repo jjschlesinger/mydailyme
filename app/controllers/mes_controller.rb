@@ -141,8 +141,8 @@ class MesController < ApplicationController
   # DELETE /mes/1
   # DELETE /mes/1.xml
   def destroy
-#    @me = Me.find(params[:id])
-#    @me.destroy
+    @me = Me.find_by_id_and_user_id(params[:id], session['user_id'])
+    @me.destroy
 
     respond_to do |format|
       format.html { redirect_to(mes_url) }
