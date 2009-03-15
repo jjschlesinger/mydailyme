@@ -1,4 +1,10 @@
 --------------
+release-0.3
+--------------
+-Re-added ability to delete your me and fixed security bug
+-Added email notification to be sent out when a new beta invite is requested
+-removed redundant flash message on successful login
+--------------
 release-0.2
 --------------
 -Added custom display name

@@ -25,8 +25,7 @@ class SessionsController < ApplicationController
 	      	cookies[:token] = { :value => @user.session_hash, :domain => request.host, :expires => Time.now.next_year }
 	      end
       end
-      flash[:notice] = 'Login successful.'
-      
+            
       if session['return_url'].nil?
         if is_m
         	redirect_to(m_subscriptions_path)
