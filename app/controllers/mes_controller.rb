@@ -47,6 +47,11 @@ class MesController < ApplicationController
   # GET /mes/1/edit
   def edit
     @me = Me.find(params[:id])
+		if @me.subscriptions.length == 1
+			@subscribe_text = 'subscribes'
+		else
+			@subscribe_text = 'subscribe'
+		end
     if @me.user_id != session['user_id'].to_i
        redirect_to(subscriptions_path)
     end

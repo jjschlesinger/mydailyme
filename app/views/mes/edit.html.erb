@@ -7,7 +7,7 @@
     <label for="me_public">Make Public?</label><%= check_box @me, :public %>
   </p>
   <p>
-    <%= link_to "#{pluralize(@me.subscriptions.length, 'person')} subscribes to this me", me_subscribers_url(@me) %>
+    <%= link_to "#{pluralize(@me.subscriptions.length, 'person')} #{@subscribe_text} to this me", me_subscribers_url(@me) %>
   </p>  
   <%= render :partial => 'form' %>
 <p><%= submit_tag "Update" %>

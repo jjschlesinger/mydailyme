@@ -16,6 +16,8 @@ role :db,  host, :primary => true
 
 task :after_symlink, :roles => :app do
 	run "cp #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-	run "cp /var/www/mydailyme/public/me_images/* #{release_path}/public/me_images"
-	
+	#run "cp /var/www/mydailyme/public/me_images/* #{release_path}/public/me_images"
+	run "rm -rf #{release_path}/public/me_images"
+#	run "ln -nfs #{shared_path}/me_images #{release_path}/public/"
+	run "ln -nfs #{shared_path}/me_images/ #{release_path}/public/me_images"
 end
