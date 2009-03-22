@@ -1,2 +1,17 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+function show_hide(id)
+{
+	
+    var tmp = $("#"+id).css("display");
+    if(tmp == 'none')
+    {
+        $("#"+id).slideDown(300);
+        $("#img" + id).attr('src','/images/min.png');
+        
+    }
+    else
+    {
+        $("#"+id).slideUp(300);
+        $("#img" + id).attr('src','/images/max.png');
+    }
+
+ }

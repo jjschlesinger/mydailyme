@@ -20,16 +20,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-Sortable.onEmptyHover = function(element, dropon) {
-    var d = Sortable.options(dropon);
-    if(element.parentNode!=dropon) {
-        var oldParentNode = element.parentNode;
-        dropon.appendChild(element);
-        Sortable.options(oldParentNode).onChange(element);
-        d.onChange(element);
-    }
-    Droppables.activate(d);
-}
 
 /*function initportal() {
     try {
@@ -44,19 +34,6 @@ Sortable.onEmptyHover = function(element, dropon) {
 Event.observe(window, "load", initportal, false);
 */
 
-function show_hide(id)
-{
-    var tmp = document.getElementById(id).style.display;
-    if(tmp == 'none')
-    {
-        document.getElementById(id).style.display = 'block';
-        document.getElementById("img" + id).src = '/images/min.png';
-    }
-    else
-    {
-        document.getElementById(id).style.display = 'none';
-        document.getElementById("img" + id).src = '/images/max.png';
-    }
-}
+
 
 var max = 150;

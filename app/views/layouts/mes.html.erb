@@ -13,6 +13,7 @@ end %>
   <title>Mes: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'stylesheet' %>
   <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "interface" %>
   <link rel="alternate" type="application/rss+xml" title="RSS" href="<%=formatted_subscriptions_path(:format => 'rss')%>" />  
 </head>
 <body>
