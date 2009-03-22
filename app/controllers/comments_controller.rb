@@ -18,6 +18,7 @@ before_filter :authenticate, :only => ['create']
      @subscription = Subscription.find params[:id]
      breakpoint
      @subscription.me.comments << Comment.create!(:user_id => session['user_id'], :message => params["comment_text_#{@subscription.id}"])
+     @subscription.me.updated_at = Time.now
      @subscription.me.save
 
 	  dontCollapse = false

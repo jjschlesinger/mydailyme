@@ -58,7 +58,7 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   
 
-  config.log_level = :warn
+  config.log_level = :debug
   config.load_paths << "#{RAILS_ROOT}/app/lib"
 
 end
