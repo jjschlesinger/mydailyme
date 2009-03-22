@@ -441,3 +441,11 @@ margin-bottom: -20px;
 }
 
 
+/* DRAG AND DROP */
+.sortHelper
+{
+	border: 3px dashed #666;
+	width: auto !important;
+}
+
+/* END DRAG AND DROP */
