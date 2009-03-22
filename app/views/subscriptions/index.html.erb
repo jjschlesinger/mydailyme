@@ -1,3 +1,7 @@
+<%content_for :menu do%>
+	<%=render :partial => 'shared/menu'%>
+<%end%>
+
   <%= javascript_include_tag 'portal' %>
 <div id="wholecontent">
 <!-- start left box-->
@@ -37,4 +41,8 @@
 
 
 </div>
+
+<%content_for :widgets do%>
+	<%=render :partial => 'shared/widgets'%>
+<%end%>
 

@@ -57,6 +57,7 @@ private
 	end
 	
 	def get_extension(content_type)
+		
 		case content_type
 			when "image/jpeg"
 				".jpg"

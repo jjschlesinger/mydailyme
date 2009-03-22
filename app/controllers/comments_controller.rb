@@ -8,6 +8,7 @@ before_filter :authenticate, :only => ['create']
 	end
 	
   def create
+  	breakpoint
   	if request.post?
     	
       #if params[:comment_text].length > 0

@@ -1,5 +1,4 @@
 class MesController < ApplicationController
-  layout 'mes'
   
   # GET /mes
   # GET /mes.xml
@@ -105,41 +104,54 @@ class MesController < ApplicationController
   # PUT /mes/1.xml
   def update
     @me = Me.find(params[:id])
-    if params[:reset_token]
-      @me.subscribe_token = Me.generate_token
-      @me.save!
-      s = Subscription.find(:first, :conditions => "user_id = #{session['user_id']} and me_id = #{@me.id}")
-      s.subscription_token = @me.subscribe_token
-      s.save!
-    end
+    #if params[:reset_token]
+    #  @me.subscribe_token = Me.generate_token
+    #  @me.save!
+    #  s = Subscription.find(:first, :conditions => "user_id = #{session['user_id']} and me_id = #{@me.id}")
+    #  s.subscription_token = @me.subscribe_token
+    #  s.save!
+    #end
 
     respond_to do |format|
       if @me.update_attributes(params[:me])
-		if @me.image_url.blank?
-			@me.update_attribute('image_thumbnail', '')
-		else
-			@me.update_attribute 'image_thumbnail', MeImage.new(150, 150, @me.id, @me.image_url).grab_image
-		end
+				if @me.image_url.blank?
+					@me.update_attribute('image_thumbnail', '')
+				else
+					begin
+						@me.update_attribute 'image_thumbnail', MeImage.new(150, 150, @me.id, @me.image_url).grab_image
+					rescue
+						@me.errors.add :invalid, 'Image URL'
+						@sections = Section.find(:all)
+						@section1 = @me.section1
+						@section2 = @me.section2
+						@section3 = @me.section3
+						@section4 = @me.section4
+						@section5 = @me.section5
+						@section6 = @me.section6						
+			      format.html { render :action => "edit" }
+			      format.xml  { render :xml => @me.errors, :status => :unprocessable_entity }
+					end
+				end
 
-        @me.section1.update_attributes!(params[:section1])
-        @me.section2.update_attributes!(params[:section2])
-        @me.section3.update_attributes!(params[:section3])
-        @me.section4.update_attributes!(params[:section4])
-        @me.section5.update_attributes!(params[:section5])
-        Comment.delete_all("me_id = #{@me.id}") unless params[:keep_comments]
-        flash[:notice] = 'Me was successfully updated.'
-        format.html { 
-        	if is_m
-        		redirect_to(m_subscriptions_path) 
-        	else
-        		redirect_to(subscriptions_path) 
-        	end
-        }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @me.errors, :status => :unprocessable_entity }
-      end
+	      @me.section1.update_attributes!(params[:section1])
+	      @me.section2.update_attributes!(params[:section2])
+	      @me.section3.update_attributes!(params[:section3])
+	      @me.section4.update_attributes!(params[:section4])
+	      @me.section5.update_attributes!(params[:section5])
+	      Comment.delete_all("me_id = #{@me.id}") unless params[:keep_comments]
+	      flash[:notice] = 'Me was successfully updated.'
+	      format.html { 
+	      	if is_m
+	      		redirect_to(m_subscriptions_path) 
+	      	else
+	      		redirect_to(subscriptions_path) 
+	      	end
+	      }
+	      format.xml  { head :ok }
+	    else
+	      format.html { render :action => "edit" }
+	      format.xml  { render :xml => @me.errors, :status => :unprocessable_entity }
+	    end
     end
   end
 

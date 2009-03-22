@@ -1,5 +1,4 @@
 class InvitesController < ApplicationController
-  layout 'mes'
   
   # GET /invites/new
   # GET /mes/1/invite
