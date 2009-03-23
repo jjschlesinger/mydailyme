@@ -59,6 +59,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect 'mes/:id/subscribe/:auth', :controller => 'subscriptions', :action => 'new'
   map.connect 'mes/:id/invite', :controller => 'invites', :action => 'new'
+  map.connect 'image_search/:query/:format/:start', :controller => 'image_search', :action => 'index'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

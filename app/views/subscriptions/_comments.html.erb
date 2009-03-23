@@ -1,4 +1,4 @@
-  <a id="comments_link_<%=subscription.id%>" href="javascript:$('comments_<%=subscription.id%>').toggle(); void(0)">Comments (<%= subscription.me.comments.count %>)</a>
+  <a id="comments_link_<%=subscription.id%>" href="javascript:$('#comments_<%=subscription.id%>').toggle(); void(0)">Comments (<%= subscription.me.comments.count %>)</a>
   <div id="comments_<%=subscription.id%>" style="display:none; margin-left:10px;">
     <div id="comments_list_<%=subscription.id%>">
         <%= render :partial => 'comments/comment_list', :locals => { :comments => subscription.me.comments } %>

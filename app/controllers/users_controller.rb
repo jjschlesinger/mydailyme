@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  layout 'mes'
   skip_before_filter :is_authed, :only => ['new', 'create']
 
   def show

@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate
-  	breakpoint
+  	
     case request.format
     when Mime::ATOM, Mime::RSS
       authenticate_or_request_with_http_basic('Project Me') do |username, password|

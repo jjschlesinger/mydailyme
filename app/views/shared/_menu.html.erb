@@ -1,0 +1,7 @@
+		<div id="small2">
+			<%= link_to 'Home', subscriptions_path %>  |  
+			<%= link_to 'Profile', edit_user_path(session['user_id']) %>  |  
+			<%= link_to 'New Me', new_me_path %>  |  
+			<%= link_to 'Edit', mes_path %>  |  
+			<%= link_to 'Logout', {:controller=>"sessions", :action=>"destroy"}, :method => :delete %>
+		</div>

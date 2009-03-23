@@ -2,7 +2,7 @@
 
 
 body{
-background:#ffffff url('/images/bg.jpg') top center repeat-x;
+background:#ffffff url('/images/bg2.png') top center repeat-x;
 margin:10px 10px 0px 10px;
 padding:0px;
 color:#999999;
@@ -49,14 +49,18 @@ padding-left: 5px;
 }
 
 #small2{
+background:#ffffff;
 positon:relative;
 float:right;
+/*width:250px;*/
 margin-top: -15px;
+padding: 5px 5px 5px 5px;
+border: solid #000000 1px;
 
 }
 
 #blogtitle a, a:link, a:visited{
-color:#ffffff; /*change me*/
+color:#000000; /*change me*/
 text-decoration:none;
 font-weight:600;
 }
@@ -66,8 +70,8 @@ font-weight:600;
    font-weight: normal !important;
 }
 
-#blogtitle a:hover, a:active{
-color:#fff;
+a:hover, a:active{
+color:#7f9ab6;
 text-decoration:none;
 }
 .meSpacer
@@ -270,6 +274,21 @@ border:dashed 2px #ccc; margin: 4px 10px 5px 10px; padding:6px; }
    margin-left:20px;
 }
 
+.errorExplanation h2 
+{
+	font-size:2.5em;
+	color:red;
+	margin-bottom: 5px;
+}
+
+.errorExplanation p,ul,li
+{
+	font-size:1.1em;
+	/*color:#7f9ab6;*/
+	color:#000;
+
+}
+
 
 p,h1,pre {
 margin:0px 10px 3px 10px;
@@ -280,7 +299,7 @@ text-decoration:none;
 
 h1 {
 font-size:2.5em;
-color:#ccc;
+color:#7f9ab6;
 
 }
 
@@ -326,6 +345,31 @@ position:static;
    margin: 10px;
 }
 
+#formMainContainer
+{
+	float:left;
+	padding:5px 5px 5px 5px;
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#formMainContainer label
+{
+	font-size: 1.2em;
+}
+
+#formLeftContainer
+{
+	float:left;
+	margin-right:50px;
+}
+
+#formLeftContainer p
+{
+	text-align:right;
+}
+
 #formElements div label
 {
    float:left;
@@ -352,6 +396,45 @@ input[type="submit"]
 {
    margin-top:5px;
    margin-bottom:5px;
+}
+
+.edit_me_label
+{
+	float: left;	
+	margin-top:10px;
+	margin-right:5px;
+	width: 75px;
+	text-align: right;
+	
+}
+
+
+.edit_me_text
+{
+	float: left;
+}
+
+.edit_me_text input.text_field
+{
+	border:1px solid #ddd;
+	font-size:16px;
+	padding:8px;
+	width:500px;
+	margin:0;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+.edit_me_text textarea.text_field
+{
+	border:1px solid #ddd;
+	font-size:16px;
+	padding:8px;
+	width:500px;
+	height: 200px;
+	margin:0;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
 }
 /* ~~~~~~~~~ BEGIN FOOTER ~~~~~~~~~ */
 

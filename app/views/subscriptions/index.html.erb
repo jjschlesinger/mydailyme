@@ -1,3 +1,11 @@
+<%content_for :head do%>
+  <%= javascript_include_tag :defaults %>
+<%end%>
+
+<%content_for :menu do%>
+	<%=render :partial => 'shared/menu'%>
+<%end%>
+
 <div id="wholecontent">
 
 
@@ -84,4 +92,6 @@ function serialize(s)
 
 
 </div>
-
+<%content_for :widgets do%>
+	<%=render :partial => 'shared/widgets'%>
+<%end%>

@@ -1,54 +1,160 @@
-<%= javascript_include_tag "tooltip" %>
-<div id='enable_comments_tt' style="display:none; padding: 15px; background-color: black; color: #b8ce83; font-weight: bold;" >
-  Uncheck this box to disable commenting on your me.<br />
-</div>
-<div id='keep_comments_tt' style="display:none; padding: 15px; background-color: black; color: #b8ce83; font-weight: bold;">
-  Check this box to keep all existing comments.<br/>
-  Normally, the comments will be cleared whenever your <br/>
-  me is updated. You should only check this box when <br/>
-  making minor tweaks to your me.<br />
+<%content_for :head do%>
+  <link type="text/css" href="/jquery/themes/base/ui.all.css" rel="stylesheet" />
+  <link type="text/css" href="/jquery/jquery.tooltip.css" rel="stylesheet" />  
+	<script type="text/javascript" src="/jquery/jquery-1.3.2.js"></script>
+	<script type="text/javascript" src="/jquery/ui/ui.core.js"></script>
+	<script type="text/javascript" src="/jquery/ui/ui.draggable.js"></script>
+	<script type="text/javascript" src="/jquery/ui/ui.resizable.js"></script>
+	<script type="text/javascript" src="/jquery/ui/ui.dialog.js"></script>
+	<script type="text/javascript" src="/jquery/external/bgiframe/jquery.bgiframe.js"></script>
+	<script type="text/javascript" src="/jquery/jquery.tooltip.js"></script>
+	<%= javascript_include_tag "ls-api" %>	
+	<script type="text/javascript">
+		
+ $(document).ready(function() {
+
+  $(function() {
+		
+		$("#searchcontrol").dialog({
+			bgiframe: true,
+			autoOpen: false,
+			height: 500,
+			width: 800,
+			modal: true
+		});
+
+	});
+		
+	$('#imgSearchLink').click(function() {
+		$('#searchcontrol').dialog('open');
+	});
+
+  $("#formLeftContainer *").tooltip();
+
+ });
+ 
+ function SearchCallback(result)
+ {
+ DisplayResults(result);
+ }
+ 
+	function DisplayResults(response)
+    {
+        var output = document.getElementById("output");
+        output.innerHTML = "";
+        var resultsHeader = document.createElement("h4");
+        var resultsTable = document.createElement("table");
+        output.appendChild(resultsHeader);
+        output.appendChild(resultsTable);
+    
+        var results = response.SearchResponse.Image.Results;
+        
+        // Display the results header.
+        resultsHeader.innerHTML = "Live Search API Version "
+            + response.SearchResponse.Version
+            + "<br />Image results for "
+            + response.SearchResponse.Query.SearchTerms
+            + "<br />Displaying "
+            + (response.SearchResponse.Image.Offset + 1)
+            + " to "
+            + (response.SearchResponse.Image.Offset + results.length)
+            + " of "
+            + response.SearchResponse.Image.Total
+            + " results<br />";
+        
+        // Display the Image results.
+        var resultsRow = null;
+        var resultsCell = null;
+        var cells = 3;
+        var rows = results.length / 3;
+        var resultsIndex = 0;
+        for (var i = 0; i < rows; ++i)
+        {
+            resultsRow = document.createElement("tr");
+            resultsTable.appendChild(resultsRow);
+            for(var j = 0; j < cells && resultsIndex < results.length; ++j)
+            {
+		          resultsCell = document.createElement("td");
+		          resultsRow.appendChild(resultsCell);
+		          resultsCell.innerHTML = "<a href=\""
+		              + results[resultsIndex].MediaUrl
+		              + "\" target=\"_new\"><img src=\""
+		              + results[resultsIndex].Thumbnail.Url
+		              + "\"></a><br /><a href=\""
+		              + results[resultsIndex].Url
+		              + "\">"
+		              + results[resultsIndex].Title
+		              + "</a><br />Dimensions: "
+		              + results[resultsIndex].Width
+		              + "x"
+		              + results[resultsIndex].Height
+		              + "&nbsp;<a href=\"#\" onclick=\"document.getElementById('me_image_url').value='" + results[resultsIndex].MediaUrl + "';$('#searchcontrol').dialog('close');\">Copy Url</a>";
+		              resultsIndex++;
+          	}
+        }
+    } 
+    
+   function clearMe()
+   {
+   		$('input:text').not('#me_title').val('');
+   }    
+		
+	</script>
+<%end%>
+
+<div id="searchcontrol" title="Image Search" style="display:none">
+	<input id="txtImageSearch" name="txtImageSearch" type="text"><input type="button" value="Search" onclick="LiveSearch(document.getElementById('txtImageSearch').value, 25, 0, 'SearchCallback')">
+	<div id="output"></div>
 </div>
 
-<p>
-  <b>Title</b><br />
-  <%= text_field :me, :title %>
+
+<p style="clear:both">
+  <div class="edit_me_label"><label for="me_title">Title</label></div>
+  <div class="edit_me_text"><%= text_field :me, :title, :class => 'text_field' %></div>
 </p>
-<p>
-  <b>Image url</b><br />
-  <%= text_field :me, :image_url %>
+<p style="clear:both">
+  <div class="edit_me_label"><label for="me_image_url">Image URL</label></div>
+  <div class="edit_me_text"><%= text_field :me, :image_url, :class => 'text_field' %>&nbsp;<a href="#" id="imgSearchLink">Image Search</a></div>  
 </p>
-<p>
-  <%= select('section1', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
-  <%= text_field 'section1', 'value' %>
+<p style="clear:both">
+  <div class="edit_me_label"></div>
+  <div class="edit_me_text"><%= select('section1', 'section_id', @sections.collect {|s| [s.name, s.id]}) %></div>
+</p>
+<p style="clear:both">
+	<div class="edit_me_label"></div>
+  <div class="edit_me_text"><%= text_field 'section1', 'value', :class => 'text_field' %></div>
   <%= hidden_field 'section1', 'section_type' %>
 </p>
-<p>
-  <%= select('section2', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
-  <%= text_field 'section2', 'value' %>
+<p style="clear:both">
+  <div class="edit_me_label"></div>
+  <div class="edit_me_text"><%= select('section2', 'section_id', @sections.collect {|s| [s.name, s.id]}) %></div>
+</p>  
+<p style="clear:both">
+	<div class="edit_me_label"></div>
+  <div class="edit_me_text"><%= text_field 'section2', 'value', :class => 'text_field' %></div>
   <%= hidden_field 'section2', 'section_type' %>
 </p>
-<p>
-  <%= select('section3', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
-  <%= text_field 'section3', 'value' %>
+<p style="clear:both">
+  <div class="edit_me_label"></div>
+  <div class="edit_me_text""><%= select('section3', 'section_id', @sections.collect {|s| [s.name, s.id]}) %></div>
+</p>
+<p style="clear:both">  
+  <div class="edit_me_label"></div>
+  <div class="edit_me_text"><%= text_field 'section3', 'value', :class => 'text_field' %></div>
   <%= hidden_field 'section3', 'section_type' %>
 </p>
-<p>
-  <%= select('section4', 'section_id', @sections.collect {|s| [s.name, s.id]}) %><br />
-  <%= text_field 'section4', 'value' %>
+<p style="clear:both">
+  <div class="edit_me_label"></div>
+  <div><%= select('section4', 'section_id', @sections.collect {|s| [s.name, s.id]}) %></div>
+</p>
+<p style="clear:both">
+  <div class="edit_me_label"></div>  
+  <div class="edit_me_text"><%= text_field 'section4', 'value', :class => 'text_field' %></div>
   <%= hidden_field 'section4', 'section_type' %>
 </p>
-<p>
-  Soapbox:<br />
-  <%= text_area 'section5', 'value' %>
+<p style="clear:both">
+  <div class="edit_me_label"><label for="me_title">Soapbox</label></div>
+  <div class="edit_me_text"><%= text_area 'section5', 'value', :class => 'text_field' %></div>
   <%= hidden_field 'section5', 'section_type' %>
 </p>
-<p>
-  <label for="enable_comments">Enable Comments:</label><%= check_box :me, :enable_comments, {}, 1, 0 %>
-</p>
-<p>
-  <label for="keep_comments">Keep Previous Comments:</label><%= check_box_tag('keep_comments', 1, false) %>
-</p>
-<script type="text/javascript">
-  var tt1 = new Tooltip('me_enable_comments', 'enable_comments_tt')
-  var tt2 = new Tooltip('keep_comments', 'keep_comments_tt')
-</script>
+

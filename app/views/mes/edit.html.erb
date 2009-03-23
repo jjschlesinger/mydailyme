@@ -1,31 +1,14 @@
+<%content_for :menu do%>
+	<%=render :partial => 'shared/menu'%>
+<%end%>
+
 <h1>Editing me</h1>
-
-<%= error_messages_for :me %>
-
 <% form_for(@me) do %>
-  <p>
-    <label for="me_public">Make Public?</label><%= check_box @me, :public %>
-  </p>
-  <p>
-    <%= link_to "#{pluralize(@me.subscriptions.length, 'person')} #{@subscribe_text} to this me", me_subscribers_url(@me) %>
-  </p>  
-  <%= render :partial => 'form' %>
-<p><%= submit_tag "Update" %>
-<input type="button" name="clear_me" value="Clear" onclick="if(confirm('Are you sure?')){ clearMe(); }" />
-</p>
+	<div id="formLeftContainer">
+		<%=render :partial => 'form_left'%>
+	</div>
+	<div id="formMainContainer">
+		<%= error_messages_for :me, :header_message => "Sorry!", :message => "There was a problem saving your ME" %>
+		<%= render :partial => 'form' %>
+	</div>
 <% end %>
-<p>
-<%= link_to 'Invite', :controller => :invites, :action => :new, :id => @me %> |
-<%= link_to 'Delete', @me, :confirm => 'Are you sure?', :method => :delete %>
-</p>
-<script type="text/javascript">
-   function clearMe()
-   {
-      $('me_image_url').clear();
-      $('section1_value').clear();
-      $('section2_value').clear();
-      $('section3_value').clear();
-      $('section4_value').clear();
-      $('section5_value').clear();
-   }
-</script>

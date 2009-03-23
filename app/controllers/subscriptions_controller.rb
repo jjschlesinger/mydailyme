@@ -1,7 +1,6 @@
 class SubscriptionsController < ApplicationController
   require 'cgi'
   
-  layout 'mes'
   skip_before_filter :is_authed, :only => ['show','index']
   before_filter :authenticate, :only => ['show', 'index']
   
@@ -120,7 +119,6 @@ class SubscriptionsController < ApplicationController
   end
   
   def update_position
-  	breakpoint
       params.each_key {|key|
       if key.include?('leftcontent')
         params[key].each_with_index do |id, position|
