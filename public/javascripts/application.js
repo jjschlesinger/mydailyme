@@ -1,16 +1,15 @@
 function show_hide(id)
 {
-	
     var tmp = $("#"+id).css("display");
     if(tmp == 'none')
     {
-        $("#"+id).slideDown(300);
+        $("#"+id).show();
         $("#img" + id).attr('src','/images/min.png');
         
     }
     else
     {
-        $("#"+id).slideUp(300);
+        $("#"+id).hide();
         $("#img" + id).attr('src','/images/max.png');
     }
 
