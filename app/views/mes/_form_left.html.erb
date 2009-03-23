@@ -1,0 +1,18 @@
+		<h3>
+		  <%= link_to "#{pluralize(@me.subscriptions.length, 'person')} #{@subscribe_text} to this me", me_subscribers_url(@me) %>
+		</h3> 
+		<p>
+			<a href="#"><img src="/images/clear_btn.png" name="clear_me" value="Clear" onclick="if(confirm('Are you sure?')){ clearMe(); }" /></a>
+		</p>
+		<p>
+			<%= image_submit_tag "/images/update_btn.png" %>
+		</p>
+		<p>
+			<label for="me_enable_comments" title="Uncheck this box to disable commenting on your ME">Enable Comments:</label><%= check_box :me, :enable_comments, {}, 1, 0 %>
+		</p>
+		<p>
+			<label for="keep_comments" title="Check this box to keep all existing comments.<br/>Normally, the comments will be cleared whenever your me is updated.<br/>You should only check this box when making minor tweaks to your ME">Keep Previous Comments:</label><%= check_box_tag('keep_comments', 1, false) %>
+		</p>
+		<p>
+			<label for="me_public" title="This will make you ME public so anyone can subscribe to it without an invite">Make Public:</label><%= check_box @me, :public %>
+		</p>	

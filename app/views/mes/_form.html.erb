@@ -1,7 +1,6 @@
 <%content_for :head do%>
   <link type="text/css" href="/jquery/themes/base/ui.all.css" rel="stylesheet" />
   <link type="text/css" href="/jquery/jquery.tooltip.css" rel="stylesheet" />  
-  <script src="http://www.google.com/jsapi?key=ABQIAAAA0aPSfqH7oXHLMke32qWrrhQq3Y2jEBJKNfmKkXKywvMG3gFN5hT7d_uJortdOGY0q3roGS3LoTiErQ" type="text/javascript"></script>
 	<script type="text/javascript" src="/jquery/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="/jquery/ui/ui.core.js"></script>
 	<script type="text/javascript" src="/jquery/ui/ui.draggable.js"></script>
@@ -9,117 +8,103 @@
 	<script type="text/javascript" src="/jquery/ui/ui.dialog.js"></script>
 	<script type="text/javascript" src="/jquery/external/bgiframe/jquery.bgiframe.js"></script>
 	<script type="text/javascript" src="/jquery/jquery.tooltip.js"></script>
-  <script language="Javascript" type="text/javascript">
-  //<![CDATA[
-	jQuery.noConflict();
-	
-  google.load("search", "1");
-
-  function OnLoad() {
-    var searchControl = new google.search.SearchControl();
-		
-		var options = new google.search.SearcherOptions();
-		options.setExpandMode(google.search.SearchControl.EXPAND_MODE_OPEN);
-
-    searchControl.addSearcher(new google.search.ImageSearch(), options);
-    searchControl.setOnKeepCallback(this, MyKeepHandler);
-
-		var drawOptions = new google.search.DrawOptions();
-		drawOptions.setDrawMode(google.search.SearchControl.DRAW_MODE_LINEAR);
-    
-    searchControl.draw(document.getElementById("searchcontrol"), drawOptions);
-
-    // Execute an inital search
-    //searchControl.execute("Google");
-  }
-  
-  
-  
-  // establish a keep callback
-	
-
-	function MyKeepHandler(result) {
-		document.getElementById('me_image_url').value = result.url;
-		jQuery('#searchcontrol').dialog('close');
-		// clone the result html node
-		//var node = result.html.cloneNode(true);
-
-		// attach it
-		//var savedResults = document.getElementById("saved_results");
-		//savedResults.appendChild(node);
-	}
-
-	google.setOnLoadCallback(OnLoad);
-
-  //]]>
-  </script>	
+	<%= javascript_include_tag "ls-api" %>	
 	<script type="text/javascript">
-	 	
-
 		
- jQuery(document).ready(function() {
+ $(document).ready(function() {
 
-  jQuery(function() {
+  $(function() {
 		
-		jQuery("#searchcontrol").dialog({
+		$("#searchcontrol").dialog({
 			bgiframe: true,
 			autoOpen: false,
 			height: 500,
-			width: 325,
+			width: 800,
 			modal: true
 		});
-		
-		//jQuery("#enable_comments_tt").dialog({
-		//	bgiframe: true,
-		//  autoOpen: false,
-		//	width: 300,
-		//	modal: false
-		//});
-
-		jQuery("#keep_comments_tt").dialog({
-			bgiframe: true,
-			autoOpen: false,
-			width: 375,
-			modal: false
-		});				
 
 	});
 		
-	jQuery('#imgSearchLink').click(function() {
-		jQuery('#searchcontrol').dialog('open');
+	$('#imgSearchLink').click(function() {
+		$('#searchcontrol').dialog('open');
 	});
-	
-  //jQuery("#me_enable_comments_q").click(
-  //  function () {
-  //    jQuery("#enable_comments_tt").dialog('open');
-  //  }
-  //);
-  
-  jQuery("#me_keep_comments_q").click(
-    function () {
-      jQuery("#keep_comments_tt").dialog('open');
-    }
-  );  
-  
-  jQuery("#formLeftContainer *").tooltip();
-	
+
+  $("#formLeftContainer *").tooltip();
 
  });
+ 
+ function SearchCallback(result)
+ {
+ DisplayResults(result);
+ }
+ 
+	function DisplayResults(response)
+    {
+        var output = document.getElementById("output");
+        output.innerHTML = "";
+        var resultsHeader = document.createElement("h4");
+        var resultsTable = document.createElement("table");
+        output.appendChild(resultsHeader);
+        output.appendChild(resultsTable);
+    
+        var results = response.SearchResponse.Image.Results;
+        
+        // Display the results header.
+        resultsHeader.innerHTML = "Live Search API Version "
+            + response.SearchResponse.Version
+            + "<br />Image results for "
+            + response.SearchResponse.Query.SearchTerms
+            + "<br />Displaying "
+            + (response.SearchResponse.Image.Offset + 1)
+            + " to "
+            + (response.SearchResponse.Image.Offset + results.length)
+            + " of "
+            + response.SearchResponse.Image.Total
+            + " results<br />";
+        
+        // Display the Image results.
+        var resultsRow = null;
+        var resultsCell = null;
+        var cells = 3;
+        var rows = results.length / 3;
+        var resultsIndex = 0;
+        for (var i = 0; i < rows; ++i)
+        {
+            resultsRow = document.createElement("tr");
+            resultsTable.appendChild(resultsRow);
+            for(var j = 0; j < cells && resultsIndex < results.length; ++j)
+            {
+		          resultsCell = document.createElement("td");
+		          resultsRow.appendChild(resultsCell);
+		          resultsCell.innerHTML = "<a href=\""
+		              + results[resultsIndex].MediaUrl
+		              + "\" target=\"_new\"><img src=\""
+		              + results[resultsIndex].Thumbnail.Url
+		              + "\"></a><br /><a href=\""
+		              + results[resultsIndex].Url
+		              + "\">"
+		              + results[resultsIndex].Title
+		              + "</a><br />Dimensions: "
+		              + results[resultsIndex].Width
+		              + "x"
+		              + results[resultsIndex].Height
+		              + "&nbsp;<a href=\"#\" onclick=\"document.getElementById('me_image_url').value='" + results[resultsIndex].MediaUrl + "';$('#searchcontrol').dialog('close');\">Copy Url</a>";
+		              resultsIndex++;
+          	}
+        }
+    } 
+    
+   function clearMe()
+   {
+   		$('input:text').not('#me_title').val('');
+   }    
 		
 	</script>
 <%end%>
-<div id='enable_comments_tt' title="Enable Comments" style="display:none">
-  Uncheck this box to disable commenting on your me.<br />
-</div>
-<div id='keep_comments_tt' title="Keep Comments" style="display:none">
-  Check this box to keep all existing comments.<br/>
-  Normally, the comments will be cleared whenever your <br/>
-  me is updated. You should only check this box when <br/>
-  making minor tweaks to your me.<br />
-</div>
 
 <div id="searchcontrol" title="Image Search" style="display:none">
-
+	<input id="txtImageSearch" name="txtImageSearch" type="text"><input type="button" value="Search" onclick="LiveSearch(document.getElementById('txtImageSearch').value, 25, 0, 'SearchCallback')">
+	<div id="output"></div>
 </div>
 
 

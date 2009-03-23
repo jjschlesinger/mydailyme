@@ -274,6 +274,21 @@ border:dashed 2px #ccc; margin: 4px 10px 5px 10px; padding:6px; }
    margin-left:20px;
 }
 
+.errorExplanation h2 
+{
+	font-size:2.5em;
+	color:red;
+	margin-bottom: 5px;
+}
+
+.errorExplanation p,ul,li
+{
+	font-size:1.1em;
+	/*color:#7f9ab6;*/
+	color:#000;
+
+}
+
 
 p,h1,pre {
 margin:0px 10px 3px 10px;
@@ -339,10 +354,15 @@ position:static;
 	margin-right: auto;
 }
 
+#formMainContainer label
+{
+	font-size: 1.2em;
+}
+
 #formLeftContainer
 {
 	float:left;
-	margin-right:100px;
+	margin-right:50px;
 }
 
 #formLeftContainer p

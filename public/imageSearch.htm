@@ -8,17 +8,17 @@
     
     // Replace the following string with the AppId you received from the
     // Live Search Developer Center.
-    var AppId = "A0F2E63EE5C53FE635DD0854AAD21F3E74FE2B3E";
+    var LSAppId = "A0F2E63EE5C53FE635DD0854AAD21F3E74FE2B3E";
     
     // Live Search API 2.0 code sample demonstrating the use of the
     // Image SourceType over the JSON Protocol.
-    function Search()
+    function LiveSearch(query, count, offset, callback)
     {
         var requestStr = "http://api.search.live.net/json.aspx?"
         
             // Common request fields (required)
-            + "AppId=" + AppId
-            + "&Query=xbox site:microsoft.com"
+            + "AppId=" + LSAppId
+            + "&Query=" + query
             + "&Sources=Image"
             
             // Common request fields (optional)
@@ -27,12 +27,12 @@
             + "&Adult=Moderate"
 
             // Image-specific request fields (optional)
-            + "&Image.Count=50"
-            + "&Image.Offset=0"
+            + "&Image.Count=" + count
+            + "&Image.Offset=" + offset
 
             // JSON-specific request fields (optional)
             + "&JsonType=callback"
-            + "&JsonCallback=SearchCompleted";
+            + "&JsonCallback=" + callback;
 
         var requestScript = document.createElement("script");
         requestScript.type = "text/javascript";

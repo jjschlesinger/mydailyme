@@ -1,13 +1,12 @@
 <h1>New me</h1>
 
-<%= error_messages_for :me %>
-
 <% form_for(@me) do %>
-<%= render :partial => 'form' %>
-<p><%= submit_tag "Create" %></p>
+	<div id="formLeftContainer">
+		<%=render :partial => 'form_left'%>
+	</div>
+	<div id="formMainContainer">
+		<%= error_messages_for :me, :header_message => "Sorry!", :message => "There was a problem saving your ME" %>
+		<%= render :partial => 'form' %>
+	</div>
 <% end %>
-<p>
-<%= link_to 'Show', @me %> |
-<%= link_to 'Back', mes_path %>
-</p>
 

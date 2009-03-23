@@ -1,0 +1,97 @@
+<%content_for :head do%>
+  <%= javascript_include_tag :defaults %>
+<%end%>
+
+<%content_for :menu do%>
+	<%=render :partial => 'shared/menu'%>
+<%end%>
+
+<div id="wholecontent">
+
+
+
+<!-- start left box-->
+<div id="leftcontent" class="groupWrapper">
+<% for subscription in @subscriptions_col1 %>
+    <%= render :partial => 'subscription', :locals => { :subscription => subscription, :prefix => 'leftcontent' } %>
+<% end %>
+</div>
+<!-- end left box-->
+
+<!-- start content -->
+<div id="centercontent" class="groupWrapper">
+<% for subscription in @subscriptions_col2 %>
+    <%= render :partial => 'subscription', :locals => { :subscription => subscription, :prefix => 'centercontent' } %>
+<% end %>
+</div>
+<!-- end content -->
+
+<!-- start right box -->
+<div id="rightcontent" class="groupWrapper">
+<% for subscription in @subscriptions_col3 %>
+    <%= render :partial => 'subscription', :locals => { :subscription => subscription, :prefix => 'rightcontent' } %>
+<% end %>
+</div>
+
+
+<% if @subscriptions_col1[0].nil? and  @subscriptions_col2[0].nil? and  @subscriptions_col3[0].nil? %>
+<p>You got nothin.</p>
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(
+	function () {
+		
+		$('div.groupWrapper').Sortable(
+			{
+				accept: 'me',
+				helperclass: 'sortHelper',
+				activeclass : 	'sortableactive',
+				hoverclass : 	'sortablehover',
+				handle: 'div.meTitle',
+				tolerance: 'pointer',
+				onChange : function(ser)
+				{
+					//replace(ser[1].id, "")
+					/*var sRegEx1 = new RegExp(ser[0].id, "gi");
+					var sRegEx2 = new RegExp(ser[1].id, "gi");
+					var sRegEx3 = new RegExp("[[]]=", "g");
+					var sRegEx4 = new RegExp("_", "g");
+					var sRegEx5 = new RegExp("&", "g");
+					
+					var test =  $.SortSerialize(ser[1].id).hash.replace(sRegEx1, "").replace(sRegEx2, "").replace(sRegEx3, "").replace(sRegEx4, "").replace(sRegEx5, ", ");
+					
+					if (ser[1].id == "leftcontent"
+						$.post("/subscriptions/update_position",{'authenticity_token' : '<%="#{form_authenticity_token}"%>', "leftcontent" : test});
+					if (ser[1].id == "centercontent"
+						$.post("/subscriptions/update_position",{'authenticity_token' : '<%="#{form_authenticity_token}"%>', "centercontent" : test});
+					if (ser[1].id == "rightcontent"
+						$.post("/subscriptions/update_position",{'authenticity_token' : '<%="#{form_authenticity_token}"%>', "rightcontent" : test});
+						*/
+				},
+				onStart : function()
+				{
+					$.iAutoscroller.start(this, document.getElementsByTagName('body'));
+				},
+				onStop : function()
+				{
+					$.iAutoscroller.stop();
+				}
+			}
+		);
+	}
+);
+
+function serialize(s)
+{
+	serial = $.SortSerialize(s);
+	return serial;
+};
+</script>
+
+
+
+</div>
+<%content_for :widgets do%>
+	<%=render :partial => 'shared/widgets'%>
+<%end%>

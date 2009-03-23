@@ -36,7 +36,7 @@ class MesController < ApplicationController
     @section3 = MeSection.new(:section_type=>3)
     @section4 = MeSection.new(:section_type=>4)
     @section5 = MeSection.new(:section_type=>5)
-
+		@subscribe_text = 'subscribe'
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @me }
@@ -139,7 +139,7 @@ class MesController < ApplicationController
 	      @me.section4.update_attributes!(params[:section4])
 	      @me.section5.update_attributes!(params[:section5])
 	      Comment.delete_all("me_id = #{@me.id}") unless params[:keep_comments]
-	      flash[:notice] = 'Me was successfully updated.'
+	      #flash[:notice] = 'Me was successfully updated.'
 	      format.html { 
 	      	if is_m
 	      		redirect_to(m_subscriptions_path) 
