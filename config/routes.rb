@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :sessions
 
-  map.resources :users
+  map.resources :users, :member => { :invite => :get }
   
   map.resources :invites
   

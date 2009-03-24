@@ -6,7 +6,12 @@
 <% form_for(@me) do %>
 	<div id="formLeftContainer">
 		<%=render :partial => 'form_left'%>
+		<div id="inviteDeleteLinks">
+			<%= link_to 'Invite', :controller => :invites, :action => :new, :id => @me %> |
+			<%= link_to 'Delete', @me, :confirm => 'Are you sure?', :method => :delete %>
+		</div>		
 	</div>
+	
 	<div id="formMainContainer">
 		<%= error_messages_for :me, :header_message => "Sorry!", :message => "There was a problem saving your ME" %>
 		<%= render :partial => 'form' %>

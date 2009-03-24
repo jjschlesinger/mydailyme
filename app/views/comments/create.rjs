@@ -1,6 +1,7 @@
 page.replace_html 'comments_list_' + @subscription.id.to_s, :partial => 'comments/comment_list', :locals => { :comments => @subscription.me.comments }
 if @error_msg.nil?
-  page.visual_effect :highlight, 'comments_list_' + @subscription.id.to_s, :duration => 1, :startcolor => "#b8ce83", :endcolor => "#ffffff"
+  #page.visual_effect :highlight, 'comments_list_' + @subscription.id.to_s, :duration => 1, :startcolor => "'#b8ce83'", :endcolor => "'#ffffff'"
+  page << "$('#comments_list_#{@subscription.id}').fadeIn(1000);"
   page.replace_html 'comments_link_' + @subscription.id.to_s, "Comments (#{@subscription.me.comments.length})"
   page["comment_text_#{@subscription.id}"].val('')
 else

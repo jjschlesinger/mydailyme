@@ -40,58 +40,58 @@
  
 	function DisplayResults(response)
     {
-        var output = document.getElementById("output");
-        output.innerHTML = "";
-        var resultsHeader = document.createElement("h4");
-        var resultsTable = document.createElement("table");
-        output.appendChild(resultsHeader);
-        output.appendChild(resultsTable);
-    
         var results = response.SearchResponse.Image.Results;
-        
-        // Display the results header.
-        resultsHeader.innerHTML = "Live Search API Version "
-            + response.SearchResponse.Version
-            + "<br />Image results for "
+        var offset = response.SearchResponse.Image.Offset + results.length;
+        $('#output')
+        	.html('')
+        	.append("<h4 id='searchResultsHeader'>"
+            + "<br />Image results for \""
             + response.SearchResponse.Query.SearchTerms
-            + "<br />Displaying "
+            + "\"<br />Displaying "
             + (response.SearchResponse.Image.Offset + 1)
             + " to "
-            + (response.SearchResponse.Image.Offset + results.length)
+            + (offset)
             + " of "
             + response.SearchResponse.Image.Total
-            + " results<br />";
+            + " results<br />"
+        		+ "</h4>")
+      		.append("<table id='searchResultsTable'></table>");
         
         // Display the Image results.
-        var resultsRow = null;
-        var resultsCell = null;
         var cells = 3;
         var rows = results.length / 3;
         var resultsIndex = 0;
         for (var i = 0; i < rows; ++i)
         {
-            resultsRow = document.createElement("tr");
-            resultsTable.appendChild(resultsRow);
-            for(var j = 0; j < cells && resultsIndex < results.length; ++j)
-            {
-		          resultsCell = document.createElement("td");
-		          resultsRow.appendChild(resultsCell);
-		          resultsCell.innerHTML = "<a href=\""
-		              + results[resultsIndex].MediaUrl
-		              + "\" target=\"_new\"><img src=\""
-		              + results[resultsIndex].Thumbnail.Url
-		              + "\"></a><br /><a href=\""
-		              + results[resultsIndex].Url
-		              + "\">"
-		              + results[resultsIndex].Title
-		              + "</a><br />Dimensions: "
-		              + results[resultsIndex].Width
-		              + "x"
-		              + results[resultsIndex].Height
-		              + "&nbsp;<a href=\"#\" onclick=\"document.getElementById('me_image_url').value='" + results[resultsIndex].MediaUrl + "';$('#searchcontrol').dialog('close');\">Copy Url</a>";
-		              resultsIndex++;
+        	$("#searchResultsTable").append("<tr></tr>");
+          for(var j = 0; j < cells && resultsIndex < results.length; ++j)
+          {
+	          $("#searchResultsTable tr:last").append("<td>"
+	          	  + "<a href=\""
+	              + results[resultsIndex].MediaUrl
+	              + "\" target=\"_new\"><img src=\""
+	              + results[resultsIndex].Thumbnail.Url
+	              + "\"></a><br /><a href=\""
+	              + results[resultsIndex].Url
+	              + "\">"
+	              + results[resultsIndex].Title
+	              + "</a><br />Dimensions: "
+	              + results[resultsIndex].Width
+	              + "x"
+	              + results[resultsIndex].Height
+	              + "&nbsp;<a href=\"#\" onclick=\"document.getElementById('me_image_url').value='" + results[resultsIndex].MediaUrl + "';$('#searchcontrol').dialog('close');\">Copy Url</a></td>");
+	              resultsIndex++;
           	}
         }
+        
+        $('#output')
+					.append("<h4 id='searchResultsFooter'></h4>")
+					.append("<a href=''>Prev</a>&nbsp;")
+					.append("<a href=\"javascript:LiveSearch('" + response.SearchResponse.Query.SearchTerms + "'," + results.length + ", " + offset + ", 'SearchCallback');\">Next</a>");					
+        
+        //var resultsFooter = document.createElement("h4");
+        //var nextLink = document.createElement("a");
+        //output.appendChild(resultsFooter);      
     } 
     
    function clearMe()
