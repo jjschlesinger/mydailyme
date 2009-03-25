@@ -79,7 +79,7 @@
 	              + results[resultsIndex].Width
 	              + "x"
 	              + results[resultsIndex].Height
-	              + "&nbsp;<a href=\"#\" onclick=\"document.getElementById('me_image_url').value='" + results[resultsIndex].MediaUrl + "';$('#searchcontrol').dialog('close');\">Copy Url</a></td>");
+	              + "&nbsp;<a href=\"#\" onclick=\"$('#me_image_url').val('" + results[resultsIndex].MediaUrl + "');$('#searchcontrol').dialog('close');\">Copy Url</a></td>");
 	              resultsIndex++;
           	}
         }
@@ -96,7 +96,11 @@
     
    function clearMe()
    {
-   		$('input:text').not('#me_title').val('');
+   		$('#formMainContainer input:text')
+   			.not('#me_title')
+   			.val('');
+   		$('#formMainContainer textarea')
+   			.val('');
    }    
 		
 	</script>

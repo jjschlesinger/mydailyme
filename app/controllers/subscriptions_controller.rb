@@ -123,7 +123,6 @@ class SubscriptionsController < ApplicationController
       if key.include?('leftcontent')
         params[key].each_with_index do |id, position|
           @subscription = Subscription.find(id)
-          breakpoint
             if !@subscription.nil?
             @subscription.pos_x = 0
             @subscription.pos_y = position
@@ -134,7 +133,6 @@ class SubscriptionsController < ApplicationController
       end
       if key.include?('centercontent')
         params[key].each_with_index do |id, position|
-        	breakpoint
           @subscription = Subscription.find(id)
             if !@subscription.nil?
             @subscription.pos_x = 1

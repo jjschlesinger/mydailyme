@@ -1,6 +1,6 @@
   <% for i in 0..subscription.pos_y %>
         <% if i == subscription.pos_y %>
-            <div class="me" id="<%= "#{prefix}_#{subscription.id}" %>" >
+            <div class="me" id="<%= "#{subscription.id}" %>" >
               <% if !subscription.me.nil? %>
                 <div class="meTitle">
                     <h1><%= h subscription.me.title %></h1>

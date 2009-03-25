@@ -53,22 +53,15 @@ $(document).ready(
 				tolerance: 'pointer',
 				onChange : function(ser)
 				{
-					//replace(ser[1].id, "")
-					/*var sRegEx1 = new RegExp(ser[0].id, "gi");
-					var sRegEx2 = new RegExp(ser[1].id, "gi");
-					var sRegEx3 = new RegExp("[[]]=", "g");
-					var sRegEx4 = new RegExp("_", "g");
-					var sRegEx5 = new RegExp("&", "g");
-					
-					var test =  $.SortSerialize(ser[1].id).hash.replace(sRegEx1, "").replace(sRegEx2, "").replace(sRegEx3, "").replace(sRegEx4, "").replace(sRegEx5, ", ");
-					
-					if (ser[1].id == "leftcontent"
-						$.post("/subscriptions/update_position",{'authenticity_token' : '<%="#{form_authenticity_token}"%>', "leftcontent" : test});
-					if (ser[1].id == "centercontent"
-						$.post("/subscriptions/update_position",{'authenticity_token' : '<%="#{form_authenticity_token}"%>', "centercontent" : test});
-					if (ser[1].id == "rightcontent"
-						$.post("/subscriptions/update_position",{'authenticity_token' : '<%="#{form_authenticity_token}"%>', "rightcontent" : test});
-						*/
+				
+					for(var i = 0; i < ser.length; i++)
+					{
+								$.ajax({
+												 type: "POST",
+												 url: "/subscriptions/update_position",
+												 data: ser[i].hash
+											 });
+					}
 				},
 				onStart : function()
 				{
