@@ -1,56 +1,34 @@
-<%= javascript_include_tag 'portal' %>
 <div class="meTitle">
-    <h1><%= h me.title %></h1>
-    <%if !show_only %>
-    <div class="options">
-       
-    </div>
-    <% end %>
-<div class="meSpacer"></div>
-</div>
-<div class="mebody" id="<%= "mebody_#{id}" %>">
-<% if me.image_url != ""
-    img_id = "meImg"
-%>
-<a href="<%= me.image_url %>" target="_blank"><img id="<%=img_id%>" altme.title%> Me Image" src="/images/1x1.gif" /></a>
-<script type="text/javascript">
-  var max = 150;
-  var <%=img_id%> = document.getElementById('<%=img_id%>');
-  //<%=img_id%>.onload= resize('<%=img_id%>',150);
-  <%=img_id%>.onload = function() {
-  
-  if (<%=img_id%>.width > <%=img_id%>.height) {
-    if (<%=img_id%>.width > max) <%=img_id%>.width = max;
-  } else {
-    if (<%=img_id%>.height > max) <%=img_id%>.height = max;
-  }};
-  <%=img_id%>.src = "<%= me.image_url %>";
-  
-</script>
-<% end %>
-<% if me.section1.value != "" %>
-<p><span class="title"><%= h me.section1.section.name %></span>
-<%= h me.section1.value %></p>        
-<% end %>
+	<h1><%= h subscription.me.title %></h1>
+	<%unless show_only%>
+	<div class="options">
+		<% meImg = "/images/max.png" if subscription.collapsed? %>
+		<% meImg = "/images/min.png" unless subscription.collapsed? %>
+		<a href="#" onclick="$.ajax({ type: 'POST', url: '/subscriptions/is_collapsed', data: 'id=<%=subscription.id%>', success: function(){ show_hide('mebody_<%=subscription.id%>');} });"><img src="<%=meImg%>" id="imgmebody_#{subscription.id}" alt="Toggle ME" class="optionImage" /></a>
+		<%= link_to "<img src='/images/destroy.png' alt='X' class='optionImage' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
+	</div>
+	<%end%>
+	<div class="meSpacer"></div>
+	</div>
+	<div class="mebody" id="<%= "mebody_#{subscription.id}" %>" <% if subscription.collapsed? %>style="display:none;"<% end %>>
+	<% if subscription.me.image_thumbnail != "" %>
+			<a href="<%= subscription.me.image_url %>" target="_blank"><img alt="<%=subscription.me.title%> Me Image" src="<%= subscription.me.image_thumbnail %>" /></a>
+	<% end %>
 
-<% if me.section2.value != "" %>
-<p><span class="title"><%= h me.section2.section.name %></span>
-<%= h me.section2.value %></p>        
-<% end %>
+	<%= render :partial => 'me_sections/show', :locals => { :me_section => subscription.me.section1 } %>
+	<%= render :partial => 'me_sections/show', :locals => { :me_section => subscription.me.section2 } %>				
+	<%= render :partial => 'me_sections/show', :locals => { :me_section => subscription.me.section3 } %>
+	<%= render :partial => 'me_sections/show', :locals => { :me_section => subscription.me.section4 } %>
+	<%= render :partial => 'me_sections/show', :locals => { :me_section => subscription.me.section5 } %>												
 
-<% if me.section3.value != "" %>
-<p><span class="title"><%= h me.section3.section.name %></span>
-<%= h me.section3.value %></p>        
-<% end %>
+	<% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
 
-<% if me.section4.value != "" %>
-<p><span class="title"><%= h me.section4.section.name %></span>
-<%= h me.section4.value %></p>        
-<% end %>
-
-<% if me.section5.value != "" %>
-<p><span class="title">Soapbox</span>
-<%= h me.section5.value %></p>        
-<% end %>
-<% if me.image_url != "" %><div class="meSpacer"></div><% end %>
+	<div style="color:#a6a6a6;text-align:right;margin-right:5px;margin-top:15px;font-size:smaller;"><%= distance_of_time_in_words(Time.now, subscription.me.updated_at) %> ago</div>
+	<%unless show_only%>
+	<div id="com_<%=subscription.id%>" style="margin:10px;">
+		<% if subscription.me.enable_comments? %>
+			    <%= render :partial => 'comments', :locals => { :subscription => subscription, :error_message => "" } %>
+		<% end %>
+	</div>
+	<%end%>
 </div>

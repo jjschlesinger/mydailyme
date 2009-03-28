@@ -1,0 +1,4 @@
+<% if me_section.value != "" %>
+<p><span class="title"><%= h me_section.section.name unless me_section.section.nil? %><%= "Soapbox" if me_section.section.nil? %></span></p>
+<%= ae_some_html me_section.value %>        
+<% end %>

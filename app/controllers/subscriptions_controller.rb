@@ -122,7 +122,7 @@ class SubscriptionsController < ApplicationController
       params.each_key {|key|
       if key.include?('leftcontent')
         params[key].each_with_index do |id, position|
-          @subscription = Subscription.find(id)
+          @subscription = Subscription.find id.sub("content_", "")
             if !@subscription.nil?
             @subscription.pos_x = 0
             @subscription.pos_y = position
@@ -133,7 +133,7 @@ class SubscriptionsController < ApplicationController
       end
       if key.include?('centercontent')
         params[key].each_with_index do |id, position|
-          @subscription = Subscription.find(id)
+          @subscription = Subscription.find id.sub("content_", "")
             if !@subscription.nil?
             @subscription.pos_x = 1
             @subscription.pos_y = position
@@ -145,7 +145,7 @@ class SubscriptionsController < ApplicationController
       
       if key.include?('rightcontent')
         params[key].each_with_index do |id, position|
-          @subscription = Subscription.find(id)
+          @subscription = Subscription.find id.sub("content_", "")
             if !@subscription.nil?
             @subscription.pos_x = 2
             @subscription.pos_y = position
@@ -163,6 +163,7 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.find(params[:id])
     @subscription.collapsed = !@subscription.collapsed
     @subscription.save() 
+    render:nothing => true
   end 
 
 end

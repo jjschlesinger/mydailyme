@@ -1,104 +1,21 @@
-  <% for i in 0..subscription.pos_y %>
-        <% if i == subscription.pos_y %>
-            <div class="me" id="<%= "#{subscription.id}" %>" >
-              <% if !subscription.me.nil? %>
-                <div class="meTitle">
-                    <h1><%= h subscription.me.title %></h1>
-                    <div class="options">
-			<% if subscription.collapsed? 
-			      meImg = "/images/max.png"
-			else
-			      meImg = "/images/min.png"  
-			end %>
-                       <%= link_to_remote "<img src='#{meImg}' id='imgmebody_#{subscription.id}' alt='-' class='optionImage' />",
-                        :url=>{
-                            :action=>"is_collapsed", 
-                            :id=>subscription.id},
-                            :loading=>"show_hide('mebody_#{subscription.id}')" %>
-                        <%= link_to "<img src='/images/destroy.png' alt='X' class='optionImage' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
-                    </div>
-                <div class="meSpacer"></div>
-                </div>
-                <div class="mebody" id="<%= "mebody_#{subscription.id}" %>" <% if subscription.collapsed? %>style="display:none;"<% end %>>
-				<% if subscription.me.image_thumbnail != "" %>
-					  <a href="<%= subscription.me.image_url %>" target="_blank"><img alt="<%=subscription.me.title%> Me Image" src="<%= subscription.me.image_thumbnail %>" /></a>
-				<% else %>           
-				<% if subscription.me.image_url != ""
-		    img_id = "meImg_" + subscription.id.to_s
-		%>
-                    <a href="<%= subscription.me.image_url %>" target="_blank"><img id="<%=img_id%>" alt="<%=subscription.me.title%> Me Image" src="/images/1x1.gif" /></a>
-                <script type="text/javascript">
-                  
-                  var <%=img_id%> = document.getElementById('<%=img_id%>');
-                  <% if !request.user_agent.include? "MSIE" %>
-                        <%=img_id%>.style.display = "none";
-                  <% end %>                  
-                  <%=img_id%>.src = "<%= subscription.me.image_url %>";
-                  <%=img_id%>.onload = function() {
-
-                  if (<%=img_id%>.width > <%=img_id%>.height) {
-                    if (<%=img_id%>.width > max) <%=img_id%>.width = max;
-                  } else {
-                    if (<%=img_id%>.height > max) <%=img_id%>.height = max;
-                  }
-                  <% if !request.user_agent.include? "MSIE" %>
-                        <%=img_id%>.style.display = "block";
-                  <% end %>
-                  };
-                  
-                  
-                </script>
-                <% end %>
-                <% end %>
-                <% if subscription.me.section1.value != "" %>
-                <p><span class="title"><%= h subscription.me.section1.section.name %></span></p>
-                <%= ae_some_html subscription.me.section1.value %>        
-                <% end %>
-                
-                <% if subscription.me.section2.value != "" %>
-                <p><span class="title"><%= h subscription.me.section2.section.name %></span></p> 
-                <%= ae_some_html subscription.me.section2.value %>       
-                <% end %>
-                
-                <% if subscription.me.section3.value != "" %>
-                <p><span class="title"><%= h subscription.me.section3.section.name %></span></p>
-                <%= ae_some_html subscription.me.section3.value %>        
-                <% end %>
-                
-               <% if subscription.me.section4.value != "" %>
-                <p><span class="title"><%= h subscription.me.section4.section.name %></span></p>
-                <%= ae_some_html subscription.me.section4.value %>        
-                <% end %>
-                
-                <% if subscription.me.section5.value != "" %>
-                <p><span class="title">Soapbox</span></p>
-                <%= ae_some_html subscription.me.section5.value %>        
-                <% end %>
-                <% if subscription.me.image_url != "" %><div class="meSpacer"></div><% end %>
-
-                <div style="color:#a6a6a6;text-align:right;margin-right:5px;margin-top:15px;font-size:smaller;"><%= distance_of_time_in_words(Time.now, subscription.me.updated_at) %> ago</div>
-
-                <div id="com_<%=subscription.id%>" style="margin:10px;">
-                  <% if subscription.me.enable_comments? %>
-                        <%= render :partial => 'comments', :locals => { :subscription => subscription, :error_message => "" } %>
-                  <% end %>
-            	</div>
-              </div>
-              <% else %>
-              <div class="meBrokeTitle">
-                <h1>Me no longer available</h1>
-                <div class="broke_options">
-                        <%= link_to "<img src='/images/destroy.png' alt='X' class='optionImage' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
-                </div>
-                <div class="meSpacer"></div>
-              </div>
-              <div class="mebody" id="<%= "mebody_#{subscription.id}" %>">
-              </div>
-
-              <% end %>
-				 
-            </div>
-        <% end %>
-    <% end %>
+<% for i in 0..subscription.pos_y %>
+  <% if i == subscription.pos_y %>
+  <div class="me" id="<%= "content_#{subscription.id}" %>" >
+    <% if !subscription.me.nil? %>
+    	<%= render :partial => 'mes/me', :locals => { :subscription => subscription, :show_only => false } %>
+		<% else %>
+		<div class="meBrokeTitle">
+			<h1>Me no longer available</h1>
+			<div class="broke_options">
+			        <%= link_to "<img src='/images/destroy.png' alt='X' class='optionImage' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
+			</div>
+			<div class="meSpacer"></div>
+		</div>
+		<div class="mebody" id="<%= "mebody_#{subscription.id}" %>">
+		</div>
+		<% end %>			 
+	</div>
+	<% end %>
+<% end %>
     
     

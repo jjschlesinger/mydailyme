@@ -4,7 +4,7 @@
     
     // Live Search API 2.0 code sample demonstrating the use of the
     // Image SourceType over the JSON Protocol.
-    function LiveSearch(query, count, offset, callback)
+    function LiveSearch(query, count, offset, adultFilter, callback)
     {
         var requestStr = "http://api.search.live.net/json.aspx?"
         
@@ -16,7 +16,7 @@
             // Common request fields (optional)
             + "&Version=2.0"
             + "&Market=en-us"
-            + "&Adult=Off"
+            + "&Adult=" + adultFilter
 
             // Image-specific request fields (optional)
             + "&Image.Count=" + count

@@ -7,7 +7,7 @@
     <% if @is_valid %>
     <div>Are you sure you want to subscribe to this Me?: <%= f.submit "Yes" %></div>
     <div id="leftcontent">
-       <div class="me"><%= render :partial => 'mes/me', :locals => { :show_only => true } %> </div>
+       <div class="me"><%= render :partial => 'mes/me', :locals => { :subscription => @subscription, :show_only => true } %> </div>
     </div>
     <% else %>
     <div>You are not allowed to subscribe to this me</div>

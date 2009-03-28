@@ -3,8 +3,7 @@
   <link type="text/css" href="/jquery/jquery.tooltip.css" rel="stylesheet" />  
 	<script type="text/javascript" src="/jquery/jquery-1.3.2.js"></script>
 	<script type="text/javascript" src="/jquery/ui/ui.core.js"></script>
-	<script type="text/javascript" src="/jquery/ui/ui.draggable.js"></script>
-	<script type="text/javascript" src="/jquery/ui/ui.resizable.js"></script>
+
 	<script type="text/javascript" src="/jquery/ui/ui.dialog.js"></script>
 	<script type="text/javascript" src="/jquery/external/bgiframe/jquery.bgiframe.js"></script>
 	<script type="text/javascript" src="/jquery/jquery.tooltip.js"></script>
@@ -30,6 +29,16 @@
 	});
 
   $("#formLeftContainer *").tooltip();
+  
+	$('#btnImageSearch').click(function() {
+		LiveSearch($('#txtImageSearch').val(), 25, 0, $('#adultFilter option:selected').text(), 'SearchCallback');
+	});
+	
+	$('#txtImageSearch').keypress(function(e) {
+		if(e.which == 13) {
+			LiveSearch($('#txtImageSearch').val(), 25, 0, $('#adultFilter option:selected').text(), 'SearchCallback');
+		}
+	});	  
 
  });
  
@@ -73,7 +82,7 @@
 	              + results[resultsIndex].Thumbnail.Url
 	              + "\"></a><br /><a href=\""
 	              + results[resultsIndex].Url
-	              + "\">"
+	              + "\" target=\"_new\">"
 	              + results[resultsIndex].Title
 	              + "</a><br />Dimensions: "
 	              + results[resultsIndex].Width
@@ -87,7 +96,7 @@
         $('#output')
 					.append("<h4 id='searchResultsFooter'></h4>")
 					.append("<a href=''>Prev</a>&nbsp;")
-					.append("<a href=\"javascript:LiveSearch('" + response.SearchResponse.Query.SearchTerms + "'," + results.length + ", " + offset + ", 'SearchCallback');\">Next</a>");					
+					.append("<a href=\"javascript:LiveSearch('" + response.SearchResponse.Query.SearchTerms + "'," + results.length + "," + offset + ",'" + $('#adultFilter option:selected').text() + "','SearchCallback');\">Next</a>");					
         
         //var resultsFooter = document.createElement("h4");
         //var nextLink = document.createElement("a");
@@ -107,7 +116,16 @@
 <%end%>
 
 <div id="searchcontrol" title="Image Search" style="display:none">
-	<input id="txtImageSearch" name="txtImageSearch" type="text"><input type="button" value="Search" onclick="LiveSearch(document.getElementById('txtImageSearch').value, 25, 0, 'SearchCallback')">
+	<input id="txtImageSearch" name="txtImageSearch" type="text">
+	<div style="display:none;">
+	<label for="" >Adult Filter</label>
+	<select id="adultFilter">
+		<option value="Off">Off</option>
+		<option value="Moderate" selected="true">Moderate</option>
+		<option value="Strict">Strict</option>				
+	</select>
+	</div>
+	<input type="button" value="Search" id="btnImageSearch">
 	<div id="output"></div>
 </div>
 
