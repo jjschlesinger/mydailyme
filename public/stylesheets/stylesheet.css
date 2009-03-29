@@ -340,6 +340,42 @@ position:static;
 
 }
 
+/* ~~~~~~~~~ BEGIN FOOTER ~~~~~~~~~ */
+
+#footer{
+height:329px;
+background:#000 url('images/bg.jpg') top center repeat-x;
+text-align: center;
+padding-top: 8px;
+clear: both;
+float: none;
+margin-left: -10px;
+margin-right: -10px;
+margin-bottom: -20px;
+
+}
+
+
+/* ~~~~~~~~~ END FOOTER~~~~~~~~~ */
+
+.error
+{
+	color: red;
+	padding-right: 5px;
+}
+
+
+/* DRAG AND DROP */
+.sortHelper
+{
+	border: 3px dashed #666;
+	width: auto !important;
+}
+
+/* END DRAG AND DROP */
+
+/* Forms */
+
 .editSelect
 {
    margin: 10px;
@@ -436,37 +472,24 @@ input[type="submit"]
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 }
-/* ~~~~~~~~~ BEGIN FOOTER ~~~~~~~~~ */
 
-#footer{
-height:329px;
-background:#000 url('images/bg.jpg') top center repeat-x;
-text-align: center;
-padding-top: 8px;
-clear: both;
-float: none;
-margin-left: -10px;
-margin-right: -10px;
-margin-bottom: -20px;
+/* Image Search */
 
-}
-
-
-/* ~~~~~~~~~ END FOOTER~~~~~~~~~ */
-
-.error
+#moreSearchOptions
 {
-	color: red;
-	padding-right: 5px;
+	margin-top: 5px;
 }
 
-
-/* DRAG AND DROP */
-.sortHelper
+#searchcontrol a,td
 {
-	border: 3px dashed #666;
-	width: auto !important;
+	font-size: smaller;
 }
 
-/* END DRAG AND DROP */
+#moreSearchOptionsLink
+{
+	margin-left: 10px;
+}
 
+/* end Image Search */
+
+/* end forms */

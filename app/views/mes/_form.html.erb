@@ -10,47 +10,54 @@
 	<%= javascript_include_tag "ls-api" %>	
 	<script type="text/javascript">
 		
- $(document).ready(function() {
+	 $(document).ready(function() {
 
-  $(function() {
+		$(function() {
 		
-		$("#searchcontrol").dialog({
-			bgiframe: true,
-			autoOpen: false,
-			height: 500,
-			width: 800,
-			modal: true
+			$("#searchcontrol").dialog({
+				bgiframe: true,
+				autoOpen: false,
+				height: 500,
+				width: 800,
+				modal: true
+			});
+
+		});
+		
+		$('#imgSearchLink').click(function() {
+			$('#searchcontrol').dialog('open');
 		});
 
-	});
+		$("#formLeftContainer *").tooltip();
 		
-	$('#imgSearchLink').click(function() {
-		$('#searchcontrol').dialog('open');
-	});
-
-  $("#formLeftContainer *").tooltip();
-  
-	$('#btnImageSearch').click(function() {
-		LiveSearch($('#txtImageSearch').val(), 25, 0, $('#adultFilter option:selected').text(), 'SearchCallback');
-	});
-	
-	$('#txtImageSearch').keypress(function(e) {
-		if(e.which == 13) {
+		$('#btnImageSearch').click(function() {
 			LiveSearch($('#txtImageSearch').val(), 25, 0, $('#adultFilter option:selected').text(), 'SearchCallback');
-		}
-	});	  
+		});
+	
+		$('#txtImageSearch').keypress(function(e) {
+			if(e.which == 13) {
+				LiveSearch($('#txtImageSearch').val(), 25, 0, $('#adultFilter option:selected').text(), 'SearchCallback');
+			}
+		});
+		
+		$('#moreSearchOptionsLink').click(function() {
+			$('#moreSearchOptions').toggle();
+		});			  
 
- });
- 
- function SearchCallback(result)
- {
- DisplayResults(result);
- }
+	 });
+	 
+	 function SearchCallback(result)
+	 {
+	 	DisplayResults(result);
+	 }
  
 	function DisplayResults(response)
     {
         var results = response.SearchResponse.Image.Results;
         var offset = response.SearchResponse.Image.Offset + results.length;
+        var prev_offset = response.SearchResponse.Image.Offset - results.length;
+        if(prev_offset < 0)
+        	prev_offset = 0;
         $('#output')
         	.html('')
         	.append("<h4 id='searchResultsHeader'>"
@@ -88,14 +95,14 @@
 	              + results[resultsIndex].Width
 	              + "x"
 	              + results[resultsIndex].Height
-	              + "&nbsp;<a href=\"#\" onclick=\"$('#me_image_url').val('" + results[resultsIndex].MediaUrl + "');$('#searchcontrol').dialog('close');\">Copy Url</a></td>");
+	              + "<br/><a href=\"#\" onclick=\"$('#me_image_url').val('" + results[resultsIndex].MediaUrl + "');$('#searchcontrol').dialog('close');\">Copy Url</a></td>");
 	              resultsIndex++;
           	}
         }
         
         $('#output')
 					.append("<h4 id='searchResultsFooter'></h4>")
-					.append("<a href=''>Prev</a>&nbsp;")
+					.append("<a href=\"javascript:LiveSearch('" + response.SearchResponse.Query.SearchTerms + "'," + results.length + "," + prev_offset + ",'" + $('#adultFilter option:selected').text() + "','SearchCallback');\">Prev</a>&nbsp;")
 					.append("<a href=\"javascript:LiveSearch('" + response.SearchResponse.Query.SearchTerms + "'," + results.length + "," + offset + ",'" + $('#adultFilter option:selected').text() + "','SearchCallback');\">Next</a>");					
         
         //var resultsFooter = document.createElement("h4");
@@ -116,16 +123,18 @@
 <%end%>
 
 <div id="searchcontrol" title="Image Search" style="display:none">
-	<input id="txtImageSearch" name="txtImageSearch" type="text">
-	<div style="display:none;">
+	<div id="searchFormElements">
+		<input id="txtImageSearch" name="txtImageSearch" type="text">
+		<input type="button" value="Search" id="btnImageSearch"><a href="#" id="moreSearchOptionsLink">more options</a>
+	</div>
+	<div style="display:none;" id="moreSearchOptions">
 	<label for="" >Adult Filter</label>
 	<select id="adultFilter">
 		<option value="Off">Off</option>
 		<option value="Moderate" selected="true">Moderate</option>
 		<option value="Strict">Strict</option>				
 	</select>
-	</div>
-	<input type="button" value="Search" id="btnImageSearch">
+	</div>	
 	<div id="output"></div>
 </div>
 
