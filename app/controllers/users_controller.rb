@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  	debugger
     @user = User.find(session['user_id'])
     @user.password = ""
     @user.display_name = @user.current_display_name
@@ -83,10 +84,6 @@ class UsersController < ApplicationController
         flash[:error] = 'Invalid invite code'
         redirect_to :action => "request"
   	end
-  end
-  
-  def request
-  	
   end
   
 end

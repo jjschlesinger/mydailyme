@@ -20,6 +20,5 @@ task :after_symlink, :roles => :app do
 	run "rm -rf #{release_path}/public/me_images"
 #	run "ln -nfs #{shared_path}/me_images #{release_path}/public/"
 	run "ln -nfs #{shared_path}/me_images/ #{release_path}/public/me_images"
-	run "chown -R www-data:www-data #{shared_path}/log/"	
-	run "chown -R www-data:www-data #{shared_path}/log/*"
+	run "mv #{release_path}/app/controllers/application_controller.rb #{release_path}/app/controllers/application.rb"
 end

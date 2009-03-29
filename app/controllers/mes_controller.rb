@@ -15,17 +15,6 @@ class MesController < ApplicationController
     end
   end
 
-  # GET /mes/1
-  # GET /mes/1.xml
-  def show
-    @me = Me.find(params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @me }
-    end
-  end
-
   # GET /mes/new
   # GET /mes/new.xml
   def new
