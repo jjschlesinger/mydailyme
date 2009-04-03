@@ -4,7 +4,7 @@
 	<div class="options">
 		<% meImg = "/images/max.png" if subscription.collapsed? %>
 		<% meImg = "/images/min.png" unless subscription.collapsed? %>
-		<a href="#" onclick="$.ajax({ type: 'POST', url: '/subscriptions/is_collapsed', data: 'id=<%=subscription.id%>', success: function(){ show_hide('mebody_<%=subscription.id%>');} });"><img src="<%=meImg%>" id="imgmebody_#{subscription.id}" alt="Toggle ME" class="optionImage" /></a>
+		<a href="#" onclick="$.ajax({ type: 'POST', url: '/subscriptions/is_collapsed', data: 'id=<%=subscription.id%>', success: function(){ show_hide('mebody_<%=subscription.id%>'); } }); return false;"><img src="<%=meImg%>" id="imgmebody_<%=subscription.id%>" alt="Toggle ME" class="optionImage" /></a>
 		<%= link_to "<img src='/images/destroy.png' alt='X' class='optionImage' />", subscription, :confirm => 'For real? You want to unsubscribe?', :method => :delete %>
 	</div>
 	<%end%>
