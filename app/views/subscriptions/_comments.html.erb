@@ -4,7 +4,7 @@
 				$.ajax({
 								 type: "POST",
 								 url: "/comments/create/<%=subscription.id%>",
-								 data: "comment_text_<%=subscription.id%>=" + $('#comment_text_<%=subscription.id%>').val(),
+								 data: "comment_text_<%=subscription.id%>=" + escape($('#comment_text_<%=subscription.id%>').val()),
 								 success: function(e) { eval(e); }
 							 });
 			});
