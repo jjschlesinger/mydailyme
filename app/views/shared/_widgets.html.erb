@@ -1,6 +1,6 @@
 <div style="clear:both;width:100%;text-align:center;">
 	<div style="margin-top:5px;">
-		<%= link_to '<img src="/images/rss.jpg" />', formatted_subscriptions_path(:format => 'rss') %>
+		<%= link_to '<img src="/images/rss.jpg" />', formatted_subscriptions_path(:format => 'rss', :user => User.find(session['user_id']).login, :pass => User.find(session['user_id']).hashed_password) %>
 	</div>
 	<div style="margin-top:5px;">
 		<a href="http://www.netvibes.com/subscribe.php?uwa=http%3A//me.projecttruck.net/widget/mes_widget.html" 

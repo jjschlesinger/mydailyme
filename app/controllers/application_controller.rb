@@ -41,16 +41,7 @@ class ApplicationController < ActionController::Base
   def authenticate
   	
     case request.format
-    when Mime::ATOM, Mime::RSS
-      authenticate_or_request_with_http_basic('Project Me') do |username, password|
-        session['user_id'] = User.authenticate(username, password).id
-        if session['user_id'].nil?
-          false
-        else
-          true
-        end
-      end
-    when Mime::XML, Mime::JS
+    when Mime::XML, Mime::JS, Mime::ATOM, Mime::RSS
     		return true unless session['user_id'].nil?
     		breakpoint
         user = CGI.unescape(params[:user])

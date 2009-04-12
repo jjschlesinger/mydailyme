@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
 	    else
 	    	self.display_name
 	    end
-    end    
+    end
   
     
 protected
