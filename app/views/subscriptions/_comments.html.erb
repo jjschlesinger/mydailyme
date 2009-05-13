@@ -1,12 +1,17 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#comment_submit_<%=subscription.id%>').click(function(){
+				$("#comment_submit_<%=subscription.id%>").hide();
 				$.ajax({
 								 type: "POST",
 								 url: "/comments/create/<%=subscription.id%>",
 								 data: "comment_text_<%=subscription.id%>=" + escape($('#comment_text_<%=subscription.id%>').val()),
-								 success: function(e) { eval(e); }
+								 success: function(e) { eval(e); 
+								 $("#comment_submit_<%=subscription.id%>").show();
+								 }
+								 
 							 });
+							 return false;
 			});
 		});
 	</script>
@@ -18,7 +23,8 @@
     <div id="comment_add_<%=subscription.id%>">
       <div>
 		    <textarea id="comment_text_<%=subscription.id%>" name="comment_text_<%=subscription.id%>" rows="3" cols="30"></textarea>
-		    <input src="/images/plus.png" type="image" id="comment_submit_<%=subscription.id%>" />
+		    <a style="float:left;" href="" id="comment_submit_<%=subscription.id%>" ><img src="/images/plus.png" alt="+" /></a>
+		  	<div style="clear:both;"></div>
 		  </div>
     </div>
     <div id="comment_error_<%=subscription.id%>">
