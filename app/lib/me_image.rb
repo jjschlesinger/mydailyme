@@ -22,7 +22,7 @@ class MeImage
 	end
 	
 	def image_path
-		"http://mdm_thumbnails.s3.amazonaws.com/#{@img_name}"
+		"http://mdm_thumbnails_me#{@me_id}.s3.amazonaws.com/#{@img_name}"
 	end
 
 private	
@@ -31,7 +31,7 @@ private
 		uri = URI.parse(@img_url)
 		img = open(@img_url)
 		@content_type = img.content_type
-		@img_name = "me#{@me_id}"
+		@img_name = "me#{@me_id}_#{Time.now.to_f}"
 		@new_img = "#{RAILS_ROOT}/tmp/#{@img_name}"
 
 		Dir.chdir("#{RAILS_ROOT}/tmp/")	
@@ -61,11 +61,16 @@ private
 						:access_key_id     => 'AKIAIAKTV5YMJK4G57XA',
 						:secret_access_key => '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'
 					)
-
+		begin
+			AWS::S3::Bucket.delete "mdm_thumbnails_me#{@me_id}", :force => true
+		rescue
+		end
+		AWS::S3::Bucket.create "mdm_thumbnails_me#{@me_id}", :access => :public_read
+		
 		AWS::S3::S3Object.store(
 			@img_name, 
 			open(@new_img), 
-			'mdm_thumbnails',
+			"mdm_thumbnails_me#{@me_id}",
 			:content_type => @content_type,
 			:access => :public_read)
 		
