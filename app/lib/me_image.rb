@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'uri'
 require 'rubygems'
-require 'RMagick'
+#require 'RMagick'
 require 'aws/s3'
 
 
@@ -44,14 +44,15 @@ private
 	end
 	
 	def resize
-		thumb_geometry = "#{@width}x#{@height}"
-		img = Magick::Image.read(@new_img).first
-		if img.columns > @width && img.rows > @height
-			img.change_geometry!(thumb_geometry) { |cols, rows, img2|
-				img2.thumbnail!(cols, rows)
-				img2.write(@new_img)
-			}
-		end	
+		`convert #{@new_img} -resize #{@width}x#{@height}\\> #{@new_img}`
+		#thumb_geometry = "#{@width}x#{@height}"
+		#img = Magick::Image.read(@new_img).first
+		#if img.columns > @width && img.rows > @height
+		#	img.change_geometry!(thumb_geometry) { |cols, rows, img2|
+		#		img2.thumbnail!(cols, rows)
+		#		img2.write(@new_img)
+		#	}
+		#end	
 	end
 	
 	def send_to_s3
