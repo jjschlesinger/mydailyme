@@ -2,6 +2,8 @@ require 'open-uri'
 require 'uri'
 require 'rubygems'
 require 'RMagick'
+require 'aws/s3'
+
 
 class MeImage
 
@@ -15,28 +17,24 @@ class MeImage
 	def grab_image
 		download
 		resize
-		@new_img_relative
+		send_to_s3
+		image_path
 	end
 	
 	def image_path
-		@new_img_relative
+		"http://mdm_thumbnails.s3.amazonaws.com/#{@img_name}"
 	end
 
 private	
 
 	def download
-		token = Time.now.to_f.to_s
-		me_images_dir = "me_images"
-		me_images_root = "#{RAILS_ROOT}/public/#{me_images_dir}"
-		Dir.mkdir(me_images_root) unless File.exist?(me_images_root)
 		uri = URI.parse(@img_url)
-		path = uri.path.split("/")
-		img_name = path[path.length - 1]
 		img = open(@img_url)
-		img_ext = get_extension(img.content_type)
-		@new_img = "#{me_images_root}/me#{@me_id}_#{token}#{img_ext}"
-		@new_img_relative = "/#{me_images_dir}/me#{@me_id}_#{token}#{img_ext}"
-		Dir.chdir(me_images_root)	
+		@content_type = img.content_type
+		@img_name = "me#{@me_id}"
+		@new_img = "#{RAILS_ROOT}/tmp/#{@img_name}"
+
+		Dir.chdir("#{RAILS_ROOT}/tmp/")	
 		Dir["me#{@me_id}_*"].each do |f|
 			File.delete(f)
 		end
@@ -56,18 +54,20 @@ private
 		end	
 	end
 	
-	def get_extension(content_type)
+	def send_to_s3
 		
-		case content_type
-			when "image/jpeg"
-				".jpg"
-			when "image/gif"
-				".gif"
-			when "image/png"
-				".png"				
-			else
-				raise "invalid content type"
-		end			
+		AWS::S3::Base.establish_connection!(
+						:access_key_id     => 'AKIAIAKTV5YMJK4G57XA',
+						:secret_access_key => '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'
+					)
+
+		AWS::S3::S3Object.store(
+			@img_name, 
+			open(@new_img), 
+			'mdm_thumbnails',
+			:content_type => @content_type,
+			:access => :public_read)
+		
 	end
 
 end
